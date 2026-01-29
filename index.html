@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ParkerBarker Assets - Style System CDN</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="favicon/apple-touch-icon.png">
+  
+  <!-- ParkerBarker CSS -->
+  <link rel="stylesheet" href="css/parkerbarker.css">
+  
+  <style>
+    .hero {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: var(--pb-space-2xl) 0;
+    }
+    
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin-bottom: var(--pb-space-md);
+    }
+    
+    .hero-subtitle {
+      font-size: var(--pb-font-size-xl);
+      color: var(--pb-gray-600);
+      margin-bottom: var(--pb-space-xl);
+    }
+    
+    .code-snippet {
+      background-color: var(--pb-gray-900);
+      color: #f8f8f2;
+      padding: var(--pb-space-lg);
+      border-radius: var(--pb-radius-md);
+      overflow-x: auto;
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    
+    .code-snippet .comment { color: #6272a4; }
+    .code-snippet .tag { color: #ff79c6; }
+    .code-snippet .attr { color: #50fa7b; }
+    .code-snippet .string { color: #f1fa8c; }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--pb-space-lg);
+      margin: var(--pb-space-xl) 0;
+    }
+    
+    .feature-card {
+      padding: var(--pb-space-lg);
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--pb-space-md);
+    }
+    
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--pb-space-md);
+      margin-top: var(--pb-space-lg);
+    }
+    
+    .section {
+      padding: var(--pb-space-2xl) 0;
+      border-top: 1px solid var(--pb-gray-200);
+    }
+    
+    footer {
+      padding: var(--pb-space-xl) 0;
+      border-top: 1px solid var(--pb-gray-200);
+      text-align: center;
+      color: var(--pb-gray-600);
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="pb-container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1 class="hero-title">ParkerBarker Style System</h1>
+      <p class="hero-subtitle">A user-friendly design system prioritizing clarity and accessibility, with special optimizations for iOS WebViews.</p>
+      
+      <div class="quick-links">
+        <a href="styleguide.html" class="pb-button">View Style Guide</a>
+        <a href="#quick-start" class="pb-button pb-button-secondary">Quick Start</a>
+        <button data-pb-theme-toggle class="pb-button pb-button-secondary">Toggle Dark Mode</button>
+      </div>
+    </section>
+    
+    <!-- Features -->
+    <section class="feature-grid">
+      <div class="pb-card feature-card">
+        <div class="feature-icon">🚀</div>
+        <h3>Zero Dependencies</h3>
+        <p>Pure vanilla JavaScript. No build tools, no npm packages. Just include and go.</p>
+      </div>
+      
+      <div class="pb-card feature-card">
+        <div class="feature-icon">📱</div>
+        <h3>iOS Optimized</h3>
+        <p>Safe area support, touch-friendly 48px tap targets, and WebView-specific fixes.</p>
+      </div>
+      
+      <div class="pb-card feature-card">
+        <div class="feature-icon">🌙</div>
+        <h3>Dark Mode</h3>
+        <p>Built-in dark mode with automatic system preference detection.</p>
+      </div>
+      
+      <div class="pb-card feature-card">
+        <div class="feature-icon">♿</div>
+        <h3>Accessible</h3>
+        <p>WCAG-compliant with reduced motion support and screen reader utilities.</p>
+      </div>
+    </section>
+    
+    <!-- Quick Start -->
+    <section id="quick-start" class="section">
+      <h2>Quick Start</h2>
+      <p>Add these lines to your HTML to get started:</p>
+      
+      <div class="code-snippet">
+<span class="comment">&lt;!-- In your &lt;head&gt; --&gt;</span>
+<span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"https://assets.parkerbarker.com/css/parkerbarker.css"</span><span class="tag">&gt;</span>
+
+<span class="comment">&lt;!-- Before closing &lt;/body&gt; --&gt;</span>
+<span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="string">"https://assets.parkerbarker.com/js/parkerbarker.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
+<span class="tag">&lt;script&gt;</span>
+  document.addEventListener('DOMContentLoaded', function() {
+    ParkerBarker.init();
+  });
+<span class="tag">&lt;/script&gt;</span>
+      </div>
+    </section>
+    
+    <!-- Available Files -->
+    <section class="section">
+      <h2>Available Files</h2>
+      <p>All assets are served from <code>https://assets.parkerbarker.com/</code></p>
+      
+      <div class="pb-card">
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr>
+              <th style="text-align: left; padding: var(--pb-space-sm); border-bottom: 2px solid var(--pb-gray-300);">File</th>
+              <th style="text-align: left; padding: var(--pb-space-sm); border-bottom: 2px solid var(--pb-gray-300);">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);"><code>/css/parkerbarker.css</code></td>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);">Complete stylesheet with all components</td>
+            </tr>
+            <tr>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);"><code>/js/parkerbarker.js</code></td>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);">JavaScript library (vanilla, no dependencies)</td>
+            </tr>
+            <tr>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);"><code>/fonts/</code></td>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);">GT Ultra Fine & Standard fonts (woff2, woff, ttf)</td>
+            </tr>
+            <tr>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);"><code>/favicon/</code></td>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);">Favicon assets for all platforms</td>
+            </tr>
+            <tr>
+              <td style="padding: var(--pb-space-sm);"><code>/styleguide.html</code></td>
+              <td style="padding: var(--pb-space-sm);">Interactive component documentation</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+    <!-- Customization -->
+    <section class="section">
+      <h2>Customization</h2>
+      <p>Override CSS variables in your own stylesheet to customize the design system:</p>
+      
+      <div class="code-snippet">
+<span class="tag">:root</span> {
+  <span class="comment">/* Brand Colors */</span>
+  --pb-primary: <span class="string">#your-brand-color</span>;
+  --pb-primary-dark: <span class="string">#your-darker-shade</span>;
+  
+  <span class="comment">/* Typography */</span>
+  --pb-font-sans: <span class="string">'Your Font', sans-serif</span>;
+  
+  <span class="comment">/* Spacing */</span>
+  --pb-space-md: <span class="string">1.25rem</span>;
+}
+      </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+      <p>Made with care for the Parker Barker family.</p>
+      <p><small>ParkerBarker Style System v1.0.0</small></p>
+    </footer>
+  </div>
+  
+  <!-- ParkerBarker JS -->
+  <script src="js/parkerbarker.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      ParkerBarker.init();
+    });
+  </script>
+</body>
+</html>
