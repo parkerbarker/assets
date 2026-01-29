@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Semantic CSS Style Guide</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="favicon/apple-touch-icon.png">
+  
+  <!-- Semantic CSS -->
+  <link rel="stylesheet" href="css/semantic.css">
+  
+  <style>
+    /* Style Guide specific styles */
+    .code-block {
+      background-color: var(--gray-900);
+      color: var(--gray-100);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      font-family: var(--mono);
+      font-size: var(--text-sm);
+      line-height: 1.6;
+      margin: var(--space-md) 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    
+    .example-box {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      margin: var(--space-md) 0;
+    }
+    
+    .example-box + .code-block {
+      margin-top: calc(-1 * var(--space-sm));
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+    
+    .swatch {
+      width: 3rem;
+      height: 3rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+    
+    .toc-link {
+      display: block;
+      padding: var(--space-xs) 0;
+      color: var(--muted);
+      font-size: var(--text-sm);
+    }
+    
+    .toc-link:hover {
+      color: var(--primary);
+    }
+    
+    section[id] {
+      scroll-margin-top: 5rem;
+    }
+    
+    .demo-grid-item {
+      background-color: var(--primary-light);
+      padding: var(--space-md);
+      text-align: center;
+      border-radius: var(--radius-sm);
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Site Header -->
+  <header layout="row" justify="between" align="center" p="md" sticky>
+    <nav layout="row" gap="lg" align="center">
+      <a href="index.html" no-underline>
+        <strong font="serif" size="lg">ParkerBarker</strong>
+      </a>
+      <a href="index.html" hide="mobile">Home</a>
+      <a href="styleguide.html" hide="mobile">Classic Guide</a>
+      <a href="semantic-guide.html" hide="mobile" color="primary">Semantic Guide</a>
+    </nav>
+    <nav layout="row" gap="sm" align="center">
+      <button variant="ghost" size="sm" data-theme-toggle>Toggle Theme</button>
+      <button variant="secondary" size="sm" onclick="Semantic.toast.success('It works!')">Test Toast</button>
+    </nav>
+  </header>
+
+  <main size="lg" py="2xl">
+    
+    <!-- Hero Section -->
+    <section text="center" py="2xl" mb="2xl" border="bottom">
+      <h1>Semantic CSS</h1>
+      <p size="xl" color="muted" my="lg">
+        A modern CSS framework using semantic HTML elements and attribute selectors.<br>
+        No classes. No IDs. Just semantic elements and attributes.
+      </p>
+      <nav layout="row" gap="md" justify="center" wrap>
+        <button onclick="scrollTo('#getting-started')">Get Started</button>
+        <button variant="secondary" onclick="window.open('css/semantic.css')">View CSS</button>
+        <button variant="ghost" onclick="window.open('js/semantic.js')">View JS</button>
+      </nav>
+    </section>
+
+    <!-- Table of Contents -->
+    <aside mb="2xl" p="lg" rounded bg="surface" border>
+      <h4 mt="0">Contents</h4>
+      <nav layout="grid" cols="3" gap="sm" responsive>
+        <a href="#getting-started" class="toc-link">Getting Started</a>
+        <a href="#typography" class="toc-link">Typography</a>
+        <a href="#layout" class="toc-link">Layout</a>
+        <a href="#spacing" class="toc-link">Spacing</a>
+        <a href="#content-blocks" class="toc-link">Content Blocks</a>
+        <a href="#buttons" class="toc-link">Buttons</a>
+        <a href="#forms" class="toc-link">Forms</a>
+        <a href="#interactive" class="toc-link">Interactive</a>
+        <a href="#utilities" class="toc-link">Utilities</a>
+        <a href="#theming" class="toc-link">Theming</a>
+      </nav>
+    </aside>
+
+    <!-- ============================================
+         GETTING STARTED
+         ============================================ -->
+    <section id="getting-started" py="xl" border="bottom">
+      <h2>Getting Started</h2>
+      <p>Add these lines to your HTML:</p>
+      
+      <div class="code-block">&lt;!-- In your &lt;head&gt; --&gt;
+&lt;link rel="stylesheet" href="css/semantic.css"&gt;
+
+&lt;!-- Before closing &lt;/body&gt; --&gt;
+&lt;script src="js/semantic.js"&gt;&lt;/script&gt;
+&lt;script&gt;Semantic.init();&lt;/script&gt;</div>
+
+      <h3>Philosophy</h3>
+      <p>Semantic CSS uses three mechanisms for styling:</p>
+      <ol>
+        <li><strong>Semantic HTML elements</strong> - Use the right element for the job (<code>&lt;article&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;header&gt;</code>)</li>
+        <li><strong>Attribute selectors</strong> - Style via attributes like <code>layout="grid"</code> or <code>variant="primary"</code></li>
+        <li><strong>CSS custom properties</strong> - Override design tokens to customize</li>
+      </ol>
+
+      <h3>Example Page</h3>
+      <div class="code-block">&lt;body&gt;
+  &lt;header layout="row" justify="between" align="center" p="md"&gt;
+    &lt;strong&gt;My Site&lt;/strong&gt;
+    &lt;nav layout="row" gap="md"&gt;
+      &lt;a href="/"&gt;Home&lt;/a&gt;
+      &lt;a href="/about"&gt;About&lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;main size="md" py="xl"&gt;
+    &lt;h1&gt;Welcome&lt;/h1&gt;
+    &lt;p&gt;Semantic HTML with attribute-based styling.&lt;/p&gt;
+
+    &lt;section layout="grid" cols="auto" gap="lg"&gt;
+      &lt;article variant="elevated"&gt;
+        &lt;h3&gt;Feature One&lt;/h3&gt;
+        &lt;p&gt;Description here.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article variant="elevated"&gt;
+        &lt;h3&gt;Feature Two&lt;/h3&gt;
+        &lt;p&gt;Description here.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;footer p="lg" text="center" border="top"&gt;
+    &lt;small&gt;Made with semantic HTML&lt;/small&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;</div>
+    </section>
+
+    <!-- ============================================
+         TYPOGRAPHY
+         ============================================ -->
+    <section id="typography" py="xl" border="bottom">
+      <h2>Typography</h2>
+      <p>Semantic elements are styled automatically. No classes needed.</p>
+
+      <h3>Headings</h3>
+      <div class="example-box">
+        <h1>Heading 1</h1>
+        <h2>Heading 2</h2>
+        <h3>Heading 3</h3>
+        <h4>Heading 4</h4>
+        <h5>Heading 5</h5>
+        <h6>Heading 6</h6>
+      </div>
+      <div class="code-block">&lt;h1&gt;Heading 1&lt;/h1&gt;
+&lt;h2&gt;Heading 2&lt;/h2&gt;
+&lt;h3&gt;Heading 3&lt;/h3&gt;
+&lt;h4&gt;Heading 4&lt;/h4&gt;
+&lt;h5&gt;Heading 5&lt;/h5&gt;
+&lt;h6&gt;Heading 6&lt;/h6&gt;</div>
+
+      <h3>Paragraphs &amp; Inline Elements</h3>
+      <div class="example-box">
+        <p>This is a paragraph with <strong>bold text</strong>, <em>italic text</em>, and <a href="#">a link</a>.</p>
+        <p>You can also use <mark>highlighted text</mark>, <small>small text</small>, and <code>inline code</code>.</p>
+        <p>The <time datetime="2025-01-29">January 29, 2025</time> element provides semantic dates.</p>
+      </div>
+      <div class="code-block">&lt;p&gt;This is a paragraph with &lt;strong&gt;bold text&lt;/strong&gt;, &lt;em&gt;italic text&lt;/em&gt;, and &lt;a href="#"&gt;a link&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;You can also use &lt;mark&gt;highlighted text&lt;/mark&gt;, &lt;small&gt;small text&lt;/small&gt;, and &lt;code&gt;inline code&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;time datetime="2025-01-29"&gt;January 29, 2025&lt;/time&gt; element provides semantic dates.&lt;/p&gt;</div>
+
+      <h3>Blockquotes</h3>
+      <div class="example-box">
+        <blockquote>
+          The best way to predict the future is to invent it.
+          <cite>— Alan Kay</cite>
+        </blockquote>
+      </div>
+      <div class="code-block">&lt;blockquote&gt;
+  The best way to predict the future is to invent it.
+  &lt;cite&gt;— Alan Kay&lt;/cite&gt;
+&lt;/blockquote&gt;</div>
+
+      <h3>Lists</h3>
+      <div class="example-box" layout="grid" cols="2" gap="lg" responsive>
+        <div>
+          <h4>Unordered List</h4>
+          <ul>
+            <li>First item</li>
+            <li>Second item</li>
+            <li>Third item</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Ordered List</h4>
+          <ol>
+            <li>First step</li>
+            <li>Second step</li>
+            <li>Third step</li>
+          </ol>
+        </div>
+      </div>
+
+      <h3>Code Blocks</h3>
+      <div class="example-box">
+        <pre><code>function greet(name) {
+  return `Hello, ${name}!`;
+}
+
+console.log(greet('World'));</code></pre>
+      </div>
+
+      <h3>Text Attributes</h3>
+      <div class="example-box">
+        <p text="center" mb="sm">Centered text with <code>text="center"</code></p>
+        <p font="serif" mb="sm">Serif font with <code>font="serif"</code></p>
+        <p weight="bold" mb="sm">Bold weight with <code>weight="bold"</code></p>
+        <p size="lg" mb="sm">Large size with <code>size="lg"</code></p>
+        <p color="primary" mb="sm">Primary color with <code>color="primary"</code></p>
+        <p color="muted">Muted color with <code>color="muted"</code></p>
+      </div>
+      <div class="code-block">&lt;p text="center"&gt;Centered text&lt;/p&gt;
+&lt;p font="serif"&gt;Serif font&lt;/p&gt;
+&lt;p weight="bold"&gt;Bold weight&lt;/p&gt;
+&lt;p size="lg"&gt;Large size&lt;/p&gt;
+&lt;p color="primary"&gt;Primary color&lt;/p&gt;
+&lt;p color="muted"&gt;Muted color&lt;/p&gt;</div>
+    </section>
+
+    <!-- ============================================
+         LAYOUT
+         ============================================ -->
+    <section id="layout" py="xl" border="bottom">
+      <h2>Layout</h2>
+      <p>Use attributes to control layout without classes.</p>
+
+      <h3>Container Sizing</h3>
+      <p>The <code>&lt;main&gt;</code> element acts as a container with optional size variants:</p>
+      <div class="code-block">&lt;main&gt;...&lt;/main&gt;                 &lt;!-- Default: 80rem --&gt;
+&lt;main size="sm"&gt;...&lt;/main&gt;       &lt;!-- 40rem --&gt;
+&lt;main size="md"&gt;...&lt;/main&gt;       &lt;!-- 48rem --&gt;
+&lt;main size="lg"&gt;...&lt;/main&gt;       &lt;!-- 64rem --&gt;
+&lt;main size="full"&gt;...&lt;/main&gt;     &lt;!-- 100% --&gt;</div>
+
+      <h3>Flex Layouts</h3>
+      <div class="example-box">
+        <section layout="row" gap="md" mb="md">
+          <div class="demo-grid-item" grow>Flex item 1</div>
+          <div class="demo-grid-item" grow>Flex item 2</div>
+          <div class="demo-grid-item" grow>Flex item 3</div>
+        </section>
+      </div>
+      <div class="code-block">&lt;section layout="row" gap="md"&gt;
+  &lt;div grow&gt;Flex item 1&lt;/div&gt;
+  &lt;div grow&gt;Flex item 2&lt;/div&gt;
+  &lt;div grow&gt;Flex item 3&lt;/div&gt;
+&lt;/section&gt;</div>
+
+      <h3>Stack (Vertical) Layout</h3>
+      <div class="example-box">
+        <section layout="stack" gap="sm">
+          <div class="demo-grid-item">Stack item 1</div>
+          <div class="demo-grid-item">Stack item 2</div>
+          <div class="demo-grid-item">Stack item 3</div>
+        </section>
+      </div>
+      <div class="code-block">&lt;section layout="stack" gap="sm"&gt;
+  &lt;div&gt;Stack item 1&lt;/div&gt;
+  &lt;div&gt;Stack item 2&lt;/div&gt;
+  &lt;div&gt;Stack item 3&lt;/div&gt;
+&lt;/section&gt;</div>
+
+      <h3>Grid Layouts</h3>
+      <div class="example-box">
+        <section layout="grid" cols="3" gap="md" mb="lg" responsive>
+          <div class="demo-grid-item">1</div>
+          <div class="demo-grid-item">2</div>
+          <div class="demo-grid-item">3</div>
+          <div class="demo-grid-item">4</div>
+          <div class="demo-grid-item">5</div>
+          <div class="demo-grid-item">6</div>
+        </section>
+        <p size="sm" color="muted">Add <code>responsive</code> for single column on mobile</p>
+      </div>
+      <div class="code-block">&lt;section layout="grid" cols="3" gap="md" responsive&gt;
+  &lt;div&gt;1&lt;/div&gt;
+  &lt;div&gt;2&lt;/div&gt;
+  &lt;div&gt;3&lt;/div&gt;
+  &lt;div&gt;4&lt;/div&gt;
+  &lt;div&gt;5&lt;/div&gt;
+  &lt;div&gt;6&lt;/div&gt;
+&lt;/section&gt;</div>
+
+      <h3>Auto-fit Grid</h3>
+      <div class="example-box">
+        <section layout="grid" cols="auto" gap="md">
+          <div class="demo-grid-item">Auto 1</div>
+          <div class="demo-grid-item">Auto 2</div>
+          <div class="demo-grid-item">Auto 3</div>
+          <div class="demo-grid-item">Auto 4</div>
+        </section>
+      </div>
+      <div class="code-block">&lt;section layout="grid" cols="auto" gap="md"&gt;
+  &lt;div&gt;Auto 1&lt;/div&gt;
+  &lt;div&gt;Auto 2&lt;/div&gt;
+  &lt;div&gt;Auto 3&lt;/div&gt;
+  &lt;div&gt;Auto 4&lt;/div&gt;
+&lt;/section&gt;</div>
+
+      <h3>Alignment</h3>
+      <div class="example-box">
+        <section layout="row" justify="between" align="center" p="md" bg="primary-light" rounded>
+          <span>Left</span>
+          <span>Center</span>
+          <span>Right</span>
+        </section>
+      </div>
+      <div class="code-block">&lt;section layout="row" justify="between" align="center"&gt;
+  &lt;span&gt;Left&lt;/span&gt;
+  &lt;span&gt;Center&lt;/span&gt;
+  &lt;span&gt;Right&lt;/span&gt;
+&lt;/section&gt;</div>
+
+      <h3>Layout Attribute Reference</h3>
+      <div class="example-box" overflow="auto">
+        <table w="full">
+          <thead>
+            <tr>
+              <th text="left" p="sm" border="bottom">Attribute</th>
+              <th text="left" p="sm" border="bottom">Values</th>
+              <th text="left" p="sm" border="bottom">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td p="sm" border="bottom"><code>layout</code></td>
+              <td p="sm" border="bottom">flex, grid, stack, row, center</td>
+              <td p="sm" border="bottom">Display type</td>
+            </tr>
+            <tr>
+              <td p="sm" border="bottom"><code>cols</code></td>
+              <td p="sm" border="bottom">1-6, 12, auto, auto-fill</td>
+              <td p="sm" border="bottom">Grid columns</td>
+            </tr>
+            <tr>
+              <td p="sm" border="bottom"><code>gap</code></td>
+              <td p="sm" border="bottom">0, xs, sm, md, lg, xl, 2xl</td>
+              <td p="sm" border="bottom">Gap between items</td>
+            </tr>
+            <tr>
+              <td p="sm" border="bottom"><code>align</code></td>
+              <td p="sm" border="bottom">start, center, end, stretch, baseline</td>
+              <td p="sm" border="bottom">Cross-axis alignment</td>
+            </tr>
+            <tr>
+              <td p="sm" border="bottom"><code>justify</code></td>
+              <td p="sm" border="bottom">start, center, end, between, around, evenly</td>
+              <td p="sm" border="bottom">Main-axis alignment</td>
+            </tr>
+            <tr>
+              <td p="sm"><code>wrap</code></td>
+              <td p="sm">(boolean)</td>
+              <td p="sm">Enable flex wrap</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================================
+         SPACING
+         ============================================ -->
+    <section id="spacing" py="xl" border="bottom">
+      <h2>Spacing</h2>
+      <p>Control padding and margin with intuitive attributes.</p>
+
+      <h3>Padding</h3>
+      <div class="example-box" layout="stack" gap="sm">
+        <div bg="primary-light" p="xs" rounded>p="xs" (0.25rem)</div>
+        <div bg="primary-light" p="sm" rounded>p="sm" (0.5rem)</div>
+        <div bg="primary-light" p="md" rounded>p="md" (1rem)</div>
+        <div bg="primary-light" p="lg" rounded>p="lg" (1.5rem)</div>
+        <div bg="primary-light" p="xl" rounded>p="xl" (2rem)</div>
+      </div>
+      <div class="code-block">&lt;div p="xs"&gt;...&lt;/div&gt;   &lt;!-- 0.25rem all sides --&gt;
+&lt;div p="md"&gt;...&lt;/div&gt;   &lt;!-- 1rem all sides --&gt;
+&lt;div px="lg"&gt;...&lt;/div&gt;  &lt;!-- 1.5rem left/right --&gt;
+&lt;div py="xl"&gt;...&lt;/div&gt;  &lt;!-- 2rem top/bottom --&gt;
+&lt;div pt="md"&gt;...&lt;/div&gt;  &lt;!-- 1rem top only --&gt;</div>
+
+      <h3>Margin</h3>
+      <div class="code-block">&lt;div m="md"&gt;...&lt;/div&gt;     &lt;!-- 1rem all sides --&gt;
+&lt;div mx="auto"&gt;...&lt;/div&gt;  &lt;!-- center horizontally --&gt;
+&lt;div my="xl"&gt;...&lt;/div&gt;    &lt;!-- 2rem top/bottom --&gt;
+&lt;div mt="lg"&gt;...&lt;/div&gt;    &lt;!-- 1.5rem top only --&gt;
+&lt;div mb="2xl"&gt;...&lt;/div&gt;   &lt;!-- 3rem bottom only --&gt;</div>
+
+      <h3>Spacing Scale</h3>
+      <div class="example-box" overflow="auto">
+        <table w="full">
+          <thead>
+            <tr>
+              <th text="left" p="sm" border="bottom">Value</th>
+              <th text="left" p="sm" border="bottom">Size</th>
+              <th text="left" p="sm" border="bottom">Pixels (at 16px)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td p="sm" border="bottom">0</td><td p="sm" border="bottom">0</td><td p="sm" border="bottom">0px</td></tr>
+            <tr><td p="sm" border="bottom">xs</td><td p="sm" border="bottom">0.25rem</td><td p="sm" border="bottom">4px</td></tr>
+            <tr><td p="sm" border="bottom">sm</td><td p="sm" border="bottom">0.5rem</td><td p="sm" border="bottom">8px</td></tr>
+            <tr><td p="sm" border="bottom">md</td><td p="sm" border="bottom">1rem</td><td p="sm" border="bottom">16px</td></tr>
+            <tr><td p="sm" border="bottom">lg</td><td p="sm" border="bottom">1.5rem</td><td p="sm" border="bottom">24px</td></tr>
+            <tr><td p="sm" border="bottom">xl</td><td p="sm" border="bottom">2rem</td><td p="sm" border="bottom">32px</td></tr>
+            <tr><td p="sm">2xl</td><td p="sm">3rem</td><td p="sm">48px</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================================
+         CONTENT BLOCKS
+         ============================================ -->
+    <section id="content-blocks" py="xl" border="bottom">
+      <h2>Content Blocks</h2>
+      <p>Semantic elements for content organization.</p>
+
+      <h3>Article (Card-like)</h3>
+      <p>The <code>&lt;article&gt;</code> element is styled as a card by default:</p>
+      <div class="example-box">
+        <section layout="grid" cols="2" gap="md" responsive>
+          <article>
+            <h4 mt="0">Default Article</h4>
+            <p>Basic card styling with border and background.</p>
+          </article>
+          <article variant="elevated">
+            <h4 mt="0">Elevated</h4>
+            <p>Uses shadow instead of border.</p>
+          </article>
+          <article variant="outlined">
+            <h4 mt="0">Outlined</h4>
+            <p>Transparent background, just border.</p>
+          </article>
+          <article variant="flat">
+            <h4 mt="0">Flat</h4>
+            <p>No border, no background, no padding.</p>
+          </article>
+        </section>
+      </div>
+      <div class="code-block">&lt;article&gt;Default&lt;/article&gt;
+&lt;article variant="elevated"&gt;With shadow&lt;/article&gt;
+&lt;article variant="outlined"&gt;Transparent bg&lt;/article&gt;
+&lt;article variant="flat"&gt;No styling&lt;/article&gt;</div>
+
+      <h3>Clickable Article</h3>
+      <div class="example-box">
+        <article variant="elevated" clickable onclick="Semantic.toast.info('Article clicked!')">
+          <h4 mt="0">Clickable Card</h4>
+          <p>Hover to see the lift effect. Click to trigger an action.</p>
+        </article>
+      </div>
+      <div class="code-block">&lt;article variant="elevated" clickable onclick="handleClick()"&gt;
+  &lt;h4&gt;Clickable Card&lt;/h4&gt;
+  &lt;p&gt;Hover to see the lift effect.&lt;/p&gt;
+&lt;/article&gt;</div>
+
+      <h3>Figure &amp; Figcaption</h3>
+      <div class="example-box">
+        <figure>
+          <img src="https://picsum.photos/600/300" alt="Sample image" rounded>
+          <figcaption align="center">A sample image with centered caption</figcaption>
+        </figure>
+      </div>
+      <div class="code-block">&lt;figure&gt;
+  &lt;img src="image.jpg" alt="Description" rounded&gt;
+  &lt;figcaption align="center"&gt;Caption text&lt;/figcaption&gt;
+&lt;/figure&gt;</div>
+
+      <h3>Aside</h3>
+      <div class="example-box">
+        <aside>
+          <h4 mt="0">Related Information</h4>
+          <p>The aside element is styled as a secondary content block, perfect for sidebars or callouts.</p>
+        </aside>
+      </div>
+      <div class="code-block">&lt;aside&gt;
+  &lt;h4&gt;Related Information&lt;/h4&gt;
+  &lt;p&gt;Secondary content here.&lt;/p&gt;
+&lt;/aside&gt;</div>
+    </section>
+
+    <!-- ============================================
+         BUTTONS
+         ============================================ -->
+    <section id="buttons" py="xl" border="bottom">
+      <h2>Buttons</h2>
+      <p>Style buttons with variant and size attributes.</p>
+
+      <h3>Button Variants</h3>
+      <div class="example-box">
+        <nav layout="row" gap="md" wrap>
+          <button>Primary</button>
+          <button variant="secondary">Secondary</button>
+          <button variant="danger">Danger</button>
+          <button variant="success">Success</button>
+          <button variant="ghost">Ghost</button>
+          <button variant="link">Link Style</button>
+        </nav>
+      </div>
+      <div class="code-block">&lt;button&gt;Primary&lt;/button&gt;
+&lt;button variant="secondary"&gt;Secondary&lt;/button&gt;
+&lt;button variant="danger"&gt;Danger&lt;/button&gt;
+&lt;button variant="success"&gt;Success&lt;/button&gt;
+&lt;button variant="ghost"&gt;Ghost&lt;/button&gt;
+&lt;button variant="link"&gt;Link Style&lt;/button&gt;</div>
+
+      <h3>Button Sizes</h3>
+      <div class="example-box">
+        <nav layout="row" gap="md" align="center" wrap>
+          <button size="xs">Extra Small</button>
+          <button size="sm">Small</button>
+          <button>Default</button>
+          <button size="lg">Large</button>
+          <button size="xl">Extra Large</button>
+        </nav>
+      </div>
+      <div class="code-block">&lt;button size="xs"&gt;Extra Small&lt;/button&gt;
+&lt;button size="sm"&gt;Small&lt;/button&gt;
+&lt;button&gt;Default&lt;/button&gt;
+&lt;button size="lg"&gt;Large&lt;/button&gt;
+&lt;button size="xl"&gt;Extra Large&lt;/button&gt;</div>
+
+      <h3>Button States</h3>
+      <div class="example-box">
+        <nav layout="row" gap="md" wrap>
+          <button disabled>Disabled</button>
+          <button loading>Loading</button>
+          <button full>Full Width</button>
+        </nav>
+      </div>
+      <div class="code-block">&lt;button disabled&gt;Disabled&lt;/button&gt;
+&lt;button loading&gt;Loading&lt;/button&gt;
+&lt;button full&gt;Full Width&lt;/button&gt;</div>
+    </section>
+
+    <!-- ============================================
+         FORMS
+         ============================================ -->
+    <section id="forms" py="xl" border="bottom">
+      <h2>Forms</h2>
+      <p>Form elements are styled automatically with validation states.</p>
+
+      <h3>Basic Form</h3>
+      <div class="example-box">
+        <form layout="stack" onsubmit="event.preventDefault(); Semantic.toast.success('Form submitted!')">
+          <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="you@example.com" required>
+          </div>
+          <div>
+            <label for="message">Message</label>
+            <textarea id="message" placeholder="Your message..." required></textarea>
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+      <div class="code-block">&lt;form layout="stack"&gt;
+  &lt;div&gt;
+    &lt;label for="name"&gt;Name&lt;/label&gt;
+    &lt;input type="text" id="name" required&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;label for="email"&gt;Email&lt;/label&gt;
+    &lt;input type="email" id="email" required&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;label for="message"&gt;Message&lt;/label&gt;
+    &lt;textarea id="message"&gt;&lt;/textarea&gt;
+  &lt;/div&gt;
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</div>
+
+      <h3>Input Types</h3>
+      <div class="example-box">
+        <form layout="grid" cols="2" gap="md" responsive onsubmit="event.preventDefault()">
+          <div>
+            <label>Text Input</label>
+            <input type="text" placeholder="Text">
+          </div>
+          <div>
+            <label>Password</label>
+            <input type="password" placeholder="Password">
+          </div>
+          <div>
+            <label>Number</label>
+            <input type="number" placeholder="123">
+          </div>
+          <div>
+            <label>Date</label>
+            <input type="date">
+          </div>
+          <div>
+            <label>Select</label>
+            <select>
+              <option value="">Choose one...</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+          </div>
+          <div>
+            <label>Color</label>
+            <input type="color" value="#4a90e2">
+          </div>
+        </form>
+      </div>
+
+      <h3>Checkboxes &amp; Radio Buttons</h3>
+      <div class="example-box">
+        <form layout="grid" cols="2" gap="lg" responsive onsubmit="event.preventDefault()">
+          <fieldset>
+            <legend>Checkboxes</legend>
+            <label inline><input type="checkbox"> Option A</label>
+            <label inline><input type="checkbox" checked> Option B (checked)</label>
+            <label inline><input type="checkbox"> Option C</label>
+          </fieldset>
+          <fieldset>
+            <legend>Radio Buttons</legend>
+            <label inline><input type="radio" name="radio-demo" value="1"> Choice 1</label>
+            <label inline><input type="radio" name="radio-demo" value="2" checked> Choice 2</label>
+            <label inline><input type="radio" name="radio-demo" value="3"> Choice 3</label>
+          </fieldset>
+        </form>
+      </div>
+      <div class="code-block">&lt;label inline&gt;&lt;input type="checkbox"&gt; Option A&lt;/label&gt;
+&lt;label inline&gt;&lt;input type="radio" name="group"&gt; Choice 1&lt;/label&gt;</div>
+
+      <h3>Inline Form</h3>
+      <div class="example-box">
+        <form layout="inline" onsubmit="event.preventDefault(); Semantic.toast.info('Subscribed!')">
+          <input type="email" placeholder="Email address" style="flex: 1; min-width: 200px;">
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+      <div class="code-block">&lt;form layout="inline"&gt;
+  &lt;input type="email" placeholder="Email address"&gt;
+  &lt;button type="submit"&gt;Subscribe&lt;/button&gt;
+&lt;/form&gt;</div>
+    </section>
+
+    <!-- ============================================
+         INTERACTIVE
+         ============================================ -->
+    <section id="interactive" py="xl" border="bottom">
+      <h2>Interactive Elements</h2>
+      <p>Native HTML interactive elements enhanced with Semantic.js.</p>
+
+      <h3>Details / Summary (Accordion)</h3>
+      <div class="example-box">
+        <details>
+          <summary>Click to expand</summary>
+          <p>This content is revealed when you click the summary. Uses native HTML <code>&lt;details&gt;</code> element.</p>
+        </details>
+        <details>
+          <summary>Another section</summary>
+          <p>Multiple details elements work independently by default.</p>
+        </details>
+      </div>
+      <div class="code-block">&lt;details&gt;
+  &lt;summary&gt;Click to expand&lt;/summary&gt;
+  &lt;p&gt;Hidden content here.&lt;/p&gt;
+&lt;/details&gt;</div>
+
+      <h3>Accordion Group</h3>
+      <p>Add <code>group="name"</code> to close others when one opens:</p>
+      <div class="example-box">
+        <details group="faq">
+          <summary>Question 1: What is Semantic CSS?</summary>
+          <p>Semantic CSS is a framework that uses semantic HTML elements and attribute selectors instead of classes.</p>
+        </details>
+        <details group="faq">
+          <summary>Question 2: Do I need JavaScript?</summary>
+          <p>JavaScript is optional. The CSS works standalone, but semantic.js adds enhancements like toasts and theme switching.</p>
+        </details>
+        <details group="faq">
+          <summary>Question 3: Browser support?</summary>
+          <p>Modern browsers only. We use CSS features like :has(), container queries concepts, and modern attribute selectors.</p>
+        </details>
+      </div>
+      <div class="code-block">&lt;details group="faq"&gt;
+  &lt;summary&gt;Question 1&lt;/summary&gt;
+  &lt;p&gt;Answer 1&lt;/p&gt;
+&lt;/details&gt;
+&lt;details group="faq"&gt;
+  &lt;summary&gt;Question 2&lt;/summary&gt;
+  &lt;p&gt;Answer 2&lt;/p&gt;
+&lt;/details&gt;</div>
+
+      <h3>Dialog (Modal)</h3>
+      <div class="example-box">
+        <button data-dialog-open="demo-dialog">Open Dialog</button>
+        
+        <dialog id="demo-dialog">
+          <h3 mt="0">Dialog Title</h3>
+          <p>This is a native HTML <code>&lt;dialog&gt;</code> element. Click outside or press Escape to close.</p>
+          <nav layout="row" gap="sm" justify="end" mt="lg">
+            <button variant="ghost" data-dialog-close>Cancel</button>
+            <button data-dialog-close>Confirm</button>
+          </nav>
+        </dialog>
+      </div>
+      <div class="code-block">&lt;button data-dialog-open="my-dialog"&gt;Open&lt;/button&gt;
+
+&lt;dialog id="my-dialog"&gt;
+  &lt;h3&gt;Dialog Title&lt;/h3&gt;
+  &lt;p&gt;Dialog content here.&lt;/p&gt;
+  &lt;nav layout="row" gap="sm" justify="end"&gt;
+    &lt;button variant="ghost" data-dialog-close&gt;Cancel&lt;/button&gt;
+    &lt;button data-dialog-close&gt;Confirm&lt;/button&gt;
+  &lt;/nav&gt;
+&lt;/dialog&gt;</div>
+
+      <h3>Toast Notifications</h3>
+      <div class="example-box">
+        <nav layout="row" gap="md" wrap>
+          <button onclick="Semantic.toast.show('Default toast message')">Default</button>
+          <button variant="success" onclick="Semantic.toast.success('Operation successful!')">Success</button>
+          <button variant="danger" onclick="Semantic.toast.error('Something went wrong!')">Error</button>
+          <button onclick="Semantic.toast.warning('Please be careful!')">Warning</button>
+          <button onclick="Semantic.toast.info('Here is some info')">Info</button>
+        </nav>
+      </div>
+      <div class="code-block">// JavaScript API
+Semantic.toast.show('Message');
+Semantic.toast.success('Success!');
+Semantic.toast.error('Error!');
+Semantic.toast.warning('Warning!');
+Semantic.toast.info('Info');
+
+// With options
+Semantic.toast.show('Message', {
+  type: 'success',
+  duration: 5000,
+  closable: true
+});</div>
+    </section>
+
+    <!-- ============================================
+         UTILITIES
+         ============================================ -->
+    <section id="utilities" py="xl" border="bottom">
+      <h2>Utilities</h2>
+      <p>Visual utilities for borders, shadows, colors, and more.</p>
+
+      <h3>Borders &amp; Radius</h3>
+      <div class="example-box">
+        <section layout="row" gap="md" wrap>
+          <div p="md" border>border</div>
+          <div p="md" border="top">border="top"</div>
+          <div p="md" border rounded>rounded</div>
+          <div p="md" border rounded="lg">rounded="lg"</div>
+          <div p="md" border rounded="full" px="lg">rounded="full"</div>
+        </section>
+      </div>
+      <div class="code-block">&lt;div border&gt;...&lt;/div&gt;
+&lt;div border="top"&gt;...&lt;/div&gt;
+&lt;div border rounded&gt;...&lt;/div&gt;
+&lt;div border rounded="lg"&gt;...&lt;/div&gt;
+&lt;div rounded="full"&gt;...&lt;/div&gt;</div>
+
+      <h3>Shadows</h3>
+      <div class="example-box">
+        <section layout="row" gap="lg" wrap>
+          <div p="lg" bg="surface" rounded shadow>shadow</div>
+          <div p="lg" bg="surface" rounded shadow="md">shadow="md"</div>
+          <div p="lg" bg="surface" rounded shadow="lg">shadow="lg"</div>
+          <div p="lg" bg="surface" rounded shadow="xl">shadow="xl"</div>
+        </section>
+      </div>
+
+      <h3>Backgrounds</h3>
+      <div class="example-box">
+        <section layout="row" gap="md" wrap>
+          <div p="md" rounded bg="surface">bg="surface"</div>
+          <div p="md" rounded bg="primary">bg="primary"</div>
+          <div p="md" rounded bg="primary-light">bg="primary-light"</div>
+          <div p="md" rounded bg="danger">bg="danger"</div>
+          <div p="md" rounded bg="success">bg="success"</div>
+        </section>
+      </div>
+
+      <h3>Visibility</h3>
+      <div class="code-block">&lt;div hidden&gt;...&lt;/div&gt;           &lt;!-- Hidden (native HTML) --&gt;
+&lt;div hide="mobile"&gt;...&lt;/div&gt;    &lt;!-- Hidden on mobile --&gt;
+&lt;div hide="desktop"&gt;...&lt;/div&gt;   &lt;!-- Hidden on desktop --&gt;
+&lt;div sr-only&gt;...&lt;/div&gt;          &lt;!-- Screen reader only --&gt;</div>
+
+      <h3>Utility Reference</h3>
+      <div class="example-box" overflow="auto">
+        <table w="full">
+          <thead>
+            <tr>
+              <th text="left" p="sm" border="bottom">Attribute</th>
+              <th text="left" p="sm" border="bottom">Values</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td p="sm" border="bottom"><code>rounded</code></td><td p="sm" border="bottom">none, sm, (default), lg, xl, full</td></tr>
+            <tr><td p="sm" border="bottom"><code>shadow</code></td><td p="sm" border="bottom">none, (default), md, lg, xl</td></tr>
+            <tr><td p="sm" border="bottom"><code>border</code></td><td p="sm" border="bottom">(boolean), none, top, right, bottom, left</td></tr>
+            <tr><td p="sm" border="bottom"><code>bg</code></td><td p="sm" border="bottom">surface, background, primary, primary-light, danger, success, warning, transparent</td></tr>
+            <tr><td p="sm" border="bottom"><code>color</code></td><td p="sm" border="bottom">muted, primary, danger, success, warning, inherit</td></tr>
+            <tr><td p="sm" border="bottom"><code>text</code></td><td p="sm" border="bottom">left, center, right, justify</td></tr>
+            <tr><td p="sm" border="bottom"><code>font</code></td><td p="sm" border="bottom">sans, serif, mono</td></tr>
+            <tr><td p="sm" border="bottom"><code>weight</code></td><td p="sm" border="bottom">light, normal, medium, semibold, bold</td></tr>
+            <tr><td p="sm" border="bottom"><code>size</code></td><td p="sm" border="bottom">xs, sm, base, lg, xl, 2xl, 3xl, 4xl</td></tr>
+            <tr><td p="sm" border="bottom"><code>truncate</code></td><td p="sm" border="bottom">(boolean)</td></tr>
+            <tr><td p="sm"><code>opacity</code></td><td p="sm">0, 25, 50, 75, 100</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================================
+         THEMING
+         ============================================ -->
+    <section id="theming" py="xl">
+      <h2>Theming</h2>
+      <p>Customize the design system with CSS variables.</p>
+
+      <h3>Dark Mode</h3>
+      <p>Dark mode works automatically via system preference, or can be toggled:</p>
+      <div class="example-box">
+        <nav layout="row" gap="md">
+          <button onclick="Semantic.theme.set('light')">Light Mode</button>
+          <button onclick="Semantic.theme.set('dark')">Dark Mode</button>
+          <button onclick="Semantic.theme.set('system')" variant="secondary">System</button>
+          <button onclick="Semantic.theme.toggle()" variant="ghost">Toggle</button>
+        </nav>
+      </div>
+      <div class="code-block">// JavaScript
+Semantic.theme.set('dark');     // Force dark
+Semantic.theme.set('light');    // Force light  
+Semantic.theme.set('system');   // Follow system
+Semantic.theme.toggle();        // Toggle current
+
+// HTML attribute
+&lt;button data-theme-toggle&gt;Toggle&lt;/button&gt;</div>
+
+      <h3>Custom Colors</h3>
+      <p>Override CSS variables to customize:</p>
+      <div class="code-block">:root {
+  /* Primary brand color */
+  --primary: #your-color;
+  --primary-dark: #darker-shade;
+  --primary-rgb: r, g, b;
+  
+  /* Other colors */
+  --danger: #d0021b;
+  --success: #7ed321;
+  --warning: #f5a623;
+}</div>
+
+      <h3>Typography</h3>
+      <div class="code-block">:root {
+  /* Font families */
+  --sans: 'Your Sans Font', system-ui, sans-serif;
+  --serif: 'Your Serif Font', Georgia, serif;
+  --mono: 'Your Mono Font', monospace;
+  
+  /* Font sizes */
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+}</div>
+
+      <h3>Spacing</h3>
+      <div class="code-block">:root {
+  --space-xs: 0.25rem;  /* 4px */
+  --space-sm: 0.5rem;   /* 8px */
+  --space-md: 1rem;     /* 16px */
+  --space-lg: 1.5rem;   /* 24px */
+  --space-xl: 2rem;     /* 32px */
+  --space-2xl: 3rem;    /* 48px */
+}</div>
+
+      <h3>Design Token Reference</h3>
+      <div class="example-box">
+        <section layout="grid" cols="auto" gap="md">
+          <article variant="flat" text="center">
+            <div class="swatch" bg="primary" mx="auto" mb="sm"></div>
+            <small>--primary</small>
+          </article>
+          <article variant="flat" text="center">
+            <div class="swatch" bg="danger" mx="auto" mb="sm"></div>
+            <small>--danger</small>
+          </article>
+          <article variant="flat" text="center">
+            <div class="swatch" bg="success" mx="auto" mb="sm"></div>
+            <small>--success</small>
+          </article>
+          <article variant="flat" text="center">
+            <div class="swatch" bg="warning" mx="auto" mb="sm"></div>
+            <small>--warning</small>
+          </article>
+          <article variant="flat" text="center">
+            <div class="swatch" style="background-color: var(--gray-500);" mx="auto" mb="sm"></div>
+            <small>--muted</small>
+          </article>
+          <article variant="flat" text="center">
+            <div class="swatch" bg="surface" mx="auto" mb="sm"></div>
+            <small>--surface</small>
+          </article>
+        </section>
+      </div>
+
+      <h3>Accessibility</h3>
+      <p>Built-in accessibility features:</p>
+      <ul>
+        <li><strong>Focus visible:</strong> Clear focus indicators for keyboard navigation</li>
+        <li><strong>Reduced motion:</strong> Respects <code>prefers-reduced-motion</code></li>
+        <li><strong>High contrast:</strong> Enhanced colors for <code>prefers-contrast: high</code></li>
+        <li><strong>Screen reader:</strong> Use <code>sr-only</code> for visually hidden but accessible content</li>
+        <li><strong>Touch targets:</strong> Minimum 48px tap targets for mobile</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer p="xl" text="center" border="top" mt="2xl">
+    <nav layout="row" gap="lg" justify="center" mb="md">
+      <a href="index.html">Home</a>
+      <a href="styleguide.html">Classic Guide</a>
+      <a href="semantic-guide.html">Semantic Guide</a>
+    </nav>
+    <p color="muted">
+      Semantic CSS v1.0.0 &bull; Made with semantic HTML
+    </p>
+  </footer>
+
+  <!-- Semantic.js -->
+  <script src="js/semantic.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      Semantic.init();
+    });
+    
+    // Helper for smooth scroll
+    function scrollTo(selector) {
+      document.querySelector(selector).scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

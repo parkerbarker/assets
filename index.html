@@ -87,6 +87,19 @@
 </head>
 <body>
   
+  <!-- Site Navigation -->
+  <nav class="pb-nav">
+    <div class="pb-container pb-flex pb-justify-between pb-items-center">
+      <a href="index.html" class="pb-nav-brand">ParkerBarker</a>
+      <div class="pb-nav-list pb-flex pb-gap-sm pb-items-center">
+        <a href="index.html" class="pb-nav-link active">Home</a>
+        <a href="styleguide.html" class="pb-nav-link">Classic Guide</a>
+        <a href="semantic-guide.html" class="pb-nav-link">Semantic Guide</a>
+        <button data-pb-theme-toggle class="pb-button pb-button-text">Toggle Theme</button>
+      </div>
+    </div>
+  </nav>
+
   <div class="pb-container">
     <!-- Hero Section -->
     <section class="hero">
@@ -94,9 +107,9 @@
       <p class="hero-subtitle">A user-friendly design system prioritizing clarity and accessibility, with special optimizations for iOS WebViews.</p>
       
       <div class="quick-links">
-        <a href="styleguide.html" class="pb-button">View Style Guide</a>
+        <a href="semantic-guide.html" class="pb-button">Semantic Style Guide</a>
+        <a href="styleguide.html" class="pb-button pb-button-secondary">Classic Style Guide</a>
         <a href="#quick-start" class="pb-button pb-button-secondary">Quick Start</a>
-        <button data-pb-theme-toggle class="pb-button pb-button-secondary">Toggle Dark Mode</button>
       </div>
     </section>
     
@@ -177,8 +190,12 @@
               <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);">Favicon assets for all platforms</td>
             </tr>
             <tr>
-              <td style="padding: var(--pb-space-sm);"><code>/styleguide.html</code></td>
-              <td style="padding: var(--pb-space-sm);">Interactive component documentation</td>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);"><code>/styleguide.html</code></td>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);">Classic style guide (class-based)</td>
+            </tr>
+            <tr>
+              <td style="padding: var(--pb-space-sm);"><code>/semantic-guide.html</code></td>
+              <td style="padding: var(--pb-space-sm);">Semantic style guide (attribute-based)</td>
             </tr>
           </tbody>
         </table>
@@ -207,6 +224,11 @@
     
     <!-- Footer -->
     <footer>
+      <div class="pb-flex pb-justify-center pb-gap-lg pb-mb-2">
+        <a href="index.html">Home</a>
+        <a href="styleguide.html">Classic Guide</a>
+        <a href="semantic-guide.html">Semantic Guide</a>
+      </div>
       <p>Made with care for the Parker Barker family.</p>
       <p><small>ParkerBarker Style System v1.0.0</small></p>
     </footer>
