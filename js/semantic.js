@@ -1207,6 +1207,163 @@
   };
 
   // ==================================================
+  // Date Picker Module
+  // ==================================================
+  
+  var datePicker = {
+    init: function() {
+      var self = this;
+      var inputs = utils.$$('input[type="date"], input[type="time"], input[type="datetime-local"]');
+      
+      inputs.forEach(function(input) {
+        // Enhance inputs in WebViews or on iOS for consistent behavior
+        if (self._isWebView() || env.iOS) {
+          self._enhanceInput(input);
+        }
+      });
+    },
+    
+    /**
+     * Detect if running in a WebView
+     */
+    _isWebView: function() {
+      var ua = navigator.userAgent.toLowerCase();
+      return (
+        // Android WebView
+        (ua.includes('wv') && ua.includes('android')) ||
+        // iOS WebView
+        (window.webkit && window.webkit.messageHandlers) ||
+        // Generic WebView indicators
+        ua.includes('webview') ||
+        // Standalone mode (PWA)
+        env.standalone
+      );
+    },
+    
+    /**
+     * Enhance date/time input for better mobile experience
+     */
+    _enhanceInput: function(input) {
+      // Make input readonly to prevent keyboard popup
+      // but still allow native picker
+      input.setAttribute('readonly', 'readonly');
+      
+      // Ensure clicking opens the picker
+      input.addEventListener('click', function() {
+        if (input.showPicker) {
+          try {
+            input.showPicker();
+          } catch (e) {
+            // showPicker may fail in some contexts
+            console.warn('showPicker not available:', e);
+          }
+        }
+      });
+      
+      // Add touch-friendly styling
+      input.style.cursor = 'pointer';
+    },
+    
+    /**
+     * Manually trigger picker for an input
+     */
+    showPicker: function(input) {
+      if (typeof input === 'string') {
+        input = document.querySelector(input);
+      }
+      if (input && input.showPicker) {
+        try {
+          input.showPicker();
+        } catch (e) {
+          console.warn('showPicker not available:', e);
+        }
+      }
+    }
+  };
+
+  // ==================================================
+  // Dropdown Module
+  // ==================================================
+  
+  var dropdown = {
+    init: function() {
+      this._initClickOutside();
+      this._initEscapeKey();
+    },
+    
+    /**
+     * Close dropdowns when clicking outside
+     */
+    _initClickOutside: function() {
+      document.addEventListener('click', function(e) {
+        var openDropdowns = document.querySelectorAll('details[dropdown][open]');
+        openDropdowns.forEach(function(dropdown) {
+          if (!dropdown.contains(e.target)) {
+            dropdown.removeAttribute('open');
+          }
+        });
+      });
+    },
+    
+    /**
+     * Close dropdowns on escape key
+     */
+    _initEscapeKey: function() {
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          var openDropdowns = document.querySelectorAll('details[dropdown][open]');
+          openDropdowns.forEach(function(dropdown) {
+            dropdown.removeAttribute('open');
+            // Focus back on the summary
+            var summary = dropdown.querySelector('summary');
+            if (summary) summary.focus();
+          });
+        }
+      });
+    },
+    
+    /**
+     * Programmatically open a dropdown
+     */
+    open: function(element) {
+      if (typeof element === 'string') {
+        element = document.querySelector(element);
+      }
+      if (element) {
+        element.setAttribute('open', '');
+      }
+    },
+    
+    /**
+     * Programmatically close a dropdown
+     */
+    close: function(element) {
+      if (typeof element === 'string') {
+        element = document.querySelector(element);
+      }
+      if (element) {
+        element.removeAttribute('open');
+      }
+    },
+    
+    /**
+     * Toggle a dropdown
+     */
+    toggle: function(element) {
+      if (typeof element === 'string') {
+        element = document.querySelector(element);
+      }
+      if (element) {
+        if (element.hasAttribute('open')) {
+          this.close(element);
+        } else {
+          this.open(element);
+        }
+      }
+    }
+  };
+
+  // ==================================================
   // Core Initialization
   // ==================================================
   
@@ -1243,6 +1400,8 @@
       tooltip.init();
       scrollspy.init();
       alerts.init();
+      datePicker.init();
+      dropdown.init();
       
       // iOS optimizations
       if (env.iOS) ios.init();
@@ -1336,8 +1495,19 @@
       disconnect: scrollspy.disconnect.bind(scrollspy)
     },
     
+    datePicker: {
+      init: datePicker.init.bind(datePicker),
+      showPicker: datePicker.showPicker.bind(datePicker)
+    },
+    
+    dropdown: {
+      open: dropdown.open.bind(dropdown),
+      close: dropdown.close.bind(dropdown),
+      toggle: dropdown.toggle.bind(dropdown)
+    },
+    
     // Version
-    version: '1.1.0'
+    version: '1.2.0'
   };
 
   // Expose globally

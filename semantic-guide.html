@@ -208,15 +208,24 @@
       <a href="#interactive">Interactive</a>
       <a href="#alerts">Alerts</a>
       <a href="#badges">Badges</a>
+      <a href="#dropdowns">Dropdowns</a>
+      <a href="#cards">Cards</a>
       
       <h4>Navigation</h4>
       <a href="#navigation">Nav Components</a>
       <a href="#tabs">Tabs</a>
       <a href="#offcanvas">Offcanvas</a>
+      <a href="#bottom-nav">Bottom Nav</a>
       
       <h4>Data Display</h4>
       <a href="#lists-progress">Lists &amp; Progress</a>
+      <a href="#icons">Icons &amp; Emoji</a>
+      <a href="#loading">Loading States</a>
       <a href="#utilities">Utilities</a>
+      
+      <h4>Media</h4>
+      <a href="#images">Images</a>
+      <a href="#links">Link Variants</a>
       
       <h4>Customization</h4>
       <a href="#enhanced-forms">Enhanced Forms</a>
@@ -239,12 +248,19 @@
           <a href="#interactive">Interactive</a>
           <a href="#alerts">Alerts</a>
           <a href="#badges">Badges</a>
+          <a href="#dropdowns">Dropdowns</a>
+          <a href="#cards">Cards</a>
           <a href="#navigation">Navigation</a>
-          <a href="#lists-progress">Lists &amp; Progress</a>
-          <a href="#enhanced-forms">Enhanced Forms</a>
           <a href="#tabs">Tabs</a>
           <a href="#offcanvas">Offcanvas</a>
+          <a href="#bottom-nav">Bottom Nav</a>
+          <a href="#lists-progress">Lists &amp; Progress</a>
+          <a href="#icons">Icons &amp; Emoji</a>
+          <a href="#loading">Loading States</a>
+          <a href="#images">Images</a>
+          <a href="#links">Link Variants</a>
           <a href="#utilities">Utilities</a>
+          <a href="#enhanced-forms">Enhanced Forms</a>
           <a href="#theming">Theming</a>
         </nav>
       </aside>
@@ -914,6 +930,423 @@ Semantic.toast.show('Message', {
   duration: 5000,
   closable: true
 });</div>
+    </section>
+
+    <!-- ============================================
+         DROPDOWNS
+         ============================================ -->
+    <section id="dropdowns" py="xl" border="bottom">
+      <h2>Dropdowns</h2>
+      <p>Semantic dropdowns using native <code>&lt;details&gt;</code> and <code>&lt;menu&gt;</code> elements.</p>
+
+      <h3>Basic Dropdown</h3>
+      <div class="example-box">
+        <details dropdown>
+          <summary>Open Menu</summary>
+          <menu>
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else</a></li>
+          </menu>
+        </details>
+      </div>
+      <div class="code-block">&lt;details dropdown&gt;
+  &lt;summary&gt;Open Menu&lt;/summary&gt;
+  &lt;menu&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Action&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Another action&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Something else&lt;/a&gt;&lt;/li&gt;
+  &lt;/menu&gt;
+&lt;/details&gt;</div>
+
+      <h3>Dropdown with Divider</h3>
+      <div class="example-box">
+        <details dropdown>
+          <summary>Account</summary>
+          <menu>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Settings</a></li>
+            <li divider></li>
+            <li><button onclick="Semantic.toast.info('Logged out')">Logout</button></li>
+          </menu>
+        </details>
+      </div>
+      <div class="code-block">&lt;details dropdown&gt;
+  &lt;summary&gt;Account&lt;/summary&gt;
+  &lt;menu&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Profile&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Settings&lt;/a&gt;&lt;/li&gt;
+    &lt;li divider&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;button&gt;Logout&lt;/button&gt;&lt;/li&gt;
+  &lt;/menu&gt;
+&lt;/details&gt;</div>
+
+      <h3>Right-Aligned Dropdown</h3>
+      <div class="example-box" layout="row" justify="end">
+        <details dropdown align="right">
+          <summary>Align Right</summary>
+          <menu>
+            <li><a href="#">Option 1</a></li>
+            <li><a href="#">Option 2</a></li>
+            <li><a href="#">Option 3</a></li>
+          </menu>
+        </details>
+      </div>
+      <div class="code-block">&lt;details dropdown align="right"&gt;
+  &lt;summary&gt;Align Right&lt;/summary&gt;
+  &lt;menu&gt;...&lt;/menu&gt;
+&lt;/details&gt;</div>
+    </section>
+
+    <!-- ============================================
+         CARD STRUCTURE
+         ============================================ -->
+    <section id="cards" py="xl" border="bottom">
+      <h2>Card Structure</h2>
+      <p>Enhanced <code>&lt;article&gt;</code> with semantic <code>&lt;header&gt;</code> and <code>&lt;footer&gt;</code> elements.</p>
+
+      <h3>Card with Header and Footer</h3>
+      <div class="example-box">
+        <article>
+          <header>
+            <h4 card-title>Card Title</h4>
+            <p card-subtitle>Card subtitle or meta info</p>
+          </header>
+          <p>This is the card body content. It can contain any content like text, images, or other elements.</p>
+          <footer layout="row" gap="sm" justify="end">
+            <button variant="ghost" size="sm">Cancel</button>
+            <button size="sm">Save</button>
+          </footer>
+        </article>
+      </div>
+      <div class="code-block">&lt;article&gt;
+  &lt;header&gt;
+    &lt;h4 card-title&gt;Card Title&lt;/h4&gt;
+    &lt;p card-subtitle&gt;Card subtitle&lt;/p&gt;
+  &lt;/header&gt;
+  &lt;p&gt;Card body content...&lt;/p&gt;
+  &lt;footer layout="row" gap="sm" justify="end"&gt;
+    &lt;button variant="ghost"&gt;Cancel&lt;/button&gt;
+    &lt;button&gt;Save&lt;/button&gt;
+  &lt;/footer&gt;
+&lt;/article&gt;</div>
+
+      <h3>Card Grid</h3>
+      <div class="example-box">
+        <section layout="grid" cols="3" gap="md" responsive>
+          <article>
+            <header>
+              <h5 card-title>Feature 1</h5>
+            </header>
+            <p>Description of the first feature.</p>
+          </article>
+          <article>
+            <header>
+              <h5 card-title>Feature 2</h5>
+            </header>
+            <p>Description of the second feature.</p>
+          </article>
+          <article>
+            <header>
+              <h5 card-title>Feature 3</h5>
+            </header>
+            <p>Description of the third feature.</p>
+          </article>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============================================
+         BOTTOM NAVIGATION
+         ============================================ -->
+    <section id="bottom-nav" py="xl" border="bottom">
+      <h2>Bottom Navigation</h2>
+      <p>Fixed bottom navigation bar for mobile apps with iOS safe area support.</p>
+
+      <h3>Basic Bottom Nav</h3>
+      <div class="example-box">
+        <p color="muted" size="sm">The bottom nav is fixed to the viewport. Here's the markup:</p>
+      </div>
+      <div class="code-block">&lt;nav position="bottom"&gt;
+  &lt;a href="/"&gt;
+    &lt;span emoji="lg"&gt;🏠&lt;/span&gt;
+    Home
+  &lt;/a&gt;
+  &lt;a href="/search"&gt;
+    &lt;span emoji="lg"&gt;🔍&lt;/span&gt;
+    Search
+  &lt;/a&gt;
+  &lt;a href="/profile" aria-current="page"&gt;
+    &lt;span emoji="lg"&gt;👤&lt;/span&gt;
+    Profile
+  &lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;!-- Add to body to prevent content overlap --&gt;
+&lt;body has-bottom-nav&gt;</div>
+
+      <h3>Features</h3>
+      <ul>
+        <li>Automatically handles iOS safe area (notch/home indicator)</li>
+        <li>Fixed to bottom of viewport</li>
+        <li>Use <code>aria-current="page"</code> for active state</li>
+        <li>Add <code>has-bottom-nav</code> to body for proper content padding</li>
+      </ul>
+    </section>
+
+    <!-- ============================================
+         ICONS & EMOJI
+         ============================================ -->
+    <section id="icons" py="xl" border="bottom">
+      <h2>Icons &amp; Emoji</h2>
+      <p>Utilities for sizing SVG icons and emoji.</p>
+
+      <h3>Icon Sizing</h3>
+      <div class="example-box">
+        <nav layout="row" gap="lg" align="center">
+          <span>
+            <svg icon="xs" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            xs
+          </span>
+          <span>
+            <svg icon="sm" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            sm
+          </span>
+          <span>
+            <svg icon viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            default
+          </span>
+          <span>
+            <svg icon="lg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            lg
+          </span>
+          <span>
+            <svg icon="xl" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            xl
+          </span>
+        </nav>
+      </div>
+      <div class="code-block">&lt;svg icon="xs"&gt;...&lt;/svg&gt;  &lt;!-- 0.75em --&gt;
+&lt;svg icon="sm"&gt;...&lt;/svg&gt;  &lt;!-- 0.875em --&gt;
+&lt;svg icon&gt;...&lt;/svg&gt;       &lt;!-- 1em (default) --&gt;
+&lt;svg icon="lg"&gt;...&lt;/svg&gt;  &lt;!-- 1.25em --&gt;
+&lt;svg icon="xl"&gt;...&lt;/svg&gt;  &lt;!-- 1.5em --&gt;
+&lt;svg icon="2xl"&gt;...&lt;/svg&gt; &lt;!-- 2em --&gt;</div>
+
+      <h3>Emoji Sizing</h3>
+      <div class="example-box">
+        <nav layout="row" gap="lg" align="end">
+          <span layout="stack" align="center" gap="xs">
+            <span emoji="xs">🎉</span>
+            <small>xs</small>
+          </span>
+          <span layout="stack" align="center" gap="xs">
+            <span emoji="sm">🎉</span>
+            <small>sm</small>
+          </span>
+          <span layout="stack" align="center" gap="xs">
+            <span emoji="md">🎉</span>
+            <small>md</small>
+          </span>
+          <span layout="stack" align="center" gap="xs">
+            <span emoji="lg">🎉</span>
+            <small>lg</small>
+          </span>
+          <span layout="stack" align="center" gap="xs">
+            <span emoji="xl">🎉</span>
+            <small>xl</small>
+          </span>
+          <span layout="stack" align="center" gap="xs">
+            <span emoji="2xl">🎉</span>
+            <small>2xl</small>
+          </span>
+        </nav>
+      </div>
+      <div class="code-block">&lt;span emoji="sm"&gt;🎉&lt;/span&gt;  &lt;!-- 1.25em --&gt;
+&lt;span emoji="lg"&gt;🎉&lt;/span&gt;  &lt;!-- 2em --&gt;
+&lt;span emoji="xl"&gt;🎉&lt;/span&gt;  &lt;!-- 3em --&gt;
+&lt;span emoji="2xl"&gt;🎉&lt;/span&gt; &lt;!-- 4em --&gt;</div>
+
+      <h3>Icon Grid</h3>
+      <div class="example-box">
+        <div icon-grid>
+          <span>
+            <span emoji="lg">⭐</span>
+            <small>Star</small>
+          </span>
+          <span>
+            <span emoji="lg">❤️</span>
+            <small>Heart</small>
+          </span>
+          <span>
+            <span emoji="lg">🔥</span>
+            <small>Fire</small>
+          </span>
+          <span>
+            <span emoji="lg">✅</span>
+            <small>Check</small>
+          </span>
+        </div>
+      </div>
+      <div class="code-block">&lt;div icon-grid&gt;
+  &lt;span&gt;
+    &lt;span emoji="lg"&gt;⭐&lt;/span&gt;
+    &lt;small&gt;Star&lt;/small&gt;
+  &lt;/span&gt;
+  ...
+&lt;/div&gt;</div>
+    </section>
+
+    <!-- ============================================
+         LOADING STATES
+         ============================================ -->
+    <section id="loading" py="xl" border="bottom">
+      <h2>Loading States</h2>
+      <p>General-purpose loading indicator for any element.</p>
+
+      <h3>Basic Loading</h3>
+      <div class="example-box">
+        <article loading p="2xl">
+          <p>This content is loading...</p>
+        </article>
+      </div>
+      <div class="code-block">&lt;article loading&gt;
+  &lt;p&gt;This content is loading...&lt;/p&gt;
+&lt;/article&gt;</div>
+
+      <h3>Loading Sizes</h3>
+      <div class="example-box">
+        <section layout="row" gap="lg">
+          <div loading="sm" p="xl" bg="surface" rounded border>Small</div>
+          <div loading p="xl" bg="surface" rounded border>Default</div>
+          <div loading="lg" p="xl" bg="surface" rounded border>Large</div>
+        </section>
+      </div>
+      <div class="code-block">&lt;div loading="sm"&gt;Small spinner&lt;/div&gt;
+&lt;div loading&gt;Default spinner&lt;/div&gt;
+&lt;div loading="lg"&gt;Large spinner&lt;/div&gt;</div>
+
+      <h3>Button Loading (Existing)</h3>
+      <div class="example-box">
+        <nav layout="row" gap="md">
+          <button loading>Loading...</button>
+          <button loading variant="secondary">Processing...</button>
+        </nav>
+      </div>
+    </section>
+
+    <!-- ============================================
+         IMAGES
+         ============================================ -->
+    <section id="images" py="xl" border="bottom">
+      <h2>Image Utilities</h2>
+      <p>Responsive images, object-fit, and scroll containers.</p>
+
+      <h3>Fluid Images</h3>
+      <div class="example-box">
+        <figure fluid rounded overflow="hidden">
+          <img src="https://picsum.photos/800/400" alt="Sample image" fluid>
+          <figcaption>A fluid image that scales with its container</figcaption>
+        </figure>
+      </div>
+      <div class="code-block">&lt;img src="..." alt="..." fluid&gt;
+
+&lt;!-- Or wrap in a container --&gt;
+&lt;figure fluid&gt;
+  &lt;img src="..." alt="..."&gt;
+&lt;/figure&gt;</div>
+
+      <h3>Aspect Ratios</h3>
+      <div class="example-box">
+        <section layout="grid" cols="4" gap="md" responsive>
+          <div aspect="square" bg="primary-light" rounded layout="center">
+            <span>1:1</span>
+          </div>
+          <div aspect="video" bg="primary-light" rounded layout="center">
+            <span>16:9</span>
+          </div>
+          <div aspect="portrait" bg="primary-light" rounded layout="center">
+            <span>3:4</span>
+          </div>
+          <div aspect="landscape" bg="primary-light" rounded layout="center">
+            <span>4:3</span>
+          </div>
+        </section>
+      </div>
+      <div class="code-block">&lt;div aspect="square"&gt;1:1&lt;/div&gt;
+&lt;div aspect="video"&gt;16:9&lt;/div&gt;
+&lt;div aspect="portrait"&gt;3:4&lt;/div&gt;
+&lt;div aspect="landscape"&gt;4:3&lt;/div&gt;</div>
+
+      <h3>Scroll Containers</h3>
+      <div class="example-box">
+        <div scroll style="max-height: 150px;" p="md" border rounded>
+          <p>Line 1</p>
+          <p>Line 2</p>
+          <p>Line 3</p>
+          <p>Line 4</p>
+          <p>Line 5</p>
+          <p>Line 6</p>
+          <p>Line 7</p>
+          <p>Line 8</p>
+        </div>
+      </div>
+      <div class="code-block">&lt;div scroll style="max-height: 150px;"&gt;
+  &lt;!-- Scrollable content --&gt;
+&lt;/div&gt;
+
+&lt;div scroll-x&gt;
+  &lt;!-- Horizontal scroll --&gt;
+&lt;/div&gt;</div>
+    </section>
+
+    <!-- ============================================
+         LINK VARIANTS
+         ============================================ -->
+    <section id="links" py="xl" border="bottom">
+      <h2>Link Variants</h2>
+      <p>Different link styles for various contexts.</p>
+
+      <h3>Variant Styles</h3>
+      <div class="example-box">
+        <nav layout="row" gap="lg" wrap>
+          <a href="#">Default link</a>
+          <a href="#" variant="subtle">Subtle link</a>
+          <a href="#" variant="muted">Muted link</a>
+          <span bg="primary" p="sm" rounded>
+            <a href="#" variant="contrast">Contrast link</a>
+          </span>
+          <a href="#" disabled>Disabled link</a>
+        </nav>
+      </div>
+      <div class="code-block">&lt;a href="#"&gt;Default link&lt;/a&gt;
+&lt;a href="#" variant="subtle"&gt;Subtle link&lt;/a&gt;
+&lt;a href="#" variant="muted"&gt;Muted link&lt;/a&gt;
+&lt;a href="#" variant="contrast"&gt;Contrast link&lt;/a&gt;
+&lt;a href="#" disabled&gt;Disabled link&lt;/a&gt;</div>
+
+      <h3>External Links</h3>
+      <div class="example-box">
+        <p>Visit <a href="https://example.com" external>Example.com</a> for more info.</p>
+      </div>
+      <div class="code-block">&lt;a href="https://example.com" external&gt;Example.com&lt;/a&gt;
+&lt;!-- Adds ↗ indicator automatically --&gt;</div>
+
+      <h3>Block Links</h3>
+      <div class="example-box">
+        <a href="#" block>
+          <article clickable>
+            <h4 mt="0">Clickable Card</h4>
+            <p mb="0">The entire card is a link.</p>
+          </article>
+        </a>
+      </div>
+      <div class="code-block">&lt;a href="#" block&gt;
+  &lt;article clickable&gt;
+    &lt;h4&gt;Clickable Card&lt;/h4&gt;
+    &lt;p&gt;The entire card is a link.&lt;/p&gt;
+  &lt;/article&gt;
+&lt;/a&gt;</div>
     </section>
 
     <!-- ============================================
