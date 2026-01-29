@@ -110,7 +110,7 @@
     <!-- Table of Contents -->
     <aside mb="2xl" p="lg" rounded bg="surface" border>
       <h4 mt="0">Contents</h4>
-      <nav layout="grid" cols="3" gap="sm" responsive>
+      <nav layout="grid" cols="4" gap="sm" responsive>
         <a href="#getting-started" class="toc-link">Getting Started</a>
         <a href="#typography" class="toc-link">Typography</a>
         <a href="#layout" class="toc-link">Layout</a>
@@ -119,6 +119,13 @@
         <a href="#buttons" class="toc-link">Buttons</a>
         <a href="#forms" class="toc-link">Forms</a>
         <a href="#interactive" class="toc-link">Interactive</a>
+        <a href="#alerts" class="toc-link">Alerts</a>
+        <a href="#badges" class="toc-link">Badges</a>
+        <a href="#navigation" class="toc-link">Navigation</a>
+        <a href="#lists-progress" class="toc-link">Lists &amp; Progress</a>
+        <a href="#enhanced-forms" class="toc-link">Enhanced Forms</a>
+        <a href="#tabs" class="toc-link">Tabs</a>
+        <a href="#offcanvas" class="toc-link">Offcanvas</a>
         <a href="#utilities" class="toc-link">Utilities</a>
         <a href="#theming" class="toc-link">Theming</a>
       </nav>
@@ -862,6 +869,629 @@ Semantic.toast.show('Message', {
             <tr><td p="sm" border="bottom"><code>size</code></td><td p="sm" border="bottom">xs, sm, base, lg, xl, 2xl, 3xl, 4xl</td></tr>
             <tr><td p="sm" border="bottom"><code>truncate</code></td><td p="sm" border="bottom">(boolean)</td></tr>
             <tr><td p="sm"><code>opacity</code></td><td p="sm">0, 25, 50, 75, 100</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================================
+         ALERTS
+         ============================================ -->
+    <section id="alerts" py="xl" border="bottom">
+      <h2>Alerts</h2>
+      <p>Use <code>&lt;aside role="alert"&gt;</code> for dismissible messages and notifications.</p>
+
+      <h3>Alert Variants</h3>
+      <div class="example-box">
+        <aside role="alert" type="info" mb="md">
+          <div>
+            <strong>Information</strong>
+            <p>This is an informational alert message.</p>
+          </div>
+        </aside>
+        <aside role="alert" type="success" mb="md">
+          <div>
+            <strong>Success!</strong>
+            <p>Your changes have been saved successfully.</p>
+          </div>
+        </aside>
+        <aside role="alert" type="warning" mb="md">
+          <div>
+            <strong>Warning</strong>
+            <p>Please review your input before continuing.</p>
+          </div>
+        </aside>
+        <aside role="alert" type="danger">
+          <div>
+            <strong>Error</strong>
+            <p>Something went wrong. Please try again.</p>
+          </div>
+        </aside>
+      </div>
+      <div class="code-block">&lt;aside role="alert" type="info"&gt;
+  &lt;div&gt;
+    &lt;strong&gt;Information&lt;/strong&gt;
+    &lt;p&gt;This is an informational alert.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/aside&gt;
+
+&lt;aside role="alert" type="success"&gt;...&lt;/aside&gt;
+&lt;aside role="alert" type="warning"&gt;...&lt;/aside&gt;
+&lt;aside role="alert" type="danger"&gt;...&lt;/aside&gt;</div>
+
+      <h3>Dismissible Alerts</h3>
+      <div class="example-box">
+        <aside role="alert" type="info">
+          <div grow>
+            <strong>Dismissible Alert</strong>
+            <p>Click the X button to dismiss this alert.</p>
+          </div>
+          <button close aria-label="Dismiss">×</button>
+        </aside>
+      </div>
+      <div class="code-block">&lt;aside role="alert" type="info"&gt;
+  &lt;div grow&gt;
+    &lt;strong&gt;Dismissible Alert&lt;/strong&gt;
+    &lt;p&gt;Click the X button to dismiss this alert.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;button close aria-label="Dismiss"&gt;×&lt;/button&gt;
+&lt;/aside&gt;</div>
+    </section>
+
+    <!-- ============================================
+         BADGES
+         ============================================ -->
+    <section id="badges" py="xl" border="bottom">
+      <h2>Badges</h2>
+      <p>Use <code>&lt;data&gt;</code> or <code>&lt;output&gt;</code> elements for badges and status indicators.</p>
+
+      <h3>Badge Variants</h3>
+      <div class="example-box">
+        <nav layout="row" gap="md" wrap align="center">
+          <data value="1" variant="primary">Primary</data>
+          <data value="2" variant="secondary">Secondary</data>
+          <data value="3" variant="success">Success</data>
+          <data value="4" variant="danger">Danger</data>
+          <data value="5" variant="warning">Warning</data>
+          <data value="6" variant="info">Info</data>
+          <data value="7" variant="light">Light</data>
+          <data value="8" variant="dark">Dark</data>
+        </nav>
+      </div>
+      <div class="code-block">&lt;data value="1" variant="primary"&gt;Primary&lt;/data&gt;
+&lt;data value="2" variant="secondary"&gt;Secondary&lt;/data&gt;
+&lt;data value="3" variant="success"&gt;Success&lt;/data&gt;
+&lt;data value="4" variant="danger"&gt;Danger&lt;/data&gt;
+&lt;data value="5" variant="warning"&gt;Warning&lt;/data&gt;</div>
+
+      <h3>Pill Badges</h3>
+      <div class="example-box">
+        <nav layout="row" gap="md" wrap align="center">
+          <data value="99" variant="primary" pill>99</data>
+          <data value="new" variant="success" pill>New</data>
+          <data value="sale" variant="danger" pill>Sale</data>
+          <output variant="warning" pill>3 items</output>
+        </nav>
+      </div>
+      <div class="code-block">&lt;data value="99" variant="primary" pill&gt;99&lt;/data&gt;
+&lt;data value="new" variant="success" pill&gt;New&lt;/data&gt;
+&lt;output variant="warning" pill&gt;3 items&lt;/output&gt;</div>
+
+      <h3>Badges in Context</h3>
+      <div class="example-box">
+        <h4 mt="0">Notifications <data value="5" variant="danger" pill>5</data></h4>
+        <button>Messages <data value="3" variant="light" size="lg" ml="sm">3</data></button>
+      </div>
+    </section>
+
+    <!-- ============================================
+         NAVIGATION COMPONENTS
+         ============================================ -->
+    <section id="navigation" py="xl" border="bottom">
+      <h2>Navigation Components</h2>
+      <p>Breadcrumbs, pagination, and button groups using semantic HTML.</p>
+
+      <h3>Breadcrumbs</h3>
+      <div class="example-box">
+        <nav aria-label="Breadcrumb">
+          <ol>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">Category</a></li>
+            <li aria-current="page">Current Page</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="code-block">&lt;nav aria-label="Breadcrumb"&gt;
+  &lt;ol&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Products&lt;/a&gt;&lt;/li&gt;
+    &lt;li aria-current="page"&gt;Current Page&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;</div>
+
+      <h3>Pagination</h3>
+      <div class="example-box">
+        <nav aria-label="Pagination">
+          <ol>
+            <li><a href="#" aria-label="Previous page">←</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#" aria-current="page">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#" aria-label="Next page">→</a></li>
+          </ol>
+        </nav>
+      </div>
+      <div class="code-block">&lt;nav aria-label="Pagination"&gt;
+  &lt;ol&gt;
+    &lt;li&gt;&lt;a href="#" aria-label="Previous"&gt;←&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#" aria-current="page"&gt;2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;3&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#" aria-label="Next"&gt;→&lt;/a&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;</div>
+
+      <h3>Button Groups</h3>
+      <div class="example-box">
+        <nav role="group" mb="md">
+          <button>Left</button>
+          <button variant="secondary">Middle</button>
+          <button variant="secondary">Right</button>
+        </nav>
+        <nav role="group" vertical>
+          <button size="sm">Top</button>
+          <button size="sm" variant="secondary">Middle</button>
+          <button size="sm" variant="secondary">Bottom</button>
+        </nav>
+      </div>
+      <div class="code-block">&lt;nav role="group"&gt;
+  &lt;button&gt;Left&lt;/button&gt;
+  &lt;button variant="secondary"&gt;Middle&lt;/button&gt;
+  &lt;button variant="secondary"&gt;Right&lt;/button&gt;
+&lt;/nav&gt;
+
+&lt;nav role="group" vertical&gt;
+  &lt;button&gt;Top&lt;/button&gt;
+  &lt;button&gt;Middle&lt;/button&gt;
+  &lt;button&gt;Bottom&lt;/button&gt;
+&lt;/nav&gt;</div>
+
+      <h3>Responsive Navbar</h3>
+      <div class="example-box">
+        <nav data-navbar layout="row" justify="between" align="center" p="md" bg="surface" rounded border>
+          <strong>Brand</strong>
+          <button data-navbar-toggle variant="ghost" size="sm" aria-label="Toggle menu">☰ Menu</button>
+          <div data-navbar-menu hidden>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <button size="sm">Sign Up</button>
+          </div>
+        </nav>
+        <p size="sm" color="muted" mt="sm">Resize your browser to see the toggle behavior.</p>
+      </div>
+      <div class="code-block">&lt;nav data-navbar&gt;
+  &lt;strong&gt;Brand&lt;/strong&gt;
+  &lt;button data-navbar-toggle aria-label="Toggle menu"&gt;☰&lt;/button&gt;
+  &lt;div data-navbar-menu hidden&gt;
+    &lt;a href="#"&gt;Home&lt;/a&gt;
+    &lt;a href="#"&gt;About&lt;/a&gt;
+    &lt;button&gt;Sign Up&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;</div>
+    </section>
+
+    <!-- ============================================
+         LISTS & PROGRESS
+         ============================================ -->
+    <section id="lists-progress" py="xl" border="bottom">
+      <h2>Lists &amp; Progress</h2>
+      <p>List groups and progress indicators using semantic elements.</p>
+
+      <h3>List Groups</h3>
+      <div class="example-box">
+        <menu role="listbox">
+          <li>Basic list item</li>
+          <li aria-selected="true">Selected item</li>
+          <li>Another item</li>
+          <li disabled>Disabled item</li>
+        </menu>
+      </div>
+      <div class="code-block">&lt;menu role="listbox"&gt;
+  &lt;li&gt;Basic list item&lt;/li&gt;
+  &lt;li aria-selected="true"&gt;Selected item&lt;/li&gt;
+  &lt;li&gt;Another item&lt;/li&gt;
+  &lt;li disabled&gt;Disabled item&lt;/li&gt;
+&lt;/menu&gt;</div>
+
+      <h3>List with Actions</h3>
+      <div class="example-box">
+        <menu role="list">
+          <li clickable>
+            <span>Clickable item</span>
+            <data variant="primary" pill>New</data>
+          </li>
+          <li>
+            <span>Item with action</span>
+            <button size="sm" variant="ghost">Edit</button>
+          </li>
+          <li active>
+            <span>Active item</span>
+            <data variant="light" pill>3</data>
+          </li>
+        </menu>
+      </div>
+      <div class="code-block">&lt;menu role="list"&gt;
+  &lt;li clickable&gt;
+    &lt;span&gt;Clickable item&lt;/span&gt;
+    &lt;data variant="primary" pill&gt;New&lt;/data&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;span&gt;Item with action&lt;/span&gt;
+    &lt;button size="sm" variant="ghost"&gt;Edit&lt;/button&gt;
+  &lt;/li&gt;
+&lt;/menu&gt;</div>
+
+      <h3>Progress Bars</h3>
+      <div class="example-box" layout="stack" gap="md">
+        <div>
+          <label size="sm">Default (70%)</label>
+          <progress value="70" max="100">70%</progress>
+        </div>
+        <div>
+          <label size="sm">Success (100%)</label>
+          <progress value="100" max="100" variant="success">100%</progress>
+        </div>
+        <div>
+          <label size="sm">Warning (45%)</label>
+          <progress value="45" max="100" variant="warning">45%</progress>
+        </div>
+        <div>
+          <label size="sm">Danger (25%)</label>
+          <progress value="25" max="100" variant="danger">25%</progress>
+        </div>
+      </div>
+      <div class="code-block">&lt;progress value="70" max="100"&gt;70%&lt;/progress&gt;
+&lt;progress value="100" max="100" variant="success"&gt;100%&lt;/progress&gt;
+&lt;progress value="45" max="100" variant="warning"&gt;45%&lt;/progress&gt;
+&lt;progress value="25" max="100" variant="danger"&gt;25%&lt;/progress&gt;</div>
+
+      <h3>Meter Element</h3>
+      <div class="example-box" layout="stack" gap="md">
+        <div>
+          <label size="sm">Disk Usage (optimum)</label>
+          <meter value="0.3" min="0" max="1" low="0.3" high="0.7" optimum="0.1">30%</meter>
+        </div>
+        <div>
+          <label size="sm">Memory Usage (suboptimum)</label>
+          <meter value="0.6" min="0" max="1" low="0.3" high="0.7" optimum="0.1">60%</meter>
+        </div>
+        <div>
+          <label size="sm">CPU Usage (critical)</label>
+          <meter value="0.9" min="0" max="1" low="0.3" high="0.7" optimum="0.1">90%</meter>
+        </div>
+      </div>
+      <div class="code-block">&lt;meter value="0.3" min="0" max="1" low="0.3" high="0.7" optimum="0.1"&gt;30%&lt;/meter&gt;
+&lt;meter value="0.6" min="0" max="1" low="0.3" high="0.7" optimum="0.1"&gt;60%&lt;/meter&gt;
+&lt;meter value="0.9" min="0" max="1" low="0.3" high="0.7" optimum="0.1"&gt;90%&lt;/meter&gt;</div>
+    </section>
+
+    <!-- ============================================
+         ENHANCED FORMS
+         ============================================ -->
+    <section id="enhanced-forms" py="xl" border="bottom">
+      <h2>Enhanced Forms</h2>
+      <p>Advanced form patterns including input groups, floating labels, and styled controls.</p>
+
+      <h3>Input Groups</h3>
+      <div class="example-box" layout="stack" gap="md">
+        <label layout="input-group">
+          <span>$</span>
+          <input type="number" placeholder="0.00">
+          <span>.00</span>
+        </label>
+        <label layout="input-group">
+          <span>https://</span>
+          <input type="text" placeholder="example.com">
+        </label>
+        <label layout="input-group">
+          <input type="email" placeholder="Enter email">
+          <button>Subscribe</button>
+        </label>
+      </div>
+      <div class="code-block">&lt;label layout="input-group"&gt;
+  &lt;span&gt;$&lt;/span&gt;
+  &lt;input type="number" placeholder="0.00"&gt;
+  &lt;span&gt;.00&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;label layout="input-group"&gt;
+  &lt;span&gt;https://&lt;/span&gt;
+  &lt;input type="text" placeholder="example.com"&gt;
+&lt;/label&gt;
+
+&lt;label layout="input-group"&gt;
+  &lt;input type="email" placeholder="Enter email"&gt;
+  &lt;button&gt;Subscribe&lt;/button&gt;
+&lt;/label&gt;</div>
+
+      <h3>Floating Labels</h3>
+      <div class="example-box" layout="stack" gap="md">
+        <label floating>
+          <input type="text" placeholder=" ">
+          <span>Full Name</span>
+        </label>
+        <label floating>
+          <input type="email" placeholder=" ">
+          <span>Email Address</span>
+        </label>
+        <label floating>
+          <textarea placeholder=" " rows="3"></textarea>
+          <span>Message</span>
+        </label>
+      </div>
+      <div class="code-block">&lt;label floating&gt;
+  &lt;input type="text" placeholder=" "&gt;
+  &lt;span&gt;Full Name&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;label floating&gt;
+  &lt;input type="email" placeholder=" "&gt;
+  &lt;span&gt;Email Address&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;label floating&gt;
+  &lt;textarea placeholder=" "&gt;&lt;/textarea&gt;
+  &lt;span&gt;Message&lt;/span&gt;
+&lt;/label&gt;</div>
+
+      <h3>Styled Checkboxes &amp; Radios</h3>
+      <div class="example-box">
+        <section layout="grid" cols="2" gap="lg" responsive>
+          <div layout="stack" gap="sm">
+            <h4 mt="0">Checkboxes</h4>
+            <label inline><input type="checkbox" styled> Option A</label>
+            <label inline><input type="checkbox" styled checked> Option B (checked)</label>
+            <label inline><input type="checkbox" styled disabled> Option C (disabled)</label>
+          </div>
+          <div layout="stack" gap="sm">
+            <h4 mt="0">Radio Buttons</h4>
+            <label inline><input type="radio" name="styled-radio" styled> Choice 1</label>
+            <label inline><input type="radio" name="styled-radio" styled checked> Choice 2</label>
+            <label inline><input type="radio" name="styled-radio" styled> Choice 3</label>
+          </div>
+        </section>
+      </div>
+      <div class="code-block">&lt;label inline&gt;&lt;input type="checkbox" styled&gt; Option A&lt;/label&gt;
+&lt;label inline&gt;&lt;input type="checkbox" styled checked&gt; Option B&lt;/label&gt;
+
+&lt;label inline&gt;&lt;input type="radio" name="group" styled&gt; Choice 1&lt;/label&gt;
+&lt;label inline&gt;&lt;input type="radio" name="group" styled checked&gt; Choice 2&lt;/label&gt;</div>
+
+      <h3>Switch Toggle</h3>
+      <div class="example-box">
+        <section layout="stack" gap="md">
+          <label inline><input type="checkbox" switch> Enable notifications</label>
+          <label inline><input type="checkbox" switch checked> Dark mode</label>
+          <label inline><input type="checkbox" switch disabled> Disabled switch</label>
+        </section>
+      </div>
+      <div class="code-block">&lt;label inline&gt;&lt;input type="checkbox" switch&gt; Enable notifications&lt;/label&gt;
+&lt;label inline&gt;&lt;input type="checkbox" switch checked&gt; Dark mode&lt;/label&gt;</div>
+
+      <h3>Display Headings</h3>
+      <div class="example-box">
+        <h1 display="1" my="sm">Display 1</h1>
+        <h2 display="2" my="sm">Display 2</h2>
+        <h3 display="3" my="sm">Display 3</h3>
+        <h4 display="4" my="sm">Display 4</h4>
+      </div>
+      <div class="code-block">&lt;h1 display="1"&gt;Display 1&lt;/h1&gt;
+&lt;h2 display="2"&gt;Display 2&lt;/h2&gt;
+&lt;h3 display="3"&gt;Display 3&lt;/h3&gt;
+&lt;h4 display="4"&gt;Display 4&lt;/h4&gt;</div>
+
+      <h3>Lead Paragraph</h3>
+      <div class="example-box">
+        <p lead>This is a lead paragraph. It stands out from regular paragraphs with larger text and a lighter weight, perfect for introductory content.</p>
+        <p>This is a regular paragraph for comparison. Notice the difference in size and emphasis.</p>
+      </div>
+      <div class="code-block">&lt;p lead&gt;This is a lead paragraph...&lt;/p&gt;</div>
+
+      <h3>Smart Tooltips</h3>
+      <div class="example-box">
+        <nav layout="row" gap="lg" wrap>
+          <button data-tooltip="Default tooltip (top)">Hover me</button>
+          <button data-tooltip="Tooltip on bottom" data-tooltip-position="bottom" variant="secondary">Bottom</button>
+          <button data-tooltip="Tooltip on left" data-tooltip-position="left" variant="ghost">Left</button>
+          <button data-tooltip="Tooltip on right" data-tooltip-position="right" variant="ghost">Right</button>
+        </nav>
+      </div>
+      <div class="code-block">&lt;button data-tooltip="Helpful info"&gt;Hover me&lt;/button&gt;
+&lt;button data-tooltip="Bottom tip" data-tooltip-position="bottom"&gt;Bottom&lt;/button&gt;
+&lt;button data-tooltip="Left tip" data-tooltip-position="left"&gt;Left&lt;/button&gt;
+&lt;button data-tooltip="Right tip" data-tooltip-position="right"&gt;Right&lt;/button&gt;</div>
+    </section>
+
+    <!-- ============================================
+         TABS
+         ============================================ -->
+    <section id="tabs" py="xl" border="bottom">
+      <h2>Tabs</h2>
+      <p>Accessible tabs with keyboard navigation using ARIA roles.</p>
+
+      <h3>Basic Tabs</h3>
+      <div class="example-box">
+        <nav role="tablist" aria-label="Sample tabs">
+          <button role="tab" aria-selected="true" aria-controls="panel-1">Tab 1</button>
+          <button role="tab" aria-selected="false" aria-controls="panel-2" tabindex="-1">Tab 2</button>
+          <button role="tab" aria-selected="false" aria-controls="panel-3" tabindex="-1">Tab 3</button>
+        </nav>
+        <section role="tabpanel" id="panel-1">
+          <h4>Tab 1 Content</h4>
+          <p>This is the content for the first tab. Use arrow keys to navigate between tabs.</p>
+        </section>
+        <section role="tabpanel" id="panel-2" hidden>
+          <h4>Tab 2 Content</h4>
+          <p>Here's some different content for the second tab.</p>
+        </section>
+        <section role="tabpanel" id="panel-3" hidden>
+          <h4>Tab 3 Content</h4>
+          <p>And finally, content for the third tab.</p>
+        </section>
+      </div>
+      <div class="code-block">&lt;nav role="tablist"&gt;
+  &lt;button role="tab" aria-selected="true" aria-controls="panel-1"&gt;Tab 1&lt;/button&gt;
+  &lt;button role="tab" aria-selected="false" aria-controls="panel-2"&gt;Tab 2&lt;/button&gt;
+  &lt;button role="tab" aria-selected="false" aria-controls="panel-3"&gt;Tab 3&lt;/button&gt;
+&lt;/nav&gt;
+&lt;section role="tabpanel" id="panel-1"&gt;Content 1&lt;/section&gt;
+&lt;section role="tabpanel" id="panel-2" hidden&gt;Content 2&lt;/section&gt;
+&lt;section role="tabpanel" id="panel-3" hidden&gt;Content 3&lt;/section&gt;</div>
+
+      <h3>Pills Variant</h3>
+      <div class="example-box">
+        <nav role="tablist" variant="pills" aria-label="Pills tabs">
+          <button role="tab" aria-selected="true" aria-controls="pills-1">Overview</button>
+          <button role="tab" aria-selected="false" aria-controls="pills-2" tabindex="-1">Features</button>
+          <button role="tab" aria-selected="false" aria-controls="pills-3" tabindex="-1">Pricing</button>
+        </nav>
+        <section role="tabpanel" id="pills-1" p="md">
+          <p>Overview content with pills-style tabs.</p>
+        </section>
+        <section role="tabpanel" id="pills-2" p="md" hidden>
+          <p>Features content area.</p>
+        </section>
+        <section role="tabpanel" id="pills-3" p="md" hidden>
+          <p>Pricing information here.</p>
+        </section>
+      </div>
+      <div class="code-block">&lt;nav role="tablist" variant="pills"&gt;
+  &lt;button role="tab" aria-selected="true"&gt;Overview&lt;/button&gt;
+  &lt;button role="tab"&gt;Features&lt;/button&gt;
+  &lt;button role="tab"&gt;Pricing&lt;/button&gt;
+&lt;/nav&gt;</div>
+
+      <h3>Vertical Tabs</h3>
+      <div class="example-box">
+        <section layout="row" gap="lg">
+          <nav role="tablist" vertical aria-label="Vertical tabs">
+            <button role="tab" aria-selected="true" aria-controls="vtab-1">Account</button>
+            <button role="tab" aria-selected="false" aria-controls="vtab-2" tabindex="-1">Security</button>
+            <button role="tab" aria-selected="false" aria-controls="vtab-3" tabindex="-1">Notifications</button>
+          </nav>
+          <div grow>
+            <section role="tabpanel" id="vtab-1">
+              <h4 mt="0">Account Settings</h4>
+              <p>Manage your account details and preferences.</p>
+            </section>
+            <section role="tabpanel" id="vtab-2" hidden>
+              <h4 mt="0">Security Settings</h4>
+              <p>Update password and security options.</p>
+            </section>
+            <section role="tabpanel" id="vtab-3" hidden>
+              <h4 mt="0">Notification Preferences</h4>
+              <p>Control how you receive notifications.</p>
+            </section>
+          </div>
+        </section>
+      </div>
+      <div class="code-block">&lt;nav role="tablist" vertical&gt;
+  &lt;button role="tab" aria-selected="true"&gt;Account&lt;/button&gt;
+  &lt;button role="tab"&gt;Security&lt;/button&gt;
+  &lt;button role="tab"&gt;Notifications&lt;/button&gt;
+&lt;/nav&gt;</div>
+    </section>
+
+    <!-- ============================================
+         OFFCANVAS
+         ============================================ -->
+    <section id="offcanvas" py="xl" border="bottom">
+      <h2>Offcanvas</h2>
+      <p>Slide-in panels using the native <code>&lt;dialog&gt;</code> element with position attributes.</p>
+
+      <h3>Offcanvas Positions</h3>
+      <div class="example-box">
+        <nav layout="row" gap="md" wrap>
+          <button data-dialog-open="offcanvas-left">Open Left</button>
+          <button data-dialog-open="offcanvas-right" variant="secondary">Open Right</button>
+          <button data-dialog-open="offcanvas-top" variant="ghost">Open Top</button>
+          <button data-dialog-open="offcanvas-bottom" variant="ghost">Open Bottom</button>
+        </nav>
+        
+        <dialog id="offcanvas-left" position="left">
+          <nav layout="row" justify="between" align="center" mb="lg">
+            <strong size="lg">Left Panel</strong>
+            <button close data-dialog-close aria-label="Close">×</button>
+          </nav>
+          <nav layout="stack" gap="sm">
+            <a href="#">Menu Item 1</a>
+            <a href="#">Menu Item 2</a>
+            <a href="#">Menu Item 3</a>
+            <a href="#">Menu Item 4</a>
+          </nav>
+        </dialog>
+        
+        <dialog id="offcanvas-right" position="right">
+          <nav layout="row" justify="between" align="center" mb="lg">
+            <strong size="lg">Right Panel</strong>
+            <button close data-dialog-close aria-label="Close">×</button>
+          </nav>
+          <p>This panel slides in from the right.</p>
+          <button data-dialog-close full mt="lg">Close</button>
+        </dialog>
+        
+        <dialog id="offcanvas-top" position="top">
+          <nav layout="row" justify="between" align="center">
+            <strong>Top Panel</strong>
+            <button close data-dialog-close aria-label="Close">×</button>
+          </nav>
+          <p mt="md">This panel slides down from the top of the screen.</p>
+        </dialog>
+        
+        <dialog id="offcanvas-bottom" position="bottom">
+          <nav layout="row" justify="between" align="center">
+            <strong>Bottom Panel</strong>
+            <button close data-dialog-close aria-label="Close">×</button>
+          </nav>
+          <p mt="md">This panel slides up from the bottom, like a mobile action sheet.</p>
+          <nav layout="row" gap="md" mt="lg">
+            <button grow data-dialog-close>Cancel</button>
+            <button grow variant="danger" data-dialog-close>Delete</button>
+          </nav>
+        </dialog>
+      </div>
+      <div class="code-block">&lt;button data-dialog-open="sidebar"&gt;Open Sidebar&lt;/button&gt;
+
+&lt;dialog id="sidebar" position="left"&gt;
+  &lt;nav layout="row" justify="between" align="center" mb="lg"&gt;
+    &lt;strong&gt;Menu&lt;/strong&gt;
+    &lt;button close data-dialog-close&gt;×&lt;/button&gt;
+  &lt;/nav&gt;
+  &lt;nav layout="stack" gap="sm"&gt;
+    &lt;a href="#"&gt;Home&lt;/a&gt;
+    &lt;a href="#"&gt;About&lt;/a&gt;
+    &lt;a href="#"&gt;Contact&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/dialog&gt;</div>
+
+      <h3>Position Options</h3>
+      <div class="example-box" overflow="auto">
+        <table w="full">
+          <thead>
+            <tr>
+              <th text="left" p="sm" border="bottom">Attribute</th>
+              <th text="left" p="sm" border="bottom">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td p="sm" border="bottom"><code>position="left"</code></td><td p="sm" border="bottom">Slides in from the left edge</td></tr>
+            <tr><td p="sm" border="bottom"><code>position="right"</code></td><td p="sm" border="bottom">Slides in from the right edge</td></tr>
+            <tr><td p="sm" border="bottom"><code>position="top"</code></td><td p="sm" border="bottom">Slides down from the top</td></tr>
+            <tr><td p="sm"><code>position="bottom"</code></td><td p="sm">Slides up from the bottom (action sheet style)</td></tr>
           </tbody>
         </table>
       </div>
