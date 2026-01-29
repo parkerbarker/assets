@@ -50,17 +50,6 @@
       border: 1px solid var(--border);
     }
     
-    .toc-link {
-      display: block;
-      padding: var(--space-xs) 0;
-      color: var(--muted);
-      font-size: var(--text-sm);
-    }
-    
-    .toc-link:hover {
-      color: var(--primary);
-    }
-    
     section[id] {
       scroll-margin-top: 5rem;
     }
@@ -70,6 +59,101 @@
       padding: var(--space-md);
       text-align: center;
       border-radius: var(--radius-sm);
+    }
+    
+    /* Sidebar Navigation */
+    .page-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: var(--space-xl);
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: var(--space-lg);
+    }
+    
+    .sidebar-nav {
+      position: sticky;
+      top: calc(60px + var(--space-lg));
+      height: fit-content;
+      max-height: calc(100vh - 80px);
+      overflow-y: auto;
+      padding: var(--space-md);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+    
+    .sidebar-nav h4 {
+      margin: 0 0 var(--space-sm) 0;
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+    
+    .sidebar-nav h4:not(:first-child) {
+      margin-top: var(--space-lg);
+      padding-top: var(--space-md);
+      border-top: 1px solid var(--border);
+    }
+    
+    .sidebar-nav a {
+      display: block;
+      padding: var(--space-xs) var(--space-sm);
+      margin: 2px 0;
+      font-size: var(--text-sm);
+      color: var(--muted);
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+    }
+    
+    .sidebar-nav a:hover {
+      color: var(--text);
+      background: var(--gray-100);
+    }
+    
+    .sidebar-nav a[aria-current="true"] {
+      color: var(--primary);
+      background: var(--primary-light);
+      font-weight: 600;
+    }
+    
+    .main-content {
+      min-width: 0;
+    }
+    
+    /* Mobile: Hide sidebar, show inline TOC */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+        padding: var(--space-md);
+      }
+      
+      .sidebar-nav {
+        display: none;
+      }
+      
+      .mobile-toc {
+        display: block;
+      }
+    }
+    
+    @media (min-width: 901px) {
+      .mobile-toc {
+        display: none;
+      }
+    }
+    
+    .mobile-toc a {
+      display: block;
+      padding: var(--space-xs) 0;
+      color: var(--muted);
+      font-size: var(--text-sm);
+    }
+    
+    .mobile-toc a:hover {
+      color: var(--primary);
     }
   </style>
 </head>
@@ -91,45 +175,79 @@
     </nav>
   </header>
 
-  <main size="lg" py="2xl">
-    
-    <!-- Hero Section -->
-    <section text="center" py="2xl" mb="2xl" border="bottom">
-      <h1>Semantic CSS</h1>
-      <p size="xl" color="muted" my="lg">
-        A modern CSS framework using semantic HTML elements and attribute selectors.<br>
-        No classes. No IDs. Just semantic elements and attributes.
-      </p>
-      <nav layout="row" gap="md" justify="center" wrap>
-        <button onclick="scrollTo('#getting-started')">Get Started</button>
-        <button variant="secondary" onclick="window.open('css/semantic.css')">View CSS</button>
-        <button variant="ghost" onclick="window.open('js/semantic.js')">View JS</button>
-      </nav>
-    </section>
+  <!-- Hero Section -->
+  <section text="center" py="2xl" border="bottom">
+    <h1>Semantic CSS</h1>
+    <p size="xl" color="muted" my="lg">
+      A modern CSS framework using semantic HTML elements and attribute selectors.<br>
+      No classes. No IDs. Just semantic elements and attributes.
+    </p>
+    <nav layout="row" gap="md" justify="center" wrap>
+      <button onclick="scrollTo('#getting-started')">Get Started</button>
+      <button variant="secondary" onclick="window.open('css/semantic.css')">View CSS</button>
+      <button variant="ghost" onclick="window.open('js/semantic.js')">View JS</button>
+    </nav>
+  </section>
 
-    <!-- Table of Contents -->
-    <aside mb="2xl" p="lg" rounded bg="surface" border>
-      <h4 mt="0">Contents</h4>
-      <nav layout="grid" cols="4" gap="sm" responsive>
-        <a href="#getting-started" class="toc-link">Getting Started</a>
-        <a href="#typography" class="toc-link">Typography</a>
-        <a href="#layout" class="toc-link">Layout</a>
-        <a href="#spacing" class="toc-link">Spacing</a>
-        <a href="#content-blocks" class="toc-link">Content Blocks</a>
-        <a href="#buttons" class="toc-link">Buttons</a>
-        <a href="#forms" class="toc-link">Forms</a>
-        <a href="#interactive" class="toc-link">Interactive</a>
-        <a href="#alerts" class="toc-link">Alerts</a>
-        <a href="#badges" class="toc-link">Badges</a>
-        <a href="#navigation" class="toc-link">Navigation</a>
-        <a href="#lists-progress" class="toc-link">Lists &amp; Progress</a>
-        <a href="#enhanced-forms" class="toc-link">Enhanced Forms</a>
-        <a href="#tabs" class="toc-link">Tabs</a>
-        <a href="#offcanvas" class="toc-link">Offcanvas</a>
-        <a href="#utilities" class="toc-link">Utilities</a>
-        <a href="#theming" class="toc-link">Theming</a>
-      </nav>
+  <div class="page-layout">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar-nav" data-scrollspy="section[id]">
+      <h4>Getting Started</h4>
+      <a href="#getting-started">Introduction</a>
+      
+      <h4>Core</h4>
+      <a href="#typography">Typography</a>
+      <a href="#layout">Layout</a>
+      <a href="#spacing">Spacing</a>
+      <a href="#content-blocks">Content Blocks</a>
+      
+      <h4>Components</h4>
+      <a href="#buttons">Buttons</a>
+      <a href="#forms">Forms</a>
+      <a href="#interactive">Interactive</a>
+      <a href="#alerts">Alerts</a>
+      <a href="#badges">Badges</a>
+      
+      <h4>Navigation</h4>
+      <a href="#navigation">Nav Components</a>
+      <a href="#tabs">Tabs</a>
+      <a href="#offcanvas">Offcanvas</a>
+      
+      <h4>Data Display</h4>
+      <a href="#lists-progress">Lists &amp; Progress</a>
+      <a href="#utilities">Utilities</a>
+      
+      <h4>Customization</h4>
+      <a href="#enhanced-forms">Enhanced Forms</a>
+      <a href="#theming">Theming</a>
     </aside>
+
+    <main class="main-content">
+    
+      <!-- Mobile Table of Contents -->
+      <aside class="mobile-toc" mb="xl" p="lg" rounded bg="surface" border>
+        <h4 mt="0">Contents</h4>
+        <nav layout="grid" cols="3" gap="sm" responsive>
+          <a href="#getting-started">Getting Started</a>
+          <a href="#typography">Typography</a>
+          <a href="#layout">Layout</a>
+          <a href="#spacing">Spacing</a>
+          <a href="#content-blocks">Content Blocks</a>
+          <a href="#buttons">Buttons</a>
+          <a href="#forms">Forms</a>
+          <a href="#interactive">Interactive</a>
+          <a href="#alerts">Alerts</a>
+          <a href="#badges">Badges</a>
+          <a href="#navigation">Navigation</a>
+          <a href="#lists-progress">Lists &amp; Progress</a>
+          <a href="#enhanced-forms">Enhanced Forms</a>
+          <a href="#tabs">Tabs</a>
+          <a href="#offcanvas">Offcanvas</a>
+          <a href="#utilities">Utilities</a>
+          <a href="#theming">Theming</a>
+        </nav>
+      </aside>
 
     <!-- ============================================
          GETTING STARTED
@@ -1601,7 +1719,8 @@ Semantic.theme.toggle();        // Toggle current
       </ul>
     </section>
 
-  </main>
+    </main>
+  </div>
 
   <!-- Footer -->
   <footer p="xl" text="center" border="top" mt="2xl">
