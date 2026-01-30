@@ -41,23 +41,70 @@ Add these lines to any HTML page to use the style system:
 | Asset | URL |
 |-------|-----|
 | CSS | `https://assets.parkerbarker.com/css/parkerbarker.css` |
+| CSS (minified) | `https://assets.parkerbarker.com/css/parkerbarker.min.css` |
 | JavaScript | `https://assets.parkerbarker.com/js/parkerbarker.js` |
-| Style Guide | `https://assets.parkerbarker.com/styleguide.html` |
+| JS (minified) | `https://assets.parkerbarker.com/js/parkerbarker.min.js` |
+| Semantic CSS | `https://assets.parkerbarker.com/css/semantic.min.css` |
+| Semantic JS | `https://assets.parkerbarker.com/js/semantic.min.js` |
 
 ## File Structure
 
 ```
 ├── css/
-│   └── parkerbarker.css    # All styles consolidated
+│   ├── parkerbarker.css        # Source styles
+│   ├── parkerbarker.min.css    # Minified (25% smaller)
+│   ├── semantic.css            # Semantic CSS system
+│   └── semantic.min.css        # Minified (27% smaller)
 ├── js/
-│   └── parkerbarker.js     # All JS consolidated (vanilla, no dependencies)
-├── fonts/                   # GT Ultra fonts (woff2, woff, ttf, otf)
-├── favicon/                 # Favicon assets for all platforms
-├── index.html              # Landing page
-├── styleguide.html         # Interactive style guide
-├── CNAME                   # Custom domain for GitHub Pages
-└── README.md               # This file
+│   ├── parkerbarker.js         # Source JS (vanilla, no dependencies)
+│   ├── parkerbarker.min.js     # Minified (56% smaller)
+│   ├── semantic.js             # Semantic JS system
+│   └── semantic.min.js         # Minified (59% smaller)
+├── fonts/                       # GT Ultra fonts (woff2, woff, ttf, otf)
+├── favicon/                     # Favicon assets for all platforms
+├── scripts/                     # Build scripts
+├── index.html                   # Landing page
+├── semantic-guide.html          # Semantic CSS guide
+├── CNAME                        # Custom domain for GitHub Pages
+└── README.md                    # This file
 ```
+
+## Development
+
+### Prerequisites
+
+- Node.js 18+
+- pnpm (`npm install -g pnpm`)
+
+### Setup
+
+```bash
+pnpm install
+```
+
+### Commands
+
+| Command | Description |
+|---------|-------------|
+| `pnpm run build` | Build all minified JS and CSS with source maps |
+| `pnpm run build:js` | Build minified JS only |
+| `pnpm run build:css` | Build minified CSS only |
+| `pnpm run lint` | Run ESLint and Stylelint |
+| `pnpm run lint:fix` | Auto-fix lint issues |
+
+### Git Hooks
+
+The repo uses Husky for automated quality checks:
+
+**On commit:**
+- Runs linters with auto-fix on staged CSS/JS files
+
+**On push:**
+- Detects if CSS/JS source files changed
+- Builds minified files automatically
+- Amends commit to include built files (push again if prompted)
+
+This ensures minified files are always in sync with source files in the same commit.
 
 ## Hosting
 
