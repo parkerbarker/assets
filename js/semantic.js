@@ -1,7 +1,7 @@
 /**
  * Semantic.js - Companion JavaScript for Semantic CSS
  * Attribute-based enhancements for semantic HTML
- * 
+ *
  * Usage:
  *   <script src="js/semantic.js"></script>
  *   <script>Semantic.init();</script>
@@ -13,7 +13,7 @@
   // ==================================================
   // Configuration
   // ==================================================
-  
+
   var config = {
     enableTheme: true,
     enableToast: true,
@@ -27,7 +27,7 @@
   // ==================================================
   // Environment Detection
   // ==================================================
-  
+
   var env = {
     iOS: /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream,
     touch: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
@@ -40,7 +40,7 @@
   // ==================================================
   // Utility Functions
   // ==================================================
-  
+
   var utils = {
     /**
      * Query selector shorthand
@@ -48,14 +48,14 @@
     $: function(selector, context) {
       return (context || document).querySelector(selector);
     },
-    
+
     /**
      * Query selector all as array
      */
     $$: function(selector, context) {
       return Array.prototype.slice.call((context || document).querySelectorAll(selector));
     },
-    
+
     /**
      * Add event listener with delegation support
      */
@@ -65,7 +65,7 @@
         element.addEventListener(event, handler);
         return;
       }
-      
+
       element.addEventListener(event, function(e) {
         var target = e.target.closest(selector);
         if (target && element.contains(target)) {
@@ -73,7 +73,7 @@
         }
       });
     },
-    
+
     /**
      * Set attribute
      */
@@ -86,21 +86,21 @@
         element.setAttribute(name, value);
       }
     },
-    
+
     /**
      * Check if attribute exists
      */
     hasAttr: function(element, name) {
       return element.hasAttribute(name);
     },
-    
+
     /**
      * Get attribute value
      */
     getAttr: function(element, name) {
       return element.getAttribute(name);
     },
-    
+
     /**
      * Create element with attributes
      */
@@ -118,7 +118,7 @@
       }
       return el;
     },
-    
+
     /**
      * Debounce function
      */
@@ -138,53 +138,53 @@
   // ==================================================
   // Theme Module
   // ==================================================
-  
+
   var theme = {
     _initialized: false,
-    
+
     init: function() {
       if (this._initialized) return;
       this._initialized = true;
-      
+
       var self = this;
-      
+
       // Listen for theme toggle clicks
       utils.on(document, 'click', '[data-theme-toggle]', function(e) {
         e.preventDefault();
         self.toggle();
       });
-      
+
       // Listen for system preference changes
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(_e) {
         // Only auto-switch if no explicit preference is set
         var currentTheme = self.get();
         if (currentTheme === 'system' || !currentTheme) {
           self._applySystemTheme();
         }
       });
-      
+
       // Restore saved preference
       var saved = this._getSaved();
       if (saved && saved !== 'system') {
         this.set(saved);
       }
     },
-    
+
     /**
      * Get current theme
      */
     get: function() {
-      return utils.getAttr(document.documentElement, 'theme') || 
-             utils.getAttr(document.documentElement, 'data-theme') || 
+      return utils.getAttr(document.documentElement, 'theme') ||
+             utils.getAttr(document.documentElement, 'data-theme') ||
              'system';
     },
-    
+
     /**
      * Set theme
      */
     set: function(mode) {
       var html = document.documentElement;
-      
+
       if (mode === 'system') {
         html.removeAttribute('theme');
         html.removeAttribute('data-theme');
@@ -194,13 +194,13 @@
         utils.setAttr(html, 'data-theme', mode);
         this._save(mode);
       }
-      
+
       // Dispatch event
       document.dispatchEvent(new CustomEvent('semantic:theme-change', {
         detail: { theme: mode }
       }));
     },
-    
+
     /**
      * Toggle between light and dark
      */
@@ -212,7 +212,7 @@
         this.set('dark');
       }
     },
-    
+
     /**
      * Check if dark mode is active
      */
@@ -222,7 +222,7 @@
       if (current === 'light') return false;
       return env.darkMode;
     },
-    
+
     /**
      * Apply system theme
      */
@@ -232,25 +232,25 @@
       html.removeAttribute('theme');
       html.removeAttribute('data-theme');
     },
-    
+
     /**
      * Save theme preference
      */
     _save: function(mode) {
       try {
         localStorage.setItem('semantic-theme', mode);
-      } catch (e) {
+      } catch {
         // localStorage not available
       }
     },
-    
+
     /**
      * Get saved theme preference
      */
     _getSaved: function() {
       try {
         return localStorage.getItem('semantic-theme');
-      } catch (e) {
+      } catch {
         return null;
       }
     }
@@ -259,11 +259,11 @@
   // ==================================================
   // Toast Module
   // ==================================================
-  
+
   var toast = {
     _container: null,
     _queue: [],
-    
+
     init: function() {
       // Create container if using stacked toasts
       if (!this._container) {
@@ -275,7 +275,7 @@
         document.body.appendChild(this._container);
       }
     },
-    
+
     /**
      * Show a toast notification
      */
@@ -285,15 +285,15 @@
       var duration = typeof options.duration !== 'undefined' ? options.duration : config.toastDuration;
       var closable = options.closable !== false;
       var self = this;
-      
+
       this.init();
-      
+
       // Create toast using semantic output element
       var toastEl = utils.create('output', {
         'role': 'status',
         'type': type
       }, message);
-      
+
       // Add close button if closable
       if (closable) {
         var closeBtn = utils.create('button', {
@@ -303,47 +303,47 @@
           'aria-label': 'Close notification',
           'style': 'color: inherit; min-height: auto; padding: 0.25rem;'
         }, '×');
-        
+
         closeBtn.addEventListener('click', function() {
           self.hide(toastEl);
         });
-        
+
         toastEl.appendChild(closeBtn);
       }
-      
+
       // Add to container
       this._container.appendChild(toastEl);
-      
+
       // Trigger animation
       requestAnimationFrame(function() {
         requestAnimationFrame(function() {
           utils.setAttr(toastEl, 'visible', true);
         });
       });
-      
+
       // Auto-hide after duration
       if (duration > 0) {
         setTimeout(function() {
           self.hide(toastEl);
         }, duration);
       }
-      
+
       return toastEl;
     },
-    
+
     /**
      * Hide a toast
      */
     hide: function(toastEl) {
       toastEl.removeAttribute('visible');
-      
+
       toastEl.addEventListener('transitionend', function handler() {
         toastEl.removeEventListener('transitionend', handler);
         if (toastEl.parentNode) {
           toastEl.parentNode.removeChild(toastEl);
         }
       });
-      
+
       // Fallback removal if transition doesn't fire
       setTimeout(function() {
         if (toastEl.parentNode) {
@@ -351,22 +351,22 @@
         }
       }, 500);
     },
-    
+
     /**
      * Convenience methods
      */
     success: function(message, options) {
       return this.show(message, Object.assign({}, options, { type: 'success' }));
     },
-    
+
     error: function(message, options) {
       return this.show(message, Object.assign({}, options, { type: 'danger' }));
     },
-    
+
     warning: function(message, options) {
       return this.show(message, Object.assign({}, options, { type: 'warning' }));
     },
-    
+
     info: function(message, options) {
       return this.show(message, Object.assign({}, options, { type: 'info' }));
     }
@@ -375,13 +375,13 @@
   // ==================================================
   // Forms Module
   // ==================================================
-  
+
   var forms = {
     init: function() {
       this._initValidation();
       this._initEnhancements();
     },
-    
+
     /**
      * Initialize form validation
      */
@@ -390,7 +390,7 @@
       utils.on(document, 'blur', 'input, select, textarea', function() {
         this._validateField(this);
       }.bind(this), true);
-      
+
       // Also validate on input for better UX
       utils.on(document, 'input', 'input, textarea', utils.debounce(function(e) {
         var field = e.target;
@@ -400,15 +400,15 @@
           this._validateField(field);
         }
       }.bind(this), 300));
-      
+
       // Handle form submission
       utils.on(document, 'submit', 'form', function(e) {
         var form = e.target;
         var isValid = this._validateForm(form);
-        
+
         if (!isValid) {
           e.preventDefault();
-          
+
           // Focus first invalid field
           var firstInvalid = form.querySelector(':invalid');
           if (firstInvalid) {
@@ -418,16 +418,16 @@
         }
       }.bind(this));
     },
-    
+
     /**
      * Validate a single field
      */
     _validateField: function(field) {
       var isValid = field.checkValidity();
-      
+
       // Find associated error element
       var errorEl = this._getErrorElement(field);
-      
+
       if (!isValid && field.validationMessage) {
         if (errorEl) {
           errorEl.textContent = field.validationMessage;
@@ -437,27 +437,27 @@
         errorEl.textContent = '';
         errorEl.hidden = true;
       }
-      
+
       return isValid;
     },
-    
+
     /**
      * Validate entire form
      */
     _validateForm: function(form) {
       var fields = form.querySelectorAll('input, select, textarea');
       var isValid = true;
-      
+
       fields.forEach(function(field) {
         field.dataset.touched = 'true';
         if (!this._validateField(field)) {
           isValid = false;
         }
       }.bind(this));
-      
+
       return isValid;
     },
-    
+
     /**
      * Get error element for a field
      */
@@ -468,16 +468,16 @@
         var errorEl = document.querySelector('[data-error-for="' + id + '"]');
         if (errorEl) return errorEl;
       }
-      
+
       // Look for sibling with data-error attribute
       var parent = field.parentElement;
       if (parent) {
         return parent.querySelector('[data-error]');
       }
-      
+
       return null;
     },
-    
+
     /**
      * Initialize form enhancements
      */
@@ -498,13 +498,13 @@
   // ==================================================
   // Details/Accordion Module
   // ==================================================
-  
+
   var details = {
     init: function() {
       this._initAccordionGroups();
       this._initAnimations();
     },
-    
+
     /**
      * Initialize accordion groups (only one open at a time)
      */
@@ -512,10 +512,10 @@
       utils.on(document, 'toggle', 'details[group]', function(e) {
         var detail = e.target;
         if (!detail.open) return;
-        
+
         var groupName = detail.getAttribute('group');
         var siblings = utils.$$('details[group="' + groupName + '"]');
-        
+
         siblings.forEach(function(sibling) {
           if (sibling !== detail && sibling.open) {
             sibling.open = false;
@@ -523,19 +523,19 @@
         });
       }, true);
     },
-    
+
     /**
      * Initialize smooth animations for details
      */
     _initAnimations: function() {
       if (env.reducedMotion) return;
-      
+
       utils.$$('details[animated]').forEach(function(detail) {
         var summary = detail.querySelector('summary');
         var content = detail.querySelector(':scope > *:not(summary)');
-        
+
         if (!content) return;
-        
+
         // Wrap content for animation
         if (!content.hasAttribute('data-details-content')) {
           var wrapper = utils.create('div', { 'data-details-content': '' });
@@ -545,10 +545,10 @@
           detail.appendChild(wrapper);
           content = wrapper;
         }
-        
+
         summary.addEventListener('click', function(e) {
           e.preventDefault();
-          
+
           if (detail.open) {
             // Closing
             content.style.height = content.scrollHeight + 'px';
@@ -556,7 +556,7 @@
               content.style.height = '0';
               content.style.overflow = 'hidden';
             });
-            
+
             content.addEventListener('transitionend', function handler() {
               content.removeEventListener('transitionend', handler);
               detail.open = false;
@@ -569,11 +569,11 @@
             var targetHeight = content.scrollHeight;
             content.style.height = '0';
             content.style.overflow = 'hidden';
-            
+
             requestAnimationFrame(function() {
               content.style.height = targetHeight + 'px';
             });
-            
+
             content.addEventListener('transitionend', function handler() {
               content.removeEventListener('transitionend', handler);
               content.style.height = '';
@@ -588,20 +588,20 @@
   // ==================================================
   // Dialog Module
   // ==================================================
-  
+
   var dialog = {
     _stack: [],
-    
+
     init: function() {
       if (!env.supportsDialog) {
         console.warn('Semantic.js: Native dialog not supported. Consider a polyfill.');
         return;
       }
-      
+
       this._initTriggers();
       this._initCloseHandlers();
     },
-    
+
     /**
      * Initialize dialog triggers
      */
@@ -615,21 +615,21 @@
         }
       });
     },
-    
+
     /**
      * Initialize close handlers
      */
     _initCloseHandlers: function() {
       var self = this;
-      
+
       // Close button
-      utils.on(document, 'click', '[data-dialog-close]', function(e) {
+      utils.on(document, 'click', '[data-dialog-close]', function(_e) {
         var dialogEl = this.closest('dialog');
         if (dialogEl) {
           self.close(dialogEl);
         }
       });
-      
+
       // Backdrop click
       utils.on(document, 'click', 'dialog', function(e) {
         if (e.target === this) {
@@ -641,13 +641,13 @@
             rect.left <= e.clientX &&
             e.clientX <= rect.left + rect.width
           );
-          
+
           if (!isInDialog) {
             self.close(this);
           }
         }
       });
-      
+
       // Escape key
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && self._stack.length > 0) {
@@ -658,7 +658,7 @@
         }
       });
     },
-    
+
     /**
      * Open a dialog
      */
@@ -666,26 +666,26 @@
       if (typeof dialogEl === 'string') {
         dialogEl = document.getElementById(dialogEl);
       }
-      
+
       if (!dialogEl) return;
-      
+
       // Store previously focused element
       dialogEl._previousFocus = document.activeElement;
-      
+
       // Show modal
       dialogEl.showModal();
       this._stack.push(dialogEl);
-      
+
       // Focus first focusable element
       var focusable = dialogEl.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
       if (focusable) {
         focusable.focus();
       }
-      
+
       // Dispatch event
       dialogEl.dispatchEvent(new CustomEvent('semantic:dialog-open'));
     },
-    
+
     /**
      * Close a dialog
      */
@@ -693,22 +693,22 @@
       if (typeof dialogEl === 'string') {
         dialogEl = document.getElementById(dialogEl);
       }
-      
+
       if (!dialogEl || !dialogEl.open) return;
-      
+
       dialogEl.close();
-      
+
       // Remove from stack
       var index = this._stack.indexOf(dialogEl);
       if (index > -1) {
         this._stack.splice(index, 1);
       }
-      
+
       // Restore focus
       if (dialogEl._previousFocus) {
         dialogEl._previousFocus.focus();
       }
-      
+
       // Dispatch event
       dialogEl.dispatchEvent(new CustomEvent('semantic:dialog-close'));
     }
@@ -717,22 +717,22 @@
   // ==================================================
   // iOS Module
   // ==================================================
-  
+
   var ios = {
     init: function() {
       if (!env.iOS) return;
-      
+
       // Add iOS class to body
       document.body.setAttribute('ios', '');
-      
+
       if (env.standalone) {
         document.body.setAttribute('standalone', '');
       }
-      
+
       this._fixInputFocus();
       this._enableFastClicks();
     },
-    
+
     /**
      * Fix input focus scrolling issues
      */
@@ -750,7 +750,7 @@
         }
       }, true);
     },
-    
+
     /**
      * Enable fast clicks by removing 300ms delay
      */
@@ -762,42 +762,42 @@
   // ==================================================
   // Tabs Module
   // ==================================================
-  
+
   var tabs = {
     init: function() {
       this._initTabs();
       this._initKeyboardNav();
     },
-    
+
     /**
      * Initialize tab click handlers
      */
     _initTabs: function() {
       var self = this;
-      
+
       utils.on(document, 'click', '[role="tab"]', function(e) {
         e.preventDefault();
         self.select(this);
       });
     },
-    
+
     /**
      * Initialize keyboard navigation
      */
     _initKeyboardNav: function() {
       var self = this;
-      
+
       utils.on(document, 'keydown', '[role="tab"]', function(e) {
         var tablist = this.closest('[role="tablist"]');
         if (!tablist) return;
-        
+
         var tabs = Array.prototype.slice.call(tablist.querySelectorAll('[role="tab"]'));
         var currentIndex = tabs.indexOf(this);
         var isVertical = tablist.hasAttribute('vertical');
-        
+
         var nextKey = isVertical ? 'ArrowDown' : 'ArrowRight';
         var prevKey = isVertical ? 'ArrowUp' : 'ArrowLeft';
-        
+
         if (e.key === nextKey) {
           e.preventDefault();
           var nextIndex = (currentIndex + 1) % tabs.length;
@@ -819,7 +819,7 @@
         }
       });
     },
-    
+
     /**
      * Select a tab
      */
@@ -828,53 +828,53 @@
         tab = document.querySelector(tab);
       }
       if (!tab) return;
-      
+
       var tablist = tab.closest('[role="tablist"]');
       if (!tablist) return;
-      
+
       // Get all tabs in this tablist
       var allTabs = tablist.querySelectorAll('[role="tab"]');
-      
+
       // Deselect all tabs
       allTabs.forEach(function(t, index) {
         t.setAttribute('aria-selected', 'false');
         t.setAttribute('tabindex', '-1');
-        
+
         // Find and hide corresponding panel
         var panelId = t.getAttribute('aria-controls');
         var panel = panelId ? document.getElementById(panelId) : null;
-        
+
         // If no aria-controls, try to find panel by index
         if (!panel) {
           var container = tablist.parentElement;
           var panels = container ? container.querySelectorAll('[role="tabpanel"]') : [];
           panel = panels[index];
         }
-        
+
         if (panel) {
           panel.hidden = true;
         }
       });
-      
+
       // Select clicked tab
       tab.setAttribute('aria-selected', 'true');
       tab.setAttribute('tabindex', '0');
-      
+
       // Show corresponding panel
       var panelId = tab.getAttribute('aria-controls');
       var panel = panelId ? document.getElementById(panelId) : null;
-      
+
       if (!panel) {
         var tabIndex = Array.prototype.indexOf.call(allTabs, tab);
         var container = tablist.parentElement;
         var panels = container ? container.querySelectorAll('[role="tabpanel"]') : [];
         panel = panels[tabIndex];
       }
-      
+
       if (panel) {
         panel.hidden = false;
       }
-      
+
       // Dispatch event
       tab.dispatchEvent(new CustomEvent('semantic:tab-select', {
         bubbles: true,
@@ -886,28 +886,28 @@
   // ==================================================
   // Navbar Module
   // ==================================================
-  
+
   var navbar = {
     init: function() {
       this._initToggles();
     },
-    
+
     /**
      * Initialize navbar toggle buttons
      */
     _initToggles: function() {
       var self = this;
-      
+
       utils.on(document, 'click', '[data-navbar-toggle]', function(e) {
         e.preventDefault();
         var nav = this.closest('[data-navbar]') || this.closest('nav');
         var menu = nav ? nav.querySelector('[data-navbar-menu]') : null;
-        
+
         if (menu) {
           self.toggle(menu, this);
         }
       });
-      
+
       // Close on escape
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
@@ -917,7 +917,7 @@
           });
         }
       });
-      
+
       // Close on click outside
       document.addEventListener('click', function(e) {
         var openMenus = document.querySelectorAll('[data-navbar-menu][open]');
@@ -929,7 +929,7 @@
         });
       });
     },
-    
+
     /**
      * Toggle menu visibility
      */
@@ -940,7 +940,7 @@
         this.open(menu, button);
       }
     },
-    
+
     /**
      * Open menu
      */
@@ -951,7 +951,7 @@
         button.setAttribute('aria-expanded', 'true');
       }
     },
-    
+
     /**
      * Close menu
      */
@@ -973,40 +973,40 @@
   // ==================================================
   // Tooltip Module
   // ==================================================
-  
+
   var tooltip = {
     _activeTooltip: null,
-    
+
     init: function() {
       this._initTooltips();
     },
-    
+
     /**
      * Initialize tooltips with smart positioning
      */
     _initTooltips: function() {
       var self = this;
-      
+
       // Show on mouseenter
       utils.on(document, 'mouseenter', '[data-tooltip]', function() {
         self.show(this);
       });
-      
+
       // Hide on mouseleave
       utils.on(document, 'mouseleave', '[data-tooltip]', function() {
         self.hide(this);
       });
-      
+
       // Show on focus for accessibility
       utils.on(document, 'focus', '[data-tooltip]', function() {
         self.show(this);
       }, true);
-      
+
       // Hide on blur
       utils.on(document, 'blur', '[data-tooltip]', function() {
         self.hide(this);
       }, true);
-      
+
       // Hide on escape
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && self._activeTooltip) {
@@ -1014,33 +1014,33 @@
         }
       });
     },
-    
+
     /**
      * Show tooltip with smart positioning
      */
     show: function(trigger) {
       var text = trigger.getAttribute('data-tooltip');
       if (!text) return;
-      
+
       // Remove any existing tooltip
       this.hide(trigger);
-      
+
       // Create tooltip element
       var tip = document.createElement('div');
       tip.setAttribute('role', 'tooltip');
       tip.textContent = text;
       tip.style.cssText = 'position:fixed;z-index:10000;background:var(--gray-900);color:white;padding:0.5rem 0.75rem;border-radius:var(--radius-sm);font-size:var(--text-sm);max-width:200px;pointer-events:none;opacity:0;transition:opacity 0.15s;';
-      
+
       document.body.appendChild(tip);
-      
+
       // Calculate position
       var rect = trigger.getBoundingClientRect();
       var tipRect = tip.getBoundingClientRect();
       var position = trigger.getAttribute('data-tooltip-position') || 'top';
-      
+
       var top, left;
       var padding = 8;
-      
+
       // Calculate initial position
       switch (position) {
         case 'bottom':
@@ -1059,34 +1059,34 @@
           top = rect.top - tipRect.height - padding;
           left = rect.left + (rect.width - tipRect.width) / 2;
       }
-      
+
       // Smart positioning - flip if off screen
       if (top < 0) {
         top = rect.bottom + padding;
       } else if (top + tipRect.height > window.innerHeight) {
         top = rect.top - tipRect.height - padding;
       }
-      
+
       if (left < 0) {
         left = padding;
       } else if (left + tipRect.width > window.innerWidth) {
         left = window.innerWidth - tipRect.width - padding;
       }
-      
+
       tip.style.top = top + 'px';
       tip.style.left = left + 'px';
-      
+
       // Animate in
       requestAnimationFrame(function() {
         tip.style.opacity = '1';
       });
-      
+
       // Store reference
       trigger._tooltip = tip;
       tip._trigger = trigger;
       this._activeTooltip = tip;
     },
-    
+
     /**
      * Hide tooltip
      */
@@ -1110,43 +1110,42 @@
   // ==================================================
   // Scrollspy Module
   // ==================================================
-  
+
   var scrollspy = {
     _observers: [],
-    
+
     init: function() {
       this._initFromAttributes();
     },
-    
+
     /**
      * Initialize scrollspy from data attributes
      */
     _initFromAttributes: function() {
       var self = this;
       var spyNavs = document.querySelectorAll('[data-scrollspy]');
-      
+
       spyNavs.forEach(function(nav) {
         var targetSelector = nav.getAttribute('data-scrollspy');
         self.observe(nav, targetSelector);
       });
     },
-    
+
     /**
      * Observe sections for a navigation
      */
     observe: function(nav, sectionSelector) {
-      var self = this;
       sectionSelector = sectionSelector || 'section[id]';
-      
+
       var sections = document.querySelectorAll(sectionSelector);
       if (!sections.length) return;
-      
+
       var observer = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
           if (entry.isIntersecting) {
             var id = entry.target.id;
             if (!id) return;
-            
+
             // Update nav links
             var links = nav.querySelectorAll('a');
             links.forEach(function(link) {
@@ -1163,16 +1162,16 @@
         rootMargin: '-20% 0px -60% 0px',
         threshold: 0
       });
-      
+
       sections.forEach(function(section) {
         observer.observe(section);
       });
-      
+
       this._observers.push(observer);
-      
+
       return observer;
     },
-    
+
     /**
      * Stop observing
      */
@@ -1187,7 +1186,7 @@
   // ==================================================
   // Alert Dismiss
   // ==================================================
-  
+
   var alerts = {
     init: function() {
       utils.on(document, 'click', 'aside[role="alert"] button[close]', function() {
@@ -1209,12 +1208,12 @@
   // ==================================================
   // Date Picker Module
   // ==================================================
-  
+
   var datePicker = {
     init: function() {
       var self = this;
       var inputs = utils.$$('input[type="date"], input[type="time"], input[type="datetime-local"]');
-      
+
       inputs.forEach(function(input) {
         // Enhance inputs in WebViews or on iOS for consistent behavior
         if (self._isWebView() || env.iOS) {
@@ -1222,7 +1221,7 @@
         }
       });
     },
-    
+
     /**
      * Detect if running in a WebView
      */
@@ -1239,7 +1238,7 @@
         env.standalone
       );
     },
-    
+
     /**
      * Enhance date/time input for better mobile experience
      */
@@ -1247,7 +1246,7 @@
       // Make input readonly to prevent keyboard popup
       // but still allow native picker
       input.setAttribute('readonly', 'readonly');
-      
+
       // Ensure clicking opens the picker
       input.addEventListener('click', function() {
         if (input.showPicker) {
@@ -1259,11 +1258,11 @@
           }
         }
       });
-      
+
       // Add touch-friendly styling
       input.style.cursor = 'pointer';
     },
-    
+
     /**
      * Manually trigger picker for an input
      */
@@ -1284,13 +1283,13 @@
   // ==================================================
   // Dropdown Module
   // ==================================================
-  
+
   var dropdown = {
     init: function() {
       this._initClickOutside();
       this._initEscapeKey();
     },
-    
+
     /**
      * Close dropdowns when clicking outside
      */
@@ -1304,7 +1303,7 @@
         });
       });
     },
-    
+
     /**
      * Close dropdowns on escape key
      */
@@ -1321,7 +1320,7 @@
         }
       });
     },
-    
+
     /**
      * Programmatically open a dropdown
      */
@@ -1333,7 +1332,7 @@
         element.setAttribute('open', '');
       }
     },
-    
+
     /**
      * Programmatically close a dropdown
      */
@@ -1345,7 +1344,7 @@
         element.removeAttribute('open');
       }
     },
-    
+
     /**
      * Toggle a dropdown
      */
@@ -1366,18 +1365,18 @@
   // ==================================================
   // Core Initialization
   // ==================================================
-  
+
   var core = {
     _initialized: false,
-    
+
     init: function(options) {
       if (this._initialized) {
         console.warn('Semantic.js already initialized');
         return Semantic;
       }
-      
+
       this._initialized = true;
-      
+
       // Merge options
       if (options) {
         for (var key in options) {
@@ -1386,14 +1385,14 @@
           }
         }
       }
-      
+
       // Initialize modules
       if (config.enableTheme) theme.init();
       if (config.enableToast) toast.init();
       if (config.enableForms) forms.init();
       if (config.enableDetails) details.init();
       if (config.enableDialog) dialog.init();
-      
+
       // Initialize new modules
       tabs.init();
       navbar.init();
@@ -1402,41 +1401,34 @@
       alerts.init();
       datePicker.init();
       dropdown.init();
-      
+
       // iOS optimizations
       if (env.iOS) ios.init();
-      
+
       // Add touch/keyboard detection
       this._initInputDetection();
-      
+
       // Dispatch init event
       document.dispatchEvent(new CustomEvent('semantic:init'));
-      
-      console.log('Semantic.js initialized');
-      
+
       return Semantic;
     },
-    
+
     /**
      * Detect input method (touch vs keyboard)
      */
     _initInputDetection: function() {
-      var usingKeyboard = false;
-      
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Tab') {
-          usingKeyboard = true;
           document.body.setAttribute('keyboard-nav', '');
         }
       });
-      
+
       document.addEventListener('mousedown', function() {
-        usingKeyboard = false;
         document.body.removeAttribute('keyboard-nav');
       });
-      
+
       document.addEventListener('touchstart', function() {
-        usingKeyboard = false;
         document.body.removeAttribute('keyboard-nav');
       }, { passive: true });
     }
@@ -1445,14 +1437,14 @@
   // ==================================================
   // Public API
   // ==================================================
-  
+
   var Semantic = {
     // Core
     init: core.init.bind(core),
     config: config,
     env: env,
     utils: utils,
-    
+
     // Modules
     theme: {
       get: theme.get.bind(theme),
@@ -1460,7 +1452,7 @@
       toggle: theme.toggle.bind(theme),
       isDark: theme.isDark.bind(theme)
     },
-    
+
     toast: {
       show: toast.show.bind(toast),
       hide: toast.hide.bind(toast),
@@ -1469,43 +1461,43 @@
       warning: toast.warning.bind(toast),
       info: toast.info.bind(toast)
     },
-    
+
     dialog: {
       open: dialog.open.bind(dialog),
       close: dialog.close.bind(dialog)
     },
-    
+
     tabs: {
       select: tabs.select.bind(tabs)
     },
-    
+
     navbar: {
       toggle: navbar.toggle.bind(navbar),
       open: navbar.open.bind(navbar),
       close: navbar.close.bind(navbar)
     },
-    
+
     tooltip: {
       show: tooltip.show.bind(tooltip),
       hide: tooltip.hide.bind(tooltip)
     },
-    
+
     scrollspy: {
       observe: scrollspy.observe.bind(scrollspy),
       disconnect: scrollspy.disconnect.bind(scrollspy)
     },
-    
+
     datePicker: {
       init: datePicker.init.bind(datePicker),
       showPicker: datePicker.showPicker.bind(datePicker)
     },
-    
+
     dropdown: {
       open: dropdown.open.bind(dropdown),
       close: dropdown.close.bind(dropdown),
       toggle: dropdown.toggle.bind(dropdown)
     },
-    
+
     // Version
     version: '1.2.0'
   };
@@ -1513,13 +1505,6 @@
   // Expose globally
   global.Semantic = Semantic;
 
-  // Log availability
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      console.log('Semantic.js loaded. Call Semantic.init() to initialize.');
-    });
-  } else {
-    console.log('Semantic.js loaded. Call Semantic.init() to initialize.');
-  }
+  // Library ready - call Semantic.init() to initialize
 
 })(typeof window !== 'undefined' ? window : this);

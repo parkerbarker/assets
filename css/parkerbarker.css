@@ -1018,7 +1018,7 @@ details.pb-details .pb-details-content {
 .pb-toast {
   position: fixed;
   left: 50%;
-  bottom: 16px;
+  bottom: calc(16px + var(--pb-safe-area-bottom));
   transform: translateX(-50%) translateY(100%);
   max-width: calc(100% - 32px);
   width: auto;
@@ -1034,7 +1034,6 @@ details.pb-details .pb-details-content {
   z-index: 2000;
   opacity: 0;
   transition: transform 0.3s, opacity 0.3s;
-  bottom: calc(16px + var(--pb-safe-area-bottom));
 }
 
 .pb-toast-container {
