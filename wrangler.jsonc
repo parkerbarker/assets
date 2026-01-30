@@ -1,7 +1,17 @@
 {
-  "name": "parkerbarker-assets",
+  "name": "assets",
   "compatibility_date": "2026-01-30",
   "assets": {
-    "directory": "./"
+    "directory": "./",
+    "exclude": [
+      "node_modules",
+      ".git",
+      ".wrangler",
+      ".cursor",
+      "*.md",
+      "package.json",
+      "pnpm-lock.yaml",
+      "wrangler.jsonc"
+    ]
   }
 }
