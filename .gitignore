@@ -18,3 +18,8 @@ npm-debug.log*
 # Optional: Local development
 .env
 .env.local
+
+node_modules/
+
+# Cloudflare Wrangler
+.wrangler/
