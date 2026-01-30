@@ -1,0 +1,42 @@
+{
+  "name": "parkerbarker-assets",
+  "version": "1.0.0",
+  "description": "ParkerBarker design system assets",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/minify.js && node scripts/minify-css.js",
+    "build:js": "node scripts/minify.js",
+    "build:css": "node scripts/minify-css.js",
+    "lint": "eslint js/*.js --ignore-pattern '*.min.js' && stylelint css/*.css --ignore-pattern '*.min.css'",
+    "lint:js": "eslint js/*.js --ignore-pattern '*.min.js'",
+    "lint:css": "stylelint css/*.css --ignore-pattern '*.min.css'",
+    "lint:fix": "eslint js/*.js --ignore-pattern '*.min.js' --fix && stylelint css/*.css --ignore-pattern '*.min.css' --fix",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "cssnano": "^7.0.6",
+    "eslint": "^9.19.0",
+    "globals": "^15.14.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.3.0",
+    "postcss": "^8.5.1",
+    "stylelint": "^16.13.2",
+    "stylelint-config-standard": "^37.0.0",
+    "terser": "^5.37.0"
+  },
+  "lint-staged": {
+    "js/!(*.min).js": [
+      "eslint --fix"
+    ],
+    "css/!(*.min).css": [
+      "stylelint --fix"
+    ]
+  },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "last 2 Edge versions"
+  ]
+}

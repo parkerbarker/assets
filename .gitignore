@@ -19,5 +19,6 @@ npm-debug.log*
 .env
 .env.local
 
-# Cloudflare Wrangler
-.wrangler/
+
+# Node
+node_modules/
