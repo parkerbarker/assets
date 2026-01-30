@@ -1,0 +1,53 @@
+#!/bin/sh
+
+# Pre-push hook: Build minified files and amend commit if needed
+# Only runs if CSS or JS source files changed
+
+# Read the refs being pushed
+while read local_ref local_sha remote_ref remote_sha; do
+  # Skip delete pushes
+  if [ "$local_sha" = "0000000000000000000000000000000000000000" ]; then
+    continue
+  fi
+
+  # Determine the range of commits being pushed
+  if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
+    # New branch - check all commits
+    range="$local_sha"
+  else
+    # Existing branch - check new commits only
+    range="$remote_sha..$local_sha"
+  fi
+
+  # Check if any CSS or JS source files changed (excluding .min files)
+  changed_files=$(git diff --name-only "$range" 2>/dev/null | grep -E '\.(css|js)$' | grep -v '\.min\.' || true)
+
+  if [ -n "$changed_files" ]; then
+    echo "📦 CSS/JS changes detected, building minified files..."
+    
+    # Run the build
+    pnpm run build
+    
+    # Check if minified files changed
+    if git diff --quiet js/*.min.js js/*.min.js.map css/*.min.css css/*.min.css.map 2>/dev/null; then
+      echo "✓ Minified files are up to date"
+    else
+      echo ""
+      echo "🔄 Minified files updated, amending commit..."
+      
+      # Stage the minified files
+      git add js/*.min.js js/*.min.js.map css/*.min.css css/*.min.css.map
+      
+      # Amend the commit
+      git commit --amend --no-edit
+      
+      echo ""
+      echo "✅ Commit amended with built files."
+      echo "⚠️  Please run 'git push' again to push the amended commit."
+      echo ""
+      exit 1
+    fi
+  fi
+done
+
+exit 0
