@@ -47,6 +47,66 @@ Add these lines to any HTML page to use the style system:
 | Semantic CSS | `https://assets.parkerbarker.com/css/semantic.min.css` |
 | Semantic JS | `https://assets.parkerbarker.com/js/semantic.min.js` |
 
+### Images
+
+| Asset | URL |
+|-------|-----|
+| Logo (White) | `https://assets.parkerbarker.com/img/Logo-White.svg` |
+| Logo (Black) | `https://assets.parkerbarker.com/img/Logo-Black.svg` |
+
+### Fonts
+
+Load the GT Ultra fonts directly with `@font-face`:
+
+```css
+/* GT Ultra Fine - Serif (for headings) */
+@font-face {
+  font-family: 'GT Ultra Fine';
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://assets.parkerbarker.com/fonts/GT-Ultra-Fine-Light.woff2') format('woff2'),
+       url('https://assets.parkerbarker.com/fonts/GT-Ultra-Fine-Light.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'GT Ultra Fine';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://assets.parkerbarker.com/fonts/GT-Ultra-Fine-Bold.woff2') format('woff2'),
+       url('https://assets.parkerbarker.com/fonts/GT-Ultra-Fine-Bold.woff') format('woff');
+}
+
+/* GT Ultra Standard - Sans-serif (for body text) */
+@font-face {
+  font-family: 'GT Ultra Standard';
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://assets.parkerbarker.com/fonts/GT-Ultra-Standard-Light.woff2') format('woff2'),
+       url('https://assets.parkerbarker.com/fonts/GT-Ultra-Standard-Light.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'GT Ultra Standard';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://assets.parkerbarker.com/fonts/GT-Ultra-Standard-Bold.woff2') format('woff2'),
+       url('https://assets.parkerbarker.com/fonts/GT-Ultra-Standard-Bold.woff') format('woff');
+}
+
+/* Usage */
+body {
+  font-family: 'GT Ultra Standard', system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'GT Ultra Fine', Georgia, serif;
+}
+```
+
 ## File Structure
 
 ```
@@ -61,6 +121,9 @@ Add these lines to any HTML page to use the style system:
 │   ├── semantic.js             # Semantic JS system
 │   └── semantic.min.js         # Minified (59% smaller)
 ├── fonts/                       # GT Ultra fonts (woff2, woff, ttf, otf)
+├── img/
+│   ├── Logo-White.svg          # Logo for dark backgrounds
+│   └── Logo-Black.svg          # Logo for light backgrounds
 ├── favicon/                     # Favicon assets for all platforms
 ├── scripts/                     # Build scripts
 ├── index.html                   # Landing page
