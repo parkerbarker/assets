@@ -166,8 +166,8 @@
         <strong font="serif" size="lg">ParkerBarker</strong>
       </a>
       <a href="index.html" hide="mobile">Home</a>
-      <a href="styleguide.html" hide="mobile">Classic Guide</a>
-      <a href="semantic-guide.html" hide="mobile" color="primary">Semantic Guide</a>
+      <a href="parkerbarker-guide.html" hide="mobile">Class guide</a>
+      <a href="semantic-guide.html" hide="mobile" color="primary">Semantic guide</a>
     </nav>
     <nav layout="row" gap="sm" align="center">
       <button variant="ghost" size="sm" data-theme-toggle>Toggle Theme</button>
@@ -185,6 +185,8 @@
     <nav layout="row" gap="md" justify="center" wrap>
       <button onclick="scrollTo('#getting-started')">Get Started</button>
       <button variant="secondary" onclick="window.open('css/semantic.css')">View CSS</button>
+      <button variant="secondary" onclick="window.open('css/variables.css')">View tokens</button>
+      <button variant="secondary" onclick="window.open('parkerbarker-guide.html')">Class guide</button>
       <button variant="ghost" onclick="window.open('js/semantic.js')">View JS</button>
     </nav>
   </section>
@@ -274,10 +276,15 @@
       
       <div class="code-block">&lt;!-- In your &lt;head&gt; --&gt;
 &lt;link rel="stylesheet" href="css/semantic.css"&gt;
+&lt;!-- semantic.css @imports variables.css (tokens + @font-face). --&gt;
+&lt;!-- Minified semantic.min.css inlines tokens (single request). --&gt;
 
-&lt;!-- Before closing &lt;/body&gt; --&gt;
+&lt;!-- Before closing &lt;/body&gt;: load ui-core.js first --&gt;
+&lt;script src="js/ui-core.js"&gt;&lt;/script&gt;
 &lt;script src="js/semantic.js"&gt;&lt;/script&gt;
 &lt;script&gt;Semantic.init();&lt;/script&gt;</div>
+
+      <p color="muted" size="sm">To customize colors, type, and spacing for <strong>both</strong> Semantic and the classic ParkerBarker stack, edit <code>css/variables.css</code> (<code>--core-*</code> primitives). Public names like <code>--primary</code> and <code>--pb-primary</code> are aliases defined there.</p>
 
       <h3>Philosophy</h3>
       <p>Semantic CSS uses three mechanisms for styling:</p>
@@ -867,7 +874,7 @@ console.log(greet('World'));</code></pre>
         </details>
         <details group="faq">
           <summary>Question 2: Do I need JavaScript?</summary>
-          <p>JavaScript is optional. The CSS works standalone, but semantic.js adds enhancements like toasts and theme switching.</p>
+          <p>JavaScript is optional. The CSS works standalone, but <code>ui-core.js</code> plus <code>semantic.js</code> add enhancements like toasts and theme switching.</p>
         </details>
         <details group="faq">
           <summary>Question 3: Browser support?</summary>
@@ -2053,7 +2060,7 @@ Semantic.toast.show('Message', {
          ============================================ -->
     <section id="theming" py="xl">
       <h2>Theming</h2>
-      <p>Customize the design system with CSS variables.</p>
+      <p>Customize the design system with CSS variables. Shared literals live in <code>css/variables.css</code> as <code>--core-*</code>; semantic tokens (<code>--primary</code>, <code>--gray-*</code>, …) and classic <code>--pb-*</code> names reference those so both frameworks stay aligned.</p>
 
       <h3>Dark Mode</h3>
       <p>Dark mode works automatically via system preference, or can be toggled:</p>
@@ -2075,14 +2082,20 @@ Semantic.theme.toggle();        // Toggle current
 &lt;button data-theme-toggle&gt;Toggle&lt;/button&gt;</div>
 
       <h3>Custom Colors</h3>
-      <p>Override CSS variables to customize:</p>
+      <p>In this repo, prefer editing <code>variables.css</code> so classic and semantic stacks match:</p>
+      <div class="code-block">/* css/variables.css — :root core block */
+:root {
+  --core-primary: #your-color;
+  --core-primary-dark: #darker-shade;
+  --core-primary-rgb: r, g, b;
+  --core-danger: #d0021b;
+  /* … */
+}</div>
+      <p size="sm" color="muted">When consuming from a CDN, override after the framework link, or set <code>--primary</code> / <code>--pb-primary</code> if you only need public names.</p>
       <div class="code-block">:root {
-  /* Primary brand color */
   --primary: #your-color;
   --primary-dark: #darker-shade;
   --primary-rgb: r, g, b;
-  
-  /* Other colors */
   --danger: #d0021b;
   --success: #7ed321;
   --warning: #f5a623;
@@ -2159,15 +2172,16 @@ Semantic.theme.toggle();        // Toggle current
   <footer p="xl" text="center" border="top" mt="2xl">
     <nav layout="row" gap="lg" justify="center" mb="md">
       <a href="index.html">Home</a>
-      <a href="styleguide.html">Classic Guide</a>
-      <a href="semantic-guide.html">Semantic Guide</a>
+      <a href="parkerbarker-guide.html">Class guide</a>
+      <a href="semantic-guide.html">Semantic guide</a>
     </nav>
     <p color="muted">
       Semantic CSS v1.0.0 &bull; Made with semantic HTML
     </p>
   </footer>
 
-  <!-- Semantic.js -->
+  <!-- Semantic.js (ui-core first) -->
+  <script src="js/ui-core.js"></script>
   <script src="js/semantic.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {

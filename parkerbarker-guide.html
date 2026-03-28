@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ParkerBarker CSS — Class-based style guide</title>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="favicon/apple-touch-icon.png">
+
+  <link rel="stylesheet" href="css/parkerbarker.css">
+
+  <style>
+    .guide-code {
+      background-color: var(--pb-gray-900);
+      color: #f1f5f9;
+      padding: var(--pb-space-md);
+      border-radius: var(--pb-radius-md);
+      overflow-x: auto;
+      font-family: ui-monospace, 'SF Mono', Monaco, monospace;
+      font-size: var(--pb-font-size-sm);
+      line-height: 1.6;
+      margin: var(--pb-space-md) 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .guide-example {
+      background-color: var(--pb-white);
+      border: 1px solid var(--pb-gray-200);
+      border-radius: var(--pb-radius-md);
+      padding: var(--pb-space-lg);
+      margin: var(--pb-space-md) 0;
+    }
+
+    .guide-example + .guide-code {
+      margin-top: calc(-1 * var(--pb-space-sm));
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    .guide-swatch {
+      width: 3rem;
+      height: 3rem;
+      border-radius: var(--pb-radius-md);
+      border: 1px solid var(--pb-gray-200);
+    }
+
+    section[id] {
+      scroll-margin-top: 5.5rem;
+    }
+
+    .page-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: var(--pb-space-xl);
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: var(--pb-space-lg);
+    }
+
+    .sidebar-nav {
+      position: sticky;
+      top: calc(72px + var(--pb-space-md));
+      height: fit-content;
+      max-height: calc(100vh - 96px);
+      overflow-y: auto;
+      padding: var(--pb-space-md);
+      background: var(--pb-white);
+      border: 1px solid var(--pb-gray-200);
+      border-radius: var(--pb-radius-lg);
+    }
+
+    .sidebar-nav h4 {
+      margin: 0 0 var(--pb-space-sm) 0;
+      font-size: var(--pb-font-size-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--pb-gray-600);
+    }
+
+    .sidebar-nav h4:not(:first-child) {
+      margin-top: var(--pb-space-lg);
+      padding-top: var(--pb-space-md);
+      border-top: 1px solid var(--pb-gray-200);
+    }
+
+    .sidebar-nav a {
+      display: block;
+      padding: var(--pb-space-xs) var(--pb-space-sm);
+      margin: 2px 0;
+      font-size: var(--pb-font-size-sm);
+      color: var(--pb-gray-600);
+      text-decoration: none;
+      border-radius: var(--pb-radius-sm);
+      transition: color var(--pb-transition), background-color var(--pb-transition);
+    }
+
+    .sidebar-nav a:hover {
+      color: var(--pb-gray-900);
+      background: var(--pb-gray-100);
+    }
+
+    .main-content {
+      min-width: 0;
+    }
+
+    .demo-tile {
+      background: rgba(74, 144, 226, 0.12);
+      padding: var(--pb-space-md);
+      text-align: center;
+      border-radius: var(--pb-radius-sm);
+      font-size: var(--pb-font-size-sm);
+    }
+
+    .guide-hero {
+      text-align: center;
+      padding: var(--pb-space-2xl) var(--pb-space-md);
+      border-bottom: 1px solid var(--pb-gray-200);
+    }
+
+    .guide-muted {
+      color: var(--pb-gray-600);
+      font-size: var(--pb-font-size-lg);
+      max-width: 40rem;
+      margin: var(--pb-space-md) auto 0;
+    }
+
+    .guide-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--pb-space-md);
+      justify-content: center;
+      margin-top: var(--pb-space-xl);
+    }
+
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+        padding: var(--pb-space-md);
+      }
+
+      .sidebar-nav {
+        display: none;
+      }
+
+      .mobile-toc {
+        display: block;
+      }
+    }
+
+    @media (min-width: 901px) {
+      .mobile-toc {
+        display: none;
+      }
+    }
+
+    .mobile-toc a {
+      display: block;
+      padding: var(--pb-space-xs) 0;
+      color: var(--pb-gray-600);
+      font-size: var(--pb-font-size-sm);
+    }
+
+    .mobile-toc a:hover {
+      color: var(--pb-primary);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--pb-white);
+      box-shadow: var(--pb-shadow-sm);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="site-header">
+    <nav class="pb-nav">
+      <div class="pb-container pb-flex pb-justify-between pb-items-center pb-flex-wrap" style="gap: var(--pb-space-md)">
+        <div class="pb-flex pb-items-center pb-gap-md pb-flex-wrap">
+          <a href="index.html" class="pb-nav-brand">ParkerBarker</a>
+          <a href="index.html" class="pb-nav-link">Home</a>
+          <a href="parkerbarker-guide.html" class="pb-nav-link active">Class guide</a>
+          <a href="semantic-guide.html" class="pb-nav-link">Semantic guide</a>
+        </div>
+        <div class="pb-flex pb-items-center pb-gap-sm pb-flex-wrap">
+          <button type="button" class="pb-button pb-button-secondary" onclick="ParkerBarker.toast.show('Toast from the class stack.', { type: 'success' })">Test toast</button>
+          <button type="button" data-pb-theme-toggle class="pb-button pb-button-text">Toggle theme</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <header class="guide-hero">
+    <h1 class="pb-mb-2">ParkerBarker (classes)</h1>
+    <p class="guide-muted">
+      Reference for the <code>pb-*</code> utility and component classes. Tokens and fonts come from
+      <code>variables.css</code> (imported by <code>parkerbarker.css</code>), shared with the semantic stack.
+    </p>
+    <div class="guide-actions">
+      <a href="css/parkerbarker.css" class="pb-button" target="_blank" rel="noopener">View parkerbarker.css</a>
+      <a href="css/variables.css" class="pb-button pb-button-secondary" target="_blank" rel="noopener">View tokens</a>
+      <button type="button" class="pb-button pb-button-secondary" onclick="document.getElementById('getting-started').scrollIntoView({ behavior: 'smooth' })">Get started</button>
+    </div>
+  </header>
+
+  <div class="page-layout">
+    <aside class="sidebar-nav" aria-label="Section navigation">
+      <h4>Start</h4>
+      <a href="#getting-started">Getting started</a>
+      <a href="#tokens">Design tokens</a>
+
+      <h4>Layout &amp; type</h4>
+      <a href="#typography">Typography</a>
+      <a href="#containers">Containers</a>
+      <a href="#flex-grid">Flex &amp; grid</a>
+
+      <h4>UI</h4>
+      <a href="#buttons">Buttons</a>
+      <a href="#forms">Forms</a>
+      <a href="#links">Links</a>
+      <a href="#alerts">Alerts</a>
+      <a href="#cards">Cards</a>
+
+      <h4>More</h4>
+      <a href="#utilities">Utilities</a>
+      <a href="#dark-mode">Dark mode</a>
+      <a href="#javascript">JavaScript</a>
+    </aside>
+
+    <main class="main-content pb-mb-4">
+      <aside class="mobile-toc pb-card pb-mb-3">
+        <h3 class="pb-card-title">On this page</h3>
+        <nav class="pb-stack">
+          <a href="#getting-started">Getting started</a>
+          <a href="#tokens">Tokens</a>
+          <a href="#typography">Typography</a>
+          <a href="#containers">Containers</a>
+          <a href="#flex-grid">Flex &amp; grid</a>
+          <a href="#buttons">Buttons</a>
+          <a href="#forms">Forms</a>
+          <a href="#links">Links</a>
+          <a href="#alerts">Alerts</a>
+          <a href="#cards">Cards</a>
+          <a href="#utilities">Utilities</a>
+          <a href="#dark-mode">Dark mode</a>
+          <a href="#javascript">JavaScript</a>
+        </nav>
+      </aside>
+
+      <section id="getting-started" class="pb-mb-4">
+        <h2>Getting started</h2>
+        <p>Link the stylesheet, then the shared JS core and ParkerBarker entry. Call <code>ParkerBarker.init()</code> after <code>DOMContentLoaded</code> so fonts and enhancements run in step with the CSS <code>fonts-ready</code> behavior.</p>
+        <div class="guide-code">&lt;link rel="stylesheet" href="css/parkerbarker.css"&gt;
+&lt;script src="js/ui-core.js"&gt;&lt;/script&gt;
+&lt;script src="js/parkerbarker.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  document.addEventListener('DOMContentLoaded', function () {
+    ParkerBarker.init();
+  });
+&lt;/script&gt;</div>
+        <p class="pb-caption">Use the minified CDN URLs from the README for production; <code>parkerbarker.min.css</code> inlines <code>variables.css</code>.</p>
+      </section>
+
+      <section id="tokens" class="pb-mb-4">
+        <h2>Design tokens</h2>
+        <p>Customize <code>css/variables.css</code>: <code>--core-*</code> is the source of truth. Public <code>--pb-*</code> names alias those values so this sheet stays aligned with <code>semantic.css</code>.</p>
+        <div class="guide-code">/* After the framework link, or in variables.css */
+:root {
+  --core-primary: #2563eb;
+  --core-font-sans: 'Your Sans', system-ui, sans-serif;
+}</div>
+        <div class="pb-flex pb-gap-md pb-flex-wrap pb-mt-2">
+          <div class="pb-text-center">
+            <div class="guide-swatch" style="background: var(--pb-primary)"></div>
+            <small class="pb-caption">--pb-primary</small>
+          </div>
+          <div class="pb-text-center">
+            <div class="guide-swatch" style="background: var(--pb-secondary)"></div>
+            <small class="pb-caption">--pb-secondary</small>
+          </div>
+          <div class="pb-text-center">
+            <div class="guide-swatch" style="background: var(--pb-accent)"></div>
+            <small class="pb-caption">--pb-accent</small>
+          </div>
+          <div class="pb-text-center">
+            <div class="guide-swatch" style="background: var(--pb-danger)"></div>
+            <small class="pb-caption">--pb-danger</small>
+          </div>
+        </div>
+      </section>
+
+      <section id="typography" class="pb-mb-4">
+        <h2>Typography</h2>
+        <p>Headings and body use GT Ultra via CSS defaults. Utility classes add display, quote, and caption treatments.</p>
+        <div class="guide-example">
+          <h3 class="pb-mb-1">Heading level 3</h3>
+          <p class="pb-subtitle">Subtitle style (<code>.pb-subtitle</code>)</p>
+          <p>Body copy uses the sans stack at base size.</p>
+          <blockquote class="pb-quote pb-mb-0">Quote style with <code>.pb-quote</code></blockquote>
+          <p class="pb-caption pb-mb-0">Caption with <code>.pb-caption</code></p>
+        </div>
+        <div class="guide-code">&lt;p class="pb-subtitle"&gt;…&lt;/p&gt;
+&lt;blockquote class="pb-quote"&gt;…&lt;/blockquote&gt;
+&lt;p class="pb-caption"&gt;…&lt;/p&gt;
+&lt;p class="pb-display"&gt;Display line&lt;/p&gt;</div>
+      </section>
+
+      <section id="containers" class="pb-mb-4">
+        <h2>Containers</h2>
+        <p>Center content with max-width utilities. Pair with horizontal padding via the container defaults.</p>
+        <div class="guide-example">
+          <div class="pb-border pb-rounded" style="overflow: hidden; padding: 0">
+            <div class="pb-container-sm pb-border-b" style="background: var(--pb-gray-100); padding: var(--pb-space-md)">
+              <code>.pb-container-sm</code>
+            </div>
+            <div class="pb-container-md pb-border-b" style="background: var(--pb-gray-100); padding: var(--pb-space-md)">
+              <code>.pb-container-md</code>
+            </div>
+            <div class="pb-container pb-border-b" style="background: var(--pb-gray-100); padding: var(--pb-space-md)">
+              <code>.pb-container</code> (default max-width)
+            </div>
+          </div>
+        </div>
+        <div class="guide-code">&lt;div class="pb-container"&gt;…&lt;/div&gt;
+&lt;div class="pb-container-lg"&gt;…&lt;/div&gt;
+&lt;div class="pb-content-container"&gt;…&lt;/div&gt;</div>
+      </section>
+
+      <section id="flex-grid" class="pb-mb-4">
+        <h2>Flex &amp; grid</h2>
+        <p>Layout helpers follow a predictable prefix: <code>pb-flex</code>, <code>pb-grid</code>, justify/align utilities, and gap scales.</p>
+        <div class="guide-example">
+          <div class="pb-flex pb-gap-md pb-mb-2">
+            <div class="demo-tile pb-flex-1">A</div>
+            <div class="demo-tile pb-flex-1">B</div>
+            <div class="demo-tile pb-flex-1">C</div>
+          </div>
+          <div class="pb-grid pb-grid-cols-3 pb-gap-sm">
+            <div class="demo-tile">1</div>
+            <div class="demo-tile">2</div>
+            <div class="demo-tile">3</div>
+          </div>
+        </div>
+        <div class="guide-code">&lt;div class="pb-flex pb-justify-between pb-items-center pb-gap-md"&gt;
+&lt;div class="pb-grid pb-grid-cols-2 pb-gap-lg"&gt;…&lt;/div&gt;</div>
+      </section>
+
+      <section id="buttons" class="pb-mb-4">
+        <h2>Buttons</h2>
+        <p>Use <code>button.pb-button</code> for the primary pill; modifiers change intent and weight.</p>
+        <div class="guide-example pb-flex pb-flex-wrap pb-gap-md pb-items-center">
+          <button type="button" class="pb-button">Primary</button>
+          <button type="button" class="pb-button pb-button-secondary">Secondary</button>
+          <button type="button" class="pb-button pb-button-success">Success</button>
+          <button type="button" class="pb-button pb-button-danger">Danger</button>
+          <button type="button" class="pb-button pb-button-text">Text</button>
+          <button type="button" class="pb-button" disabled>Disabled</button>
+        </div>
+        <div class="guide-code">&lt;button type="button" class="pb-button"&gt;Primary&lt;/button&gt;
+&lt;button type="button" class="pb-button pb-button-secondary"&gt;Secondary&lt;/button&gt;</div>
+      </section>
+
+      <section id="forms" class="pb-mb-4">
+        <h2>Forms</h2>
+        <p>Wrap fields in <code>.pb-form</code>. Labels, inputs, validation, and custom checkbox/radio patterns are scoped there.</p>
+        <div class="guide-example">
+          <form class="pb-form" onsubmit="event.preventDefault();">
+            <div class="pb-form-group">
+              <label for="demo-email">Email</label>
+              <input id="demo-email" type="email" placeholder="you@example.com" required>
+            </div>
+            <div class="pb-form-group">
+              <label for="demo-select">Choose</label>
+              <select id="demo-select">
+                <option>One</option>
+                <option>Two</option>
+              </select>
+            </div>
+            <div class="pb-checkbox">
+              <input type="checkbox" id="demo-cb">
+              <label class="pb-checkbox-label" for="demo-cb">Remember me</label>
+            </div>
+            <button type="submit" class="pb-button">Submit</button>
+          </form>
+        </div>
+        <div class="guide-code">&lt;form class="pb-form"&gt;
+  &lt;label for="email"&gt;Email&lt;/label&gt;
+  &lt;input id="email" type="email" /&gt;
+&lt;/form&gt;</div>
+      </section>
+
+      <section id="links" class="pb-mb-4">
+        <h2>Links</h2>
+        <p>Default anchors pick up brand colors. Variants tune contrast for nav and footers.</p>
+        <div class="guide-example pb-stack">
+          <a href="#getting-started">Default link</a>
+          <a href="#getting-started" class="pb-link-subtle">Subtle link</a>
+          <span><a href="#getting-started" class="pb-link-button">Button-shaped link</a></span>
+        </div>
+        <div class="guide-code">&lt;a href="#" class="pb-link-subtle"&gt;Subtle&lt;/a&gt;
+&lt;a href="#" class="pb-link-button"&gt;Outline&lt;/a&gt;</div>
+      </section>
+
+      <section id="alerts" class="pb-mb-4">
+        <h2>Alerts</h2>
+        <div class="guide-example pb-stack">
+          <div class="pb-alert pb-alert-info">
+            <div>
+              <div class="pb-alert-title">Info</div>
+              <p class="pb-mb-0">Something you should know.</p>
+            </div>
+          </div>
+          <div class="pb-alert pb-alert-success">
+            <div>
+              <div class="pb-alert-title">Success</div>
+              <p class="pb-mb-0">Saved successfully.</p>
+            </div>
+          </div>
+        </div>
+        <div class="guide-code">&lt;div class="pb-alert pb-alert-info"&gt;…&lt;/div&gt;
+&lt;div class="pb-alert pb-alert-error"&gt;…&lt;/div&gt;</div>
+      </section>
+
+      <section id="cards" class="pb-mb-4">
+        <h2>Cards</h2>
+        <div class="guide-example">
+          <div class="pb-card-grid">
+            <article class="pb-card">
+              <header class="pb-card-header">
+                <h3 class="pb-card-title">Card title</h3>
+                <p class="pb-card-subtitle">Optional subtitle</p>
+              </header>
+              <div class="pb-card-body">
+                <p class="pb-mb-0">Body content with optional footer below.</p>
+              </div>
+              <footer class="pb-card-footer">
+                <button type="button" class="pb-button pb-button-secondary">Action</button>
+              </footer>
+            </article>
+            <article class="pb-card pb-card-clickable" role="button" tabindex="0">
+              <div class="pb-card-body">
+                <h3 class="pb-card-title">Clickable card</h3>
+                <p class="pb-mb-0"><code>.pb-card-clickable</code> lifts on hover.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="guide-code">&lt;article class="pb-card"&gt;
+  &lt;header class="pb-card-header"&gt;…&lt;/header&gt;
+  &lt;div class="pb-card-body"&gt;…&lt;/div&gt;
+&lt;/article&gt;</div>
+      </section>
+
+      <section id="utilities" class="pb-mb-4">
+        <h2>Utilities</h2>
+        <p>Spacing, display, borders, shadows, and text helpers use the <code>pb-</code> prefix. Examples:</p>
+        <div class="guide-code">.pb-mb-2 .pb-mt-3 .pb-hidden
+.pb-shadow-md .pb-rounded-lg .pb-text-center
+.pb-sr-only (visually hidden, available to AT)</div>
+        <p class="pb-caption">Tooltips: add <code>data-tooltip="Your hint"</code> to supported elements (see stylesheet).</p>
+      </section>
+
+      <section id="dark-mode" class="pb-mb-4">
+        <h2>Dark mode</h2>
+        <p>System dark preference can seed the UI; <code>data-pb-theme-toggle</code> flips the <code>pb-dark-mode</code> class on <code>body</code>. Pair with your own dark overrides or the built-in <code>.pb-dark-mode</code> variable overrides in CSS.</p>
+        <div class="guide-code">&lt;button type="button" data-pb-theme-toggle&gt;Toggle theme&lt;/button&gt;</div>
+      </section>
+
+      <section id="javascript" class="pb-mb-4">
+        <h2>JavaScript</h2>
+        <p><code>ParkerBarker.init()</code> wires font loading, theme, toasts, forms, and optional iOS helpers. Public surface:</p>
+        <div class="guide-code">ParkerBarker.init({ enableFontLoading: true });
+ParkerBarker.toast.show('Hi', { type: 'info', duration: 4000 });
+ParkerBarker.theme.toggleDarkMode();
+ParkerBarker.dom.addClass(el, 'pb-shadow-md');</div>
+        <p class="pb-caption">Load <code>ui-core.js</code> first; shared primitives live on <code>ParkerBarkerCore</code>.</p>
+      </section>
+    </main>
+  </div>
+
+  <footer class="pb-border-t pb-mt-2" style="padding: var(--pb-space-xl) var(--pb-space-md); text-align: center; color: var(--pb-gray-600)">
+    <nav class="pb-flex pb-justify-center pb-gap-lg pb-mb-2 pb-flex-wrap">
+      <a href="index.html">Home</a>
+      <a href="parkerbarker-guide.html">Class guide</a>
+      <a href="semantic-guide.html">Semantic guide</a>
+    </nav>
+    <p class="pb-mb-0"><small>ParkerBarker class system · See README for CDN URLs</small></p>
+  </footer>
+
+  <script src="js/ui-core.js"></script>
+  <script src="js/parkerbarker.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      ParkerBarker.init();
+    });
+  </script>
+</body>
+</html>

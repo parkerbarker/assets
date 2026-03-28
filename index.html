@@ -93,7 +93,7 @@
       <a href="index.html" class="pb-nav-brand">ParkerBarker</a>
       <div class="pb-nav-list pb-flex pb-gap-sm pb-items-center">
         <a href="index.html" class="pb-nav-link active">Home</a>
-        <a href="styleguide.html" class="pb-nav-link">Classic Guide</a>
+        <a href="parkerbarker-guide.html" class="pb-nav-link">Class guide</a>
         <a href="semantic-guide.html" class="pb-nav-link">Semantic Guide</a>
         <button data-pb-theme-toggle class="pb-button pb-button-text">Toggle Theme</button>
       </div>
@@ -107,8 +107,8 @@
       <p class="hero-subtitle">A user-friendly design system prioritizing clarity and accessibility, with special optimizations for iOS WebViews.</p>
       
       <div class="quick-links">
-        <a href="semantic-guide.html" class="pb-button">Semantic Style Guide</a>
-        <a href="styleguide.html" class="pb-button pb-button-secondary">Classic Style Guide</a>
+        <a href="parkerbarker-guide.html" class="pb-button">Class style guide</a>
+        <a href="semantic-guide.html" class="pb-button pb-button-secondary">Semantic guide</a>
         <a href="#quick-start" class="pb-button pb-button-secondary">Quick Start</a>
       </div>
     </section>
@@ -149,14 +149,15 @@
     <!-- Quick Start -->
     <section id="quick-start" class="section">
       <h2>Quick Start</h2>
-      <p>Add these lines to your HTML to get started. The stylesheet briefly hides the page until webfonts load (or a short timeout), then adds <code>fonts-ready</code> to <code>&lt;html&gt;</code>; <code>ParkerBarker.init()</code> triggers font preloading and that class. Users who prefer reduced motion skip the hide.</p>
-      <p>For the <strong>semantic</strong> stack, use <code>semantic.css</code> and <code>semantic.js</code> with <code>Semantic.init()</code> instead—the same font behavior applies.</p>
+      <p>Add these lines to your HTML to get started. <code>parkerbarker.css</code> imports <code>variables.css</code> (shared tokens and webfonts); the page briefly hides until webfonts load (or a short timeout), then <code>fonts-ready</code> is set on <code>&lt;html&gt;</code>. <code>ParkerBarker.init()</code> triggers font preloading and that class. Users who prefer reduced motion skip the hide. Minified CSS inlines tokens—no extra request.</p>
+      <p>For the <strong>semantic</strong> stack, use <code>semantic.css</code> (same <code>variables.css</code> import) plus <code>ui-core.js</code> then <code>semantic.js</code>, and call <code>Semantic.init()</code>—the same font behavior applies.</p>
       
       <div class="code-snippet">
-<span class="comment">&lt;!-- In your &lt;head&gt; --&gt;</span>
+<span class="comment">&lt;!-- In your &lt;head&gt;: one link pulls in variables.css via @import --&gt;</span>
 <span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"https://assets.parkerbarker.com/css/parkerbarker.css"</span><span class="tag">&gt;</span>
 
-<span class="comment">&lt;!-- Before closing &lt;/body&gt;: init runs font loading + adds html.fonts-ready --&gt;</span>
+<span class="comment">&lt;!-- Before closing &lt;/body&gt;: ui-core first, then entry; init runs font loading + html.fonts-ready --&gt;</span>
+<span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="string">"https://assets.parkerbarker.com/js/ui-core.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
 <span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="string">"https://assets.parkerbarker.com/js/parkerbarker.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
 <span class="tag">&lt;script&gt;</span>
   document.addEventListener('DOMContentLoaded', function() {
@@ -183,11 +184,23 @@
           <tbody>
             <tr>
               <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);"><code>/css/parkerbarker.css</code></td>
-              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);">Complete stylesheet with all components</td>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);">Classic components; imports <code>variables.css</code> for tokens + fonts</td>
+            </tr>
+            <tr>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);"><code>/css/semantic.css</code></td>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);">Semantic attribute styling; same shared <code>variables.css</code></td>
+            </tr>
+            <tr>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);"><code>/css/variables.css</code></td>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);">Design tokens (<code>--core-*</code>), <code>--pb-*</code>, and semantic vars; imported by both frameworks</td>
+            </tr>
+            <tr>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);"><code>/js/ui-core.js</code></td>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);">Shared JS (fonts, env, delegation); load before <code>parkerbarker.js</code> or <code>semantic.js</code></td>
             </tr>
             <tr>
               <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);"><code>/js/parkerbarker.js</code></td>
-              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);">JavaScript library (vanilla, no dependencies)</td>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);">Class-based JavaScript entry (requires <code>ui-core.js</code>)</td>
             </tr>
             <tr>
               <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);"><code>/fonts/</code></td>
@@ -198,8 +211,12 @@
               <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);">Favicon assets for all platforms</td>
             </tr>
             <tr>
-              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);"><code>/styleguide.html</code></td>
-              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);">Classic style guide (class-based)</td>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);"><code>/index.html</code></td>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);">Classic stack landing (class-based)</td>
+            </tr>
+            <tr>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);"><code>/parkerbarker-guide.html</code></td>
+              <td style="padding: var(--pb-space-sm); border-bottom: 1px solid var(--pb-gray-200);">Class-based component &amp; utility reference</td>
             </tr>
             <tr>
               <td style="padding: var(--pb-space-sm);"><code>/semantic-guide.html</code></td>
@@ -213,15 +230,16 @@
     <!-- Customization -->
     <section class="section">
       <h2>Customization</h2>
-      <p>Override CSS variables in your own stylesheet to customize the design system:</p>
+      <p>Edit <code>css/variables.css</code> (<code>--core-*</code>) to align both stacks, or override in your own stylesheet after the framework link:</p>
       
       <div class="code-snippet">
 <span class="tag">:root</span> {
-  <span class="comment">/* Brand Colors */</span>
-  --pb-primary: <span class="string">#your-brand-color</span>;
-  --pb-primary-dark: <span class="string">#your-darker-shade</span>;
+  <span class="comment">/* Prefer editing variables.css: --core-primary, --core-font-sans, … */</span>
+  --core-primary: <span class="string">#your-brand-color</span>;
+  --core-primary-dark: <span class="string">#your-darker-shade</span>;
   
-  <span class="comment">/* Typography */</span>
+  <span class="comment">/* Or override public tokens */</span>
+  --pb-primary: <span class="string">#your-brand-color</span>;
   --pb-font-sans: <span class="string">'Your Font', sans-serif</span>;
   
   <span class="comment">/* Spacing */</span>
@@ -234,7 +252,7 @@
     <footer>
       <div class="pb-flex pb-justify-center pb-gap-lg pb-mb-2">
         <a href="index.html">Home</a>
-        <a href="styleguide.html">Classic Guide</a>
+        <a href="parkerbarker-guide.html">Class guide</a>
         <a href="semantic-guide.html">Semantic Guide</a>
       </div>
       <p>Made with care for the Parker Barker family.</p>
@@ -243,6 +261,7 @@
   </div>
   
   <!-- ParkerBarker JS -->
+  <script src="js/ui-core.js"></script>
   <script src="js/parkerbarker.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
