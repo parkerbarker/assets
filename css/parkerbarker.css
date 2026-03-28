@@ -467,15 +467,19 @@ a:focus, .pb-link:focus {
    Buttons
    ================================================== */
 
+a.pb-button,
 button.pb-button {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
   font-family: var(--pb-font-sans);
   font-weight: 700;
   font-size: var(--pb-font-size-base);
   padding: var(--pb-space-sm) var(--pb-space-md);
   min-height: var(--pb-min-target-size);
   border-radius: var(--pb-radius-sm);
-  border: none;
+  border: 1px solid var(--pb-primary);
   background-color: var(--pb-primary);
   color: var(--pb-on-primary);
   text-align: center;
@@ -487,6 +491,30 @@ button.pb-button {
   touch-action: manipulation;
   position: relative;
   box-shadow: var(--pb-shadow-sm);
+}
+
+a.pb-button:visited {
+  color: var(--pb-on-primary);
+}
+
+/* Global `a:hover` sets --pb-primary-dark; keep label readable on filled primary */
+a.pb-button:hover,
+a.pb-button:focus-visible,
+a.pb-button:active {
+  color: var(--pb-on-primary);
+}
+
+a.pb-button.pb-button-secondary:hover,
+a.pb-button.pb-button-secondary:focus-visible,
+a.pb-button.pb-button-secondary:active {
+  color: var(--pb-primary);
+}
+
+a.pb-button.pb-button-success:hover,
+a.pb-button.pb-button-success:focus-visible,
+a.pb-button.pb-button-danger:hover,
+a.pb-button.pb-button-danger:focus-visible {
+  color: var(--pb-on-primary);
 }
 
 .pb-button:hover {
@@ -1305,6 +1333,7 @@ details.pb-details .pb-details-content {
     padding-right: calc(var(--pb-space-sm) + var(--pb-safe-area-right));
   }
   
+  a.pb-button,
   button.pb-button {
     display: block;
     width: 100%;
