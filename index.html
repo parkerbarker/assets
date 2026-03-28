@@ -138,22 +138,30 @@
         <h3>Accessible</h3>
         <p>WCAG-compliant with reduced motion support and screen reader utilities.</p>
       </div>
+      
+      <div class="pb-card feature-card">
+        <div class="feature-icon">🔤</div>
+        <h3>Web font loading</h3>
+        <p>CSS and <code>ParkerBarker.init()</code> work together: webfonts preload, then <code>html</code> gets <code>fonts-ready</code> for a short fade-in without the system-font flash.</p>
+      </div>
     </section>
     
     <!-- Quick Start -->
     <section id="quick-start" class="section">
       <h2>Quick Start</h2>
-      <p>Add these lines to your HTML to get started:</p>
+      <p>Add these lines to your HTML to get started. The stylesheet briefly hides the page until webfonts load (or a short timeout), then adds <code>fonts-ready</code> to <code>&lt;html&gt;</code>; <code>ParkerBarker.init()</code> triggers font preloading and that class. Users who prefer reduced motion skip the hide.</p>
+      <p>For the <strong>semantic</strong> stack, use <code>semantic.css</code> and <code>semantic.js</code> with <code>Semantic.init()</code> instead—the same font behavior applies.</p>
       
       <div class="code-snippet">
 <span class="comment">&lt;!-- In your &lt;head&gt; --&gt;</span>
 <span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"https://assets.parkerbarker.com/css/parkerbarker.css"</span><span class="tag">&gt;</span>
 
-<span class="comment">&lt;!-- Before closing &lt;/body&gt; --&gt;</span>
+<span class="comment">&lt;!-- Before closing &lt;/body&gt;: init runs font loading + adds html.fonts-ready --&gt;</span>
 <span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="string">"https://assets.parkerbarker.com/js/parkerbarker.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
 <span class="tag">&lt;script&gt;</span>
   document.addEventListener('DOMContentLoaded', function() {
     ParkerBarker.init();
+    <span class="comment">// ParkerBarker.init({ enableFontLoading: false }); // optional: CSS-only font behavior</span>
   });
 <span class="tag">&lt;/script&gt;</span>
       </div>

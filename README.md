@@ -36,6 +36,14 @@ Add these lines to any HTML page to use the style system:
 </html>
 ```
 
+Call `ParkerBarker.init()` (or `Semantic.init()` with the semantic CSS/JS) on `DOMContentLoaded` or later so it lines up with the font-loading CSS: the JS preloads GT Ultra faces via the Font Loading API and adds the class `fonts-ready` to `<html>`. The CSS fades the page in once that class is set. If you use the CSS without calling `init()`, a 3-second CSS fallback still reveals the page.
+
+### Web fonts and `fonts-ready`
+
+- **ParkerBarker** (`parkerbarker.css` + `parkerbarker.js`): `@font-face` is included in the CSS. With `prefers-reduced-motion: no-preference`, `body` stays at `opacity: 0` until `html` has `fonts-ready`, then transitions visible. With `prefers-reduced-motion: reduce`, no hide—content shows immediately.
+- **Semantic** (`semantic.css` + `semantic.js`): Same pattern and the same `fonts-ready` class name.
+- **Disable JS font loading** (keep your own timing or static pages): `ParkerBarker.init({ enableFontLoading: false })` or `Semantic.init({ enableFontLoading: false })`. You may still want `init()` for theme, toasts, and other features.
+
 ## CDN URLs
 
 | Asset | URL |
@@ -55,6 +63,8 @@ Add these lines to any HTML page to use the style system:
 | Logo (Black) | `https://assets.parkerbarker.com/img/Logo-Black.svg` |
 
 ### Fonts
+
+The bundled `parkerbarker.css` and `semantic.css` files already declare these `@font-face` rules. Use the following only if you are **not** loading those stylesheets and need the fonts alone:
 
 Load the GT Ultra fonts directly with `@font-face`:
 
@@ -180,6 +190,7 @@ This repository is hosted on GitHub Pages with a custom domain. The site is auto
 - **Dark Mode** - Built-in dark mode with system preference detection
 - **Accessible** - WCAG-compliant with screen reader support
 - **Custom Fonts** - GT Ultra Fine (serif) and GT Ultra Standard (sans-serif)
+- **Font loading** - Optional coordinated CSS/JS flow (`html.fonts-ready`) to reduce flash of unstyled type; respects `prefers-reduced-motion`
 
 ## CSS Classes
 
@@ -202,8 +213,13 @@ This repository is hosted on GitHub Pages with a custom domain. The site is auto
 ## JavaScript API
 
 ```javascript
-// Initialize
+// Initialize (default: enableFontLoading: true — pairs with CSS fonts-ready fade-in)
 ParkerBarker.init();
+ParkerBarker.init({ enableFontLoading: false }); // skip Font Loading API; optional for CSS-only pages
+
+// Semantic (same option)
+Semantic.init();
+Semantic.init({ enableFontLoading: false });
 
 // Toast notifications
 ParkerBarker.toast.show('Hello!', { type: 'success' });

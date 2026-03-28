@@ -167,6 +167,29 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Font loading: semantic.js adds html.fonts-ready when webfonts resolve (see enableFontLoading). */
+@media (prefers-reduced-motion: no-preference) {
+  body {
+    transition: opacity var(--transition-normal);
+  }
+
+  html.fonts-ready body {
+    opacity: 1;
+    animation: none;
+  }
+
+  html:not(.fonts-ready) body {
+    opacity: 0;
+    animation: fonts-ready-fallback 0s 3s forwards;
+  }
+}
+
+@keyframes fonts-ready-fallback {
+  to {
+    opacity: 1;
+  }
+}
+
 body {
   font-family: var(--sans);
   font-size: var(--text-base);

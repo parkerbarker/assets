@@ -130,6 +130,29 @@ html {
   -webkit-overflow-scrolling: touch;
 }
 
+/* Font loading: parkerbarker.js adds html.fonts-ready when webfonts resolve (see enableFontLoading). */
+@media (prefers-reduced-motion: no-preference) {
+  body {
+    transition: opacity var(--pb-transition);
+  }
+
+  html.fonts-ready body {
+    opacity: 1;
+    animation: none;
+  }
+
+  html:not(.fonts-ready) body {
+    opacity: 0;
+    animation: pb-fonts-ready-fallback 0s 3s forwards;
+  }
+}
+
+@keyframes pb-fonts-ready-fallback {
+  to {
+    opacity: 1;
+  }
+}
+
 body {
   font-family: var(--pb-font-sans);
   font-size: var(--pb-font-size-base);

@@ -20,6 +20,7 @@
     enableDarkMode: true,
     enableFormEnhancements: true,
     enableAccessibility: true,
+    enableFontLoading: true,
     toastDuration: 3000
   };
 
@@ -34,6 +35,46 @@
     darkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
     hasNotch: (window.innerWidth > 0) && (window.screen.width / window.innerWidth > 1),
     standalone: window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches
+  };
+
+  // ==================================================
+  // Font loading (reduces FOUT when used with CSS hooks on html.fonts-ready)
+  // ==================================================
+
+  var fonts = {
+    readyClass: 'fonts-ready',
+
+    init: function() {
+      var root = document.documentElement;
+      if (root.classList.contains(this.readyClass)) {
+        return;
+      }
+
+      var self = this;
+      function markReady() {
+        root.classList.add(self.readyClass);
+      }
+
+      if (!document.fonts || typeof document.fonts.load !== 'function') {
+        markReady();
+        return;
+      }
+
+      var specs = [
+        '300 16px "GT Ultra Standard"',
+        '700 16px "GT Ultra Standard"',
+        '300 16px "GT Ultra Fine"',
+        '700 16px "GT Ultra Fine"'
+      ];
+
+      var loads = specs.map(function(spec) {
+        return document.fonts.load(spec).catch(function() {
+          return [];
+        });
+      });
+
+      Promise.all(loads).then(markReady, markReady);
+    }
   };
 
   // ==================================================
@@ -578,6 +619,10 @@
         if (options.hasOwnProperty(key)) {
           config[key] = options[key];
         }
+      }
+
+      if (config.enableFontLoading) {
+        fonts.init();
       }
 
       // Apply environment-specific classes to body
