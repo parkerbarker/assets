@@ -11,6 +11,7 @@
 const fs = require('fs');
 const path = require('path');
 const postcss = require('postcss');
+const postcssImport = require('postcss-import');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 
@@ -32,6 +33,7 @@ async function minifyFile(inputPath) {
     const css = fs.readFileSync(inputPath, 'utf8');
     
     const result = await postcss([
+      postcssImport(),
       autoprefixer,
       cssnano({
         preset: ['default', {

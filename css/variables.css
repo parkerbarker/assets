@@ -1,0 +1,305 @@
+/**
+ * Shared design tokens for parkerbarker.css and semantic.css
+ *
+ * Edit --core-* values here to keep brand colors, neutrals, spacing, and
+ * typography aligned across both stacks. ParkerBarker (--pb-*) and Semantic
+ * (--primary, --gray-*, etc.) are aliases defined in this same file.
+ *
+ * Loaded via @import in parkerbarker.css and semantic.css (do not link alone
+ * unless you only need tokens + webfonts).
+ */
+
+/* ==================================================
+   Webfonts (GT Ultra)
+   ================================================== */
+
+@font-face {
+  font-family: 'GT Ultra Fine';
+  src: url('../fonts/GT-Ultra-Fine-Light.woff2') format('woff2'),
+       url('../fonts/GT-Ultra-Fine-Light.woff') format('woff'),
+       url('../fonts/GT-Ultra-Fine-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GT Ultra Fine';
+  src: url('../fonts/GT-Ultra-Fine-Bold.woff2') format('woff2'),
+       url('../fonts/GT-Ultra-Fine-Bold.woff') format('woff'),
+       url('../fonts/GT-Ultra-Fine-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GT Ultra Standard';
+  src: url('../fonts/GT-Ultra-Standard-Light.woff2') format('woff2'),
+       url('../fonts/GT-Ultra-Standard-Light.woff') format('woff'),
+       url('../fonts/GT-Ultra-Standard-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GT Ultra Standard';
+  src: url('../fonts/GT-Ultra-Standard-Bold.woff2') format('woff2'),
+       url('../fonts/GT-Ultra-Standard-Bold.woff') format('woff'),
+       url('../fonts/GT-Ultra-Standard-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==================================================
+   Core tokens (single source of truth)
+   ================================================== */
+
+:root {
+  /* Brand */
+  --core-primary: #4a90e2;
+  --core-primary-rgb: 74, 144, 226;
+  --core-primary-dark: #3a7bc8;
+  --core-primary-light: rgba(74, 144, 226, 0.1);
+  --core-secondary: #7ed321;
+  --core-accent: #f5a623;
+  --core-accent-rgb: 245, 166, 35;
+  --core-danger: #d0021b;
+  --core-white: #ffffff;
+
+  /* Neutrals (semantic gray scale — shared baseline) */
+  --core-gray-50: #f9fafb;
+  --core-gray-100: #f3f4f6;
+  --core-gray-200: #e5e7eb;
+  --core-gray-300: #d1d5db;
+  --core-gray-400: #9ca3af;
+  --core-gray-500: #6b7280;
+  --core-gray-600: #4b5563;
+  --core-gray-700: #374151;
+  --core-gray-800: #1f2937;
+  --core-gray-900: #111827;
+
+  /* Typography stacks */
+  --core-font-sans: 'GT Ultra Standard', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --core-font-serif: 'GT Ultra Fine', Georgia, serif;
+  --core-font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Consolas', monospace;
+
+  /* ParkerBarker type scale (classic guide) */
+  --core-pb-font-xs: 0.8rem;
+  --core-pb-font-sm: 0.875rem;
+  --core-pb-font-base: 1rem;
+  --core-pb-font-lg: 1.125rem;
+  --core-pb-font-xl: 1.375rem;
+  --core-pb-font-2xl: 1.75rem;
+  --core-pb-line-height: 1.5;
+  --core-pb-line-height-tight: 1.2;
+
+  /* Semantic type scale */
+  --core-text-xs: 0.75rem;
+  --core-text-sm: 0.875rem;
+  --core-text-base: 1rem;
+  --core-text-lg: 1.125rem;
+  --core-text-xl: 1.25rem;
+  --core-text-2xl: 1.5rem;
+  --core-text-3xl: 1.875rem;
+  --core-text-4xl: 2.25rem;
+  --core-leading-tight: 1.25;
+  --core-leading-normal: 1.5;
+  --core-leading-relaxed: 1.625;
+
+  /* Spacing */
+  --core-space-xs: 0.25rem;
+  --core-space-sm: 0.5rem;
+  --core-space-md: 1rem;
+  --core-space-lg: 1.5rem;
+  --core-space-xl: 2rem;
+  --core-space-2xl: 3rem;
+  --core-space-3xl: 4rem;
+
+  /* Radius */
+  --core-radius-sm: 0.25rem;
+  --core-radius-md: 0.5rem;
+  --core-radius-lg: 1rem;
+  --core-radius-xl: 1.5rem;
+  --core-radius-full: 9999px;
+
+  /* Shadows — ParkerBarker (simpler md/lg) */
+  --core-pb-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --core-pb-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --core-pb-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+  /* Shadows — Semantic (layered) */
+  --core-sem-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --core-sem-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --core-sem-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --core-sem-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* Motion */
+  --core-pb-transition: 0.2s ease-in-out;
+  --core-transition-fast: 0.15s ease;
+  --core-transition-normal: 0.2s ease;
+  --core-transition-slow: 0.3s ease;
+
+  /* Layout & touch */
+  --core-min-tap-target: 48px;
+  --core-container-sm: 40rem;
+  --core-container-md: 48rem;
+  --core-container-lg: 64rem;
+  --core-container-xl: 80rem;
+  --core-container-2xl: 96rem;
+
+  /* Safe area */
+  --core-safe-top: env(safe-area-inset-top, 0px);
+  --core-safe-right: env(safe-area-inset-right, 0px);
+  --core-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --core-safe-left: env(safe-area-inset-left, 0px);
+}
+
+/* ==================================================
+   ParkerBarker public tokens (--pb-*)
+   ================================================== */
+
+:root {
+  --pb-primary: var(--core-primary);
+  --pb-primary-rgb: var(--core-primary-rgb);
+  --pb-primary-dark: var(--core-primary-dark);
+  --pb-primary-light: var(--core-primary-light);
+  --pb-secondary: var(--core-secondary);
+  --pb-accent: var(--core-accent);
+  --pb-accent-rgb: var(--core-accent-rgb);
+  --pb-danger: var(--core-danger);
+  --pb-gray-100: var(--core-gray-100);
+  --pb-gray-200: var(--core-gray-200);
+  --pb-gray-300: var(--core-gray-300);
+  --pb-gray-400: var(--core-gray-400);
+  --pb-gray-600: var(--core-gray-600);
+  --pb-gray-700: var(--core-gray-700);
+  --pb-gray-900: var(--core-gray-900);
+  --pb-white: var(--core-white);
+
+  --pb-font-sans: var(--core-font-sans);
+  --pb-font-serif: var(--core-font-serif);
+  --pb-font-size-xs: var(--core-pb-font-xs);
+  --pb-font-size-sm: var(--core-pb-font-sm);
+  --pb-font-size-base: var(--core-pb-font-base);
+  --pb-font-size-lg: var(--core-pb-font-lg);
+  --pb-font-size-xl: var(--core-pb-font-xl);
+  --pb-font-size-2xl: var(--core-pb-font-2xl);
+  --pb-line-height: var(--core-pb-line-height);
+  --pb-line-height-tight: var(--core-pb-line-height-tight);
+
+  --pb-space-xs: var(--core-space-xs);
+  --pb-space-sm: var(--core-space-sm);
+  --pb-space-md: var(--core-space-md);
+  --pb-space-lg: var(--core-space-lg);
+  --pb-space-xl: var(--core-space-xl);
+  --pb-space-2xl: var(--core-space-2xl);
+
+  --pb-safe-area-top: var(--core-safe-top);
+  --pb-safe-area-right: var(--core-safe-right);
+  --pb-safe-area-bottom: var(--core-safe-bottom);
+  --pb-safe-area-left: var(--core-safe-left);
+
+  --pb-radius-sm: var(--core-radius-sm);
+  --pb-radius-md: var(--core-radius-md);
+  --pb-radius-lg: var(--core-radius-lg);
+  --pb-radius-full: var(--core-radius-full);
+
+  --pb-shadow-sm: var(--core-pb-shadow-sm);
+  --pb-shadow-md: var(--core-pb-shadow-md);
+  --pb-shadow-lg: var(--core-pb-shadow-lg);
+
+  --pb-transition: var(--core-pb-transition);
+  --pb-min-target-size: var(--core-min-tap-target);
+}
+
+/* ==================================================
+   Semantic public tokens
+   ================================================== */
+
+:root {
+  --primary: var(--core-primary);
+  --primary-rgb: var(--core-primary-rgb);
+  --primary-dark: var(--core-primary-dark);
+  --primary-light: var(--core-primary-light);
+  --secondary: var(--core-secondary);
+  --accent: var(--core-accent);
+  --accent-rgb: var(--core-accent-rgb);
+  --danger: var(--core-danger);
+  --success: var(--core-secondary);
+  --warning: var(--core-accent);
+
+  --gray-50: var(--core-gray-50);
+  --gray-100: var(--core-gray-100);
+  --gray-200: var(--core-gray-200);
+  --gray-300: var(--core-gray-300);
+  --gray-400: var(--core-gray-400);
+  --gray-500: var(--core-gray-500);
+  --gray-600: var(--core-gray-600);
+  --gray-700: var(--core-gray-700);
+  --gray-800: var(--core-gray-800);
+  --gray-900: var(--core-gray-900);
+
+  --text: var(--gray-900);
+  --text-muted: var(--gray-500);
+  --surface: var(--core-white);
+  --surface-elevated: var(--core-white);
+  --background: var(--gray-100);
+  --border: var(--gray-200);
+  --muted: var(--gray-500);
+
+  --sans: var(--core-font-sans);
+  --serif: var(--core-font-serif);
+  --mono: var(--core-font-mono);
+
+  --text-xs: var(--core-text-xs);
+  --text-sm: var(--core-text-sm);
+  --text-base: var(--core-text-base);
+  --text-lg: var(--core-text-lg);
+  --text-xl: var(--core-text-xl);
+  --text-2xl: var(--core-text-2xl);
+  --text-3xl: var(--core-text-3xl);
+  --text-4xl: var(--core-text-4xl);
+
+  --leading-tight: var(--core-leading-tight);
+  --leading-normal: var(--core-leading-normal);
+  --leading-relaxed: var(--core-leading-relaxed);
+
+  --space-xs: var(--core-space-xs);
+  --space-sm: var(--core-space-sm);
+  --space-md: var(--core-space-md);
+  --space-lg: var(--core-space-lg);
+  --space-xl: var(--core-space-xl);
+  --space-2xl: var(--core-space-2xl);
+  --space-3xl: var(--core-space-3xl);
+
+  --radius-sm: var(--core-radius-sm);
+  --radius-md: var(--core-radius-md);
+  --radius-lg: var(--core-radius-lg);
+  --radius-xl: var(--core-radius-xl);
+  --radius-full: var(--core-radius-full);
+
+  --shadow-sm: var(--core-sem-shadow-sm);
+  --shadow-md: var(--core-sem-shadow-md);
+  --shadow-lg: var(--core-sem-shadow-lg);
+  --shadow-xl: var(--core-sem-shadow-xl);
+
+  --transition-fast: var(--core-transition-fast);
+  --transition-normal: var(--core-transition-normal);
+  --transition-slow: var(--core-transition-slow);
+
+  --min-tap-target: var(--core-min-tap-target);
+
+  --safe-top: var(--core-safe-top);
+  --safe-right: var(--core-safe-right);
+  --safe-bottom: var(--core-safe-bottom);
+  --safe-left: var(--core-safe-left);
+
+  --container-sm: var(--core-container-sm);
+  --container-md: var(--core-container-md);
+  --container-lg: var(--core-container-lg);
+  --container-xl: var(--core-container-xl);
+  --container-2xl: var(--core-container-2xl);
+}
