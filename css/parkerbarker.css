@@ -477,7 +477,7 @@ button.pb-button {
   border-radius: var(--pb-radius-sm);
   border: none;
   background-color: var(--pb-primary);
-  color: var(--pb-white);
+  color: var(--pb-on-primary);
   text-align: center;
   text-decoration: none;
   cursor: pointer;
@@ -517,7 +517,7 @@ button.pb-button {
 }
 .pb-button-secondary:hover,
 .pb-button-secondary:active {
-  background-color: rgba(74, 144, 226, 0.1);
+  background-color: var(--pb-primary-light);
 }
 
 .pb-button-success { background-color: var(--pb-secondary); }
@@ -637,7 +637,7 @@ button.pb-button {
   textarea:focus {
     outline: none;
     border-color: var(--pb-primary);
-    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
+    box-shadow: 0 0 0 3px rgba(var(--pb-primary-rgb), 0.25);
   }
 
   ::placeholder {
@@ -776,7 +776,7 @@ button.pb-button {
 
 .pb-nav-link:hover, .pb-nav-link:focus, .pb-nav-link.active {
   color: var(--pb-primary);
-  background-color: rgba(74, 144, 226, 0.1);
+  background-color: var(--pb-primary-light);
 }
 
 .pb-nav-bottom {
@@ -897,7 +897,7 @@ details.pb-details summary::before {
 }
 
 details[open].pb-details summary::before { transform: rotate(45deg); }
-details.pb-details summary:hover { background-color: rgba(74, 144, 226, 0.1); }
+details.pb-details summary:hover { background-color: var(--pb-primary-light); }
 details.pb-details summary:active { transform: translateY(1px); }
 
 details.pb-details .pb-details-content {
@@ -1173,7 +1173,7 @@ details.pb-details .pb-details-content {
 
 /* Focus styling */
 :focus-visible {
-  outline: 3px solid rgba(74, 144, 226, 0.5);
+  outline: 3px solid rgba(var(--pb-primary-rgb), 0.5);
   outline-offset: 1px;
 }
 
@@ -1240,7 +1240,7 @@ details.pb-details .pb-details-content {
   justify-content: center;
   border-radius: var(--pb-radius-full);
   background-color: var(--pb-primary);
-  color: var(--pb-white);
+  color: var(--pb-on-primary);
   font-size: 0.75rem;
   font-weight: 700;
   line-height: 1;
@@ -1313,8 +1313,9 @@ details.pb-details .pb-details-content {
 
 @media (prefers-contrast: high) {
   :root {
-    --pb-primary: #0066cc;
-    --pb-primary-dark: #004d99;
+    --pb-primary: #000000;
+    --pb-primary-rgb: 0, 0, 0;
+    --pb-primary-dark: #000000;
     --pb-gray-600: #555555;
     --pb-gray-900: #000000;
   }
@@ -1368,7 +1369,7 @@ details.pb-details .pb-details-content {
 }
 
 .pb-keyboard-focus :focus {
-  outline: 3px solid rgba(74, 144, 226, 0.5);
+  outline: 3px solid rgba(var(--pb-primary-rgb), 0.5);
 }
 
 .pb-keyboard-focus :focus:not(:focus-visible) {
@@ -1385,6 +1386,11 @@ details.pb-details .pb-details-content {
    ================================================== */
 
 .pb-dark-mode {
+  --pb-primary: #f8fafc;
+  --pb-primary-rgb: 248, 250, 252;
+  --pb-primary-dark: #e2e8f0;
+  --pb-primary-light: rgba(248, 250, 252, 0.12);
+  --pb-on-primary: #0a0a0a;
   --pb-gray-100: #1a1a2e;
   --pb-gray-200: #16213e;
   --pb-gray-300: #0f3460;
@@ -1408,4 +1414,8 @@ details.pb-details .pb-details-content {
 .pb-dark-mode .pb-toast {
   background-color: var(--pb-gray-900);
   color: var(--pb-gray-100);
+}
+
+.pb-dark-mode .pb-checkbox input[type="checkbox"]:checked ~ .pb-checkbox-label::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='%230a0a0a' d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
 }

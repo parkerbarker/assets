@@ -745,7 +745,7 @@ button {
   border-radius: var(--radius-sm);
   border: none;
   background-color: var(--primary);
-  color: white;
+  color: var(--text-on-primary);
   text-align: center;
   text-decoration: none;
   cursor: pointer;
@@ -1006,7 +1006,7 @@ input[type="file"]::file-selector-button {
   border: none;
   border-radius: var(--radius-sm);
   background-color: var(--primary);
-  color: white;
+  color: var(--text-on-primary);
   cursor: pointer;
 }
 
@@ -1118,7 +1118,7 @@ legend {
 /* Background colors */
 [bg="surface"] { background-color: var(--surface); }
 [bg="background"] { background-color: var(--background); }
-[bg="primary"] { background-color: var(--primary); color: white; }
+[bg="primary"] { background-color: var(--primary); color: var(--text-on-primary); }
 [bg="primary-light"] { background-color: var(--primary-light); }
 [bg="danger"] { background-color: var(--danger); color: white; }
 [bg="success"] { background-color: var(--success); color: white; }
@@ -1276,8 +1276,9 @@ legend {
 /* High contrast mode */
 @media (prefers-contrast: high) {
   :root {
-    --primary: #0066cc;
-    --primary-dark: #004d99;
+    --primary: #000000;
+    --primary-rgb: 0, 0, 0;
+    --primary-dark: #000000;
     --border: #000000;
     --muted: #333333;
   }
@@ -1309,7 +1310,11 @@ legend {
   --gray-800: #f1f5f9;
   --gray-900: #f8fafc;
 
-  --primary-light: rgba(74, 144, 226, 0.2);
+  --primary: #f8fafc;
+  --primary-rgb: 248, 250, 252;
+  --primary-dark: #e2e8f0;
+  --primary-light: rgba(248, 250, 252, 0.12);
+  --text-on-primary: #0a0a0a;
 }
 
 [theme="dark"] code,
@@ -1344,7 +1349,11 @@ legend {
     --gray-800: #f1f5f9;
     --gray-900: #f8fafc;
 
-    --primary-light: rgba(74, 144, 226, 0.2);
+    --primary: #f8fafc;
+    --primary-rgb: 248, 250, 252;
+    --primary-dark: #e2e8f0;
+    --primary-light: rgba(248, 250, 252, 0.12);
+    --text-on-primary: #0a0a0a;
   }
 
   :root:not([theme="light"]):not([data-theme="light"]) code {
@@ -1410,7 +1419,10 @@ output[role="status"][visible] {
 output[role="status"][type="success"] { background-color: var(--success); }
 output[role="status"][type="danger"] { background-color: var(--danger); }
 output[role="status"][type="warning"] { background-color: var(--warning); color: var(--gray-900); }
-output[role="status"][type="info"] { background-color: var(--primary); }
+output[role="status"][type="info"] {
+  background-color: var(--primary);
+  color: var(--text-on-primary);
+}
 
 /* Toast container */
 [role="log"] {
@@ -1557,7 +1569,7 @@ output[variant] {
 data[variant="primary"],
 output[variant="primary"] {
   background-color: var(--primary);
-  color: white;
+  color: var(--text-on-primary);
 }
 
 data[variant="secondary"],
@@ -1587,7 +1599,7 @@ output[variant="warning"] {
 data[variant="info"],
 output[variant="info"] {
   background-color: var(--primary);
-  color: white;
+  color: var(--text-on-primary);
 }
 
 data[variant="light"],
@@ -1709,7 +1721,7 @@ nav[aria-label="Pagination"] [aria-current="page"],
 nav[aria-label="pagination"] [aria-current="page"] {
   background-color: var(--primary);
   border-color: var(--primary);
-  color: white;
+  color: var(--text-on-primary);
 }
 
 nav[aria-label="Pagination"] [disabled],
@@ -1817,7 +1829,7 @@ ul[role="listbox"] > li[active],
 menu[role="list"] > li[active],
 ul[role="list"] > li[active] {
   background-color: var(--primary);
-  color: white;
+  color: var(--text-on-primary);
 }
 
 menu[role="listbox"] > li[disabled],
@@ -2121,7 +2133,7 @@ input[type="checkbox"][styled]:checked::after {
   left: 5px;
   width: 5px;
   height: 10px;
-  border: solid white;
+  border: solid var(--text-on-primary);
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
@@ -2290,7 +2302,7 @@ input[type="checkbox"][switch]:focus-visible {
 
 [role="tablist"][variant="pills"] [role="tab"][aria-selected="true"] {
   background-color: var(--primary);
-  color: white;
+  color: var(--text-on-primary);
 }
 
 /* ==================================================
@@ -2901,7 +2913,7 @@ img[fit="scale-down"] { object-fit: scale-down; }
   left: var(--space-md);
   padding: var(--space-sm) var(--space-md);
   background: var(--primary);
-  color: white;
+  color: var(--text-on-primary);
   border-radius: var(--radius-sm);
   z-index: 9999;
   text-decoration: none;

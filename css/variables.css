@@ -58,14 +58,15 @@
    ================================================== */
 
 :root {
-  /* Brand */
-  --core-primary: #4a90e2;
-  --core-primary-rgb: 74, 144, 226;
-  --core-primary-dark: #3a7bc8;
-  --core-primary-light: rgba(74, 144, 226, 0.1);
-  --core-secondary: #7ed321;
-  --core-accent: #f5a623;
-  --core-accent-rgb: 245, 166, 35;
+  /* Brand — monochrome default (black primary, neutral secondary/accent) */
+  --core-primary: #0a0a0a;
+  --core-primary-rgb: 10, 10, 10;
+  --core-primary-dark: #000000;
+  --core-primary-light: rgba(10, 10, 10, 0.08);
+  --core-on-primary: #ffffff;
+  --core-secondary: #4b5563;
+  --core-accent: #6b7280;
+  --core-accent-rgb: 107, 114, 128;
   --core-danger: #d0021b;
   --core-white: #ffffff;
 
@@ -166,6 +167,7 @@
   --pb-primary-rgb: var(--core-primary-rgb);
   --pb-primary-dark: var(--core-primary-dark);
   --pb-primary-light: var(--core-primary-light);
+  --pb-on-primary: var(--core-on-primary);
   --pb-secondary: var(--core-secondary);
   --pb-accent: var(--core-accent);
   --pb-accent-rgb: var(--core-accent-rgb);
@@ -224,6 +226,7 @@
   --primary-rgb: var(--core-primary-rgb);
   --primary-dark: var(--core-primary-dark);
   --primary-light: var(--core-primary-light);
+  --text-on-primary: var(--core-on-primary);
   --secondary: var(--core-secondary);
   --accent: var(--core-accent);
   --accent-rgb: var(--core-accent-rgb);
