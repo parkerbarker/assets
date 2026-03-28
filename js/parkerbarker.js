@@ -4,12 +4,28 @@
  * Provides consistent UX across browsers with special optimizations for iOS WebViews
  *
  * Usage:
- *   <script src="parkerbarker/js/parkerbarker.js"></script>
+ *   <script src="js/ui-core.js"></script>
+ *   <script src="js/parkerbarker.js"></script>
  *   <script>ParkerBarker.init();</script>
  */
 
 (function(global) {
   'use strict';
+
+  var Core = global.ParkerBarkerCore;
+  if (!Core) {
+    console.error('ParkerBarker: load ui-core.js before parkerbarker.js');
+    global.ParkerBarker = {
+      init: function() {
+        console.error('ParkerBarker: ui-core.js is missing');
+      },
+      version: '0.0.0-error'
+    };
+    return;
+  }
+
+  var env = Core.env;
+  var fonts = Core.fonts;
 
   // ==================================================
   // Configuration
@@ -22,59 +38,6 @@
     enableAccessibility: true,
     enableFontLoading: true,
     toastDuration: 3000
-  };
-
-  // ==================================================
-  // Environment Detection
-  // ==================================================
-
-  var env = {
-    iOS: /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream,
-    touch: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
-    reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    darkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
-    hasNotch: (window.innerWidth > 0) && (window.screen.width / window.innerWidth > 1),
-    standalone: window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches
-  };
-
-  // ==================================================
-  // Font loading (reduces FOUT when used with CSS hooks on html.fonts-ready)
-  // ==================================================
-
-  var fonts = {
-    readyClass: 'fonts-ready',
-
-    init: function() {
-      var root = document.documentElement;
-      if (root.classList.contains(this.readyClass)) {
-        return;
-      }
-
-      var self = this;
-      function markReady() {
-        root.classList.add(self.readyClass);
-      }
-
-      if (!document.fonts || typeof document.fonts.load !== 'function') {
-        markReady();
-        return;
-      }
-
-      var specs = [
-        '300 16px "GT Ultra Standard"',
-        '700 16px "GT Ultra Standard"',
-        '300 16px "GT Ultra Fine"',
-        '700 16px "GT Ultra Fine"'
-      ];
-
-      var loads = specs.map(function(spec) {
-        return document.fonts.load(spec).catch(function() {
-          return [];
-        });
-      });
-
-      Promise.all(loads).then(markReady, markReady);
-    }
   };
 
   // ==================================================
@@ -99,29 +62,10 @@
     },
 
     /**
-     * Attach event listener with optional delegation
+     * Attach event listener with optional delegation (closest-based via ParkerBarkerCore)
      */
     on: function(element, event, selector, handler) {
-      if (typeof selector === 'function') {
-        element.addEventListener(event, selector);
-        return;
-      }
-
-      element.addEventListener(event, function(e) {
-        var target = e.target;
-        if (target.matches && target.matches(selector)) {
-          handler.call(target, e);
-        } else {
-          var current = target;
-          while (current && current !== element) {
-            if (current.matches && current.matches(selector)) {
-              handler.call(current, e);
-              break;
-            }
-            current = current.parentNode;
-          }
-        }
-      });
+      Core.on(element, event, selector, handler);
     },
 
     /**
@@ -612,14 +556,7 @@
 
   var core = {
     init: function(options) {
-      options = options || {};
-
-      // Merge options with defaults
-      for (var key in options) {
-        if (options.hasOwnProperty(key)) {
-          config[key] = options[key];
-        }
-      }
+      Core.mergeConfig(config, options || {}, { restrictToBaseKeys: false });
 
       if (config.enableFontLoading) {
         fonts.init();

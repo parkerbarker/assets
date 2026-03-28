@@ -3,12 +3,28 @@
  * Attribute-based enhancements for semantic HTML
  *
  * Usage:
+ *   <script src="js/ui-core.js"></script>
  *   <script src="js/semantic.js"></script>
  *   <script>Semantic.init();</script>
  */
 
 (function(global) {
   'use strict';
+
+  var Core = global.ParkerBarkerCore;
+  if (!Core) {
+    console.error('Semantic: load ui-core.js before semantic.js');
+    global.Semantic = {
+      init: function() {
+        console.error('Semantic: ui-core.js is missing');
+      },
+      version: '0.0.0-error'
+    };
+    return;
+  }
+
+  var env = Core.env;
+  var fonts = Core.fonts;
 
   // ==================================================
   // Configuration
@@ -23,59 +39,6 @@
     enableFontLoading: true,
     toastDuration: 3000,
     toastPosition: 'bottom' // 'top' or 'bottom'
-  };
-
-  // ==================================================
-  // Environment Detection
-  // ==================================================
-
-  var env = {
-    iOS: /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream,
-    touch: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
-    reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    darkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
-    standalone: window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches,
-    supportsDialog: typeof HTMLDialogElement !== 'undefined'
-  };
-
-  // ==================================================
-  // Font loading (reduces FOUT when used with CSS hooks on html.fonts-ready)
-  // ==================================================
-
-  var fonts = {
-    readyClass: 'fonts-ready',
-
-    init: function() {
-      var root = document.documentElement;
-      if (root.classList.contains(this.readyClass)) {
-        return;
-      }
-
-      var self = this;
-      function markReady() {
-        root.classList.add(self.readyClass);
-      }
-
-      if (!document.fonts || typeof document.fonts.load !== 'function') {
-        markReady();
-        return;
-      }
-
-      var specs = [
-        '300 16px "GT Ultra Standard"',
-        '700 16px "GT Ultra Standard"',
-        '300 16px "GT Ultra Fine"',
-        '700 16px "GT Ultra Fine"'
-      ];
-
-      var loads = specs.map(function(spec) {
-        return document.fonts.load(spec).catch(function() {
-          return [];
-        });
-      });
-
-      Promise.all(loads).then(markReady, markReady);
-    }
   };
 
   // ==================================================
@@ -98,21 +61,10 @@
     },
 
     /**
-     * Add event listener with delegation support
+     * Add event listener with delegation support (via ParkerBarkerCore.on)
      */
-    on: function(element, event, selector, handler) {
-      if (typeof selector === 'function') {
-        handler = selector;
-        element.addEventListener(event, handler);
-        return;
-      }
-
-      element.addEventListener(event, function(e) {
-        var target = e.target.closest(selector);
-        if (target && element.contains(target)) {
-          handler.call(target, e);
-        }
-      });
+    on: function(element, event, selector, handler, useCapture) {
+      Core.on(element, event, selector, handler, useCapture);
     },
 
     /**
@@ -163,17 +115,7 @@
     /**
      * Debounce function
      */
-    debounce: function(fn, wait) {
-      var timeout;
-      return function() {
-        var context = this;
-        var args = arguments;
-        clearTimeout(timeout);
-        timeout = setTimeout(function() {
-          fn.apply(context, args);
-        }, wait);
-      };
-    }
+    debounce: Core.debounce
   };
 
   // ==================================================
@@ -278,22 +220,14 @@
      * Save theme preference
      */
     _save: function(mode) {
-      try {
-        localStorage.setItem('semantic-theme', mode);
-      } catch {
-        // localStorage not available
-      }
+      Core.storageSet('semantic-theme', mode);
     },
 
     /**
      * Get saved theme preference
      */
     _getSaved: function() {
-      try {
-        return localStorage.getItem('semantic-theme');
-      } catch {
-        return null;
-      }
+      return Core.storageGet('semantic-theme');
     }
   };
 
@@ -1418,14 +1352,7 @@
 
       this._initialized = true;
 
-      // Merge options
-      if (options) {
-        for (var key in options) {
-          if (options.hasOwnProperty(key) && config.hasOwnProperty(key)) {
-            config[key] = options[key];
-          }
-        }
-      }
+      Core.mergeConfig(config, options, { restrictToBaseKeys: true });
 
       if (config.enableFontLoading) {
         fonts.init();
