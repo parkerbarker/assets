@@ -10,6 +10,7 @@ When building or changing pages for this design system:
 
 - Use **semantic HTML** for structure and meaning (`header`, `nav`, `main`, `section`, `article`, `footer`, proper heading levels, labels tied to inputs).
 - Use **`pb-*` classes** for layout, spacing, typography helpers, and components defined in `parkerbarker.css`. This stack is **class-first**, unlike the separate **Semantic CSS** stack (which uses HTML attributes for styling).
+- **Branding**: Any **visible** use of the name **ParkerBarker** must use the **split wordmark** (serif **Parker** + sans **Barker**); see non-negotiable **#7** and [parkerbarker-guide.html#brand-wordmark](../parkerbarker-guide.html#brand-wordmark). This does not apply to code tokens like `ParkerBarker.init`.
 - **Do not invent** arbitrary class names for visuals; compose documented `pb-*` patterns from the guide and README. When you need a one-off, prefer **`var(--pb-…)`** or **`var(--core-…)`** in a small scoped rule rather than new global classes.
 
 ---
@@ -52,6 +53,24 @@ Optional: `ParkerBarker.init({ enableFontLoading: false })` if you are not coord
 
 6. **Buttons**: Primary actions use **`button.pb-button`** (element + class) so base button styles apply correctly.
 
+7. **Branding — “ParkerBarker” in the UI (non-negotiable)**: Whenever the **product or family name** appears as visible text—nav logo, page titles, hero lines, footers, marketing blurbs, bylines, or any reader-facing label—you **must** render it as the **wordmark**, not a single plain string. **Parker** uses the **serif** stack (GT Ultra Fine); **Barker** uses the **sans** stack (GT Ultra Standard). This is intentional branding; skipping it is incorrect.
+
+   **Do not** write a single run of text like `ParkerBarker` or `Parker Barker` in those places unless the user explicitly asks for plain text (e.g. legal boilerplate). **Do** use the markup below (see [parkerbarker-guide.html#brand-wordmark](../parkerbarker-guide.html#brand-wordmark)):
+
+   ```html
+   <!-- Nav / links: keep .pb-nav-brand for size + weight -->
+   <a href="/" class="pb-nav-brand">
+     <span class="pb-text-serif">Parker</span><span class="pb-text-sans">Barker</span>
+   </a>
+
+   <!-- Headings or inline: use the two utilities on spans (or strong) -->
+   <h1 class="hero-title">
+     <span class="pb-text-serif">Parker</span><span class="pb-text-sans">Barker</span> Style System
+   </h1>
+   ```
+
+   **Exception — code and APIs**: Identifiers such as **`ParkerBarker.init`**, **`parkerbarker.css`**, file paths, package names, and monospace examples stay as normal single-token spellings. Only **human-visible branding copy** uses the split wordmark.
+
 ---
 
 ## Style guide map (anchor → topic)
@@ -61,6 +80,7 @@ Open [parkerbarker-guide.html](../parkerbarker-guide.html) and jump to these sec
 | Anchor | Topic |
 |--------|--------|
 | `#getting-started` | Setup, `ParkerBarker.init`, CDN note |
+| `#brand-wordmark` | **Required branding**: serif Parker + sans Barker (`pb-text-serif` / `pb-text-sans`, `pb-nav-brand`) |
 | `#tokens` | `variables.css`, `--core-*`, `--pb-*` swatches |
 | `#typography` | Headings, `.pb-subtitle`, `.pb-quote`, `.pb-caption`, `.pb-display` |
 | `#containers` | `pb-container`, `pb-container-*`, `pb-content-container` |
@@ -136,3 +156,4 @@ Pages like [parkerbarker-guide.html](../parkerbarker-guide.html) may define **pa
 - [ ] Theme control uses **`data-pb-theme-toggle`**, not `data-theme-toggle`.
 - [ ] Toasts use **`ParkerBarker.toast.show(…, { type: '…' })`** — not Semantic’s `Semantic.toast.success` helpers.
 - [ ] Custom colors/spacing either override **`--core-*`** in `variables.css` (repo) or **`--pb-*`** / **`--core-*`** after the framework link (app).
+- [ ] Every **visible** “ParkerBarker” brand mention uses the **wordmark** (`pb-text-serif` + `pb-text-sans`, with `pb-nav-brand` on nav links)—not a single plain-text word. Code identifiers (`ParkerBarker.init`, filenames) unchanged.

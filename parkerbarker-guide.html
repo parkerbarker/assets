@@ -174,6 +174,12 @@
       background: var(--pb-white);
       box-shadow: var(--pb-shadow-sm);
     }
+
+    .guide-copy-toolbar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: var(--pb-space-xs);
+    }
   </style>
 </head>
 <body>
@@ -182,7 +188,7 @@
     <nav class="pb-nav">
       <div class="pb-container pb-flex pb-justify-between pb-items-center pb-flex-wrap" style="gap: var(--pb-space-md)">
         <div class="pb-flex pb-items-center pb-gap-md pb-flex-wrap">
-          <a href="index.html" class="pb-nav-brand">ParkerBarker</a>
+          <a href="index.html" class="pb-nav-brand"><span class="pb-text-serif">Parker</span><span class="pb-text-sans">Barker</span></a>
           <a href="index.html" class="pb-nav-link">Home</a>
           <a href="parkerbarker-guide.html" class="pb-nav-link active">Class guide</a>
           <a href="semantic-guide.html" class="pb-nav-link">Semantic guide</a>
@@ -212,6 +218,7 @@
     <aside class="sidebar-nav" aria-label="Section navigation">
       <h4>Start</h4>
       <a href="#getting-started">Getting started</a>
+      <a href="#brand-wordmark">Wordmark</a>
       <a href="#tokens">Design tokens</a>
 
       <h4>Layout &amp; type</h4>
@@ -237,6 +244,7 @@
         <h3 class="pb-card-title">On this page</h3>
         <nav class="pb-stack">
           <a href="#getting-started">Getting started</a>
+          <a href="#brand-wordmark">Wordmark</a>
           <a href="#tokens">Tokens</a>
           <a href="#typography">Typography</a>
           <a href="#containers">Containers</a>
@@ -264,6 +272,20 @@
   });
 &lt;/script&gt;</div>
         <p class="pb-caption">Use the minified CDN URLs from the README for production; <code>parkerbarker.min.css</code> inlines <code>variables.css</code>.</p>
+
+        <h3 id="brand-wordmark">ParkerBarker wordmark</h3>
+        <p>Match the home page: <strong class="pb-text-serif">Parker</strong> in the serif stack (GT Ultra Fine) and <strong class="pb-text-sans">Barker</strong> in the sans stack (GT Ultra Standard). Use <code>pb-nav-brand</code> on the link so size and weight stay consistent.</p>
+        <div class="guide-example pb-flex pb-items-center pb-justify-center">
+          <a href="index.html" class="pb-nav-brand"><span class="pb-text-serif">Parker</span><span class="pb-text-sans">Barker</span></a>
+        </div>
+        <div class="guide-copy-toolbar">
+          <button type="button" class="pb-button pb-button-secondary" data-copy-from="#snippet-pb-wordmark">Copy markup</button>
+        </div>
+        <pre class="guide-code" id="snippet-pb-wordmark">&lt;!-- Nav brand (serif Parker + sans Barker; requires parkerbarker.css + variables webfonts) --&gt;
+&lt;a href="/" class="pb-nav-brand"&gt;&lt;span class="pb-text-serif"&gt;Parker&lt;/span&gt;&lt;span class="pb-text-sans"&gt;Barker&lt;/span&gt;&lt;/a&gt;
+
+&lt;!-- Optional: same split in a heading --&gt;
+&lt;h1 class="hero-title"&gt;&lt;span class="pb-text-serif"&gt;Parker&lt;/span&gt;&lt;span class="pb-text-sans"&gt;Barker&lt;/span&gt; Style System&lt;/h1&gt;</pre>
       </section>
 
       <section id="tokens" class="pb-mb-4">
@@ -497,6 +519,23 @@ ParkerBarker.dom.addClass(el, 'pb-shadow-md');</div>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       ParkerBarker.init();
+    });
+
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-copy-from]');
+      if (!btn) return;
+      var sel = btn.getAttribute('data-copy-from');
+      var el = document.querySelector(sel);
+      if (!el || !navigator.clipboard) return;
+      var label = btn.getAttribute('aria-label') || btn.textContent;
+      navigator.clipboard.writeText(el.textContent).then(function () {
+        btn.textContent = 'Copied';
+        btn.disabled = true;
+        setTimeout(function () {
+          btn.textContent = label;
+          btn.disabled = false;
+        }, 2000);
+      });
     });
   </script>
 </body>

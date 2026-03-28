@@ -155,6 +155,12 @@
     .mobile-toc a:hover {
       color: var(--primary);
     }
+
+    .guide-copy-toolbar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: var(--space-xs);
+    }
   </style>
 </head>
 <body>
@@ -163,7 +169,7 @@
   <header layout="row" justify="between" align="center" p="md" sticky>
     <nav layout="row" gap="lg" align="center">
       <a href="index.html" no-underline>
-        <strong font="serif" size="lg">ParkerBarker</strong>
+        <strong font="serif" size="lg">Parker</strong><strong font="sans" size="lg">Barker</strong>
       </a>
       <a href="index.html" hide="mobile">Home</a>
       <a href="parkerbarker-guide.html" hide="mobile">Class guide</a>
@@ -197,6 +203,7 @@
     <aside class="sidebar-nav" data-scrollspy="section[id]">
       <h4>Getting Started</h4>
       <a href="#getting-started">Introduction</a>
+      <a href="#brand-wordmark">Wordmark</a>
       
       <h4>Core</h4>
       <a href="#typography">Typography</a>
@@ -241,6 +248,7 @@
         <h4 mt="0">Contents</h4>
         <nav layout="grid" cols="3" gap="sm" responsive>
           <a href="#getting-started">Getting Started</a>
+          <a href="#brand-wordmark">Wordmark</a>
           <a href="#typography">Typography</a>
           <a href="#layout">Layout</a>
           <a href="#spacing">Spacing</a>
@@ -285,6 +293,26 @@
 &lt;script&gt;Semantic.init();&lt;/script&gt;</div>
 
       <p color="muted" size="sm">To customize colors, type, and spacing for <strong>both</strong> Semantic and the classic ParkerBarker stack, edit <code>css/variables.css</code> (<code>--core-*</code> primitives). Public names like <code>--primary</code> and <code>--pb-primary</code> are aliases defined there.</p>
+
+      <h3 id="brand-wordmark">ParkerBarker wordmark</h3>
+      <p>Same treatment as the <a href="index.html">home page</a>: <strong font="serif">Parker</strong> in the serif stack and <strong font="sans">Barker</strong> in the sans stack (GT Ultra families from <code>variables.css</code>). No classes—use <code>font="serif"</code> and <code>font="sans"</code> on inline elements inside your link or heading.</p>
+      <div class="example-box" layout="row" justify="center" align="center">
+        <a href="index.html" no-underline>
+          <strong font="serif" size="lg">Parker</strong><strong font="sans" size="lg">Barker</strong>
+        </a>
+      </div>
+      <div class="guide-copy-toolbar">
+        <button type="button" variant="secondary" size="sm" data-copy-from="#snippet-sem-wordmark">Copy markup</button>
+      </div>
+      <pre class="code-block" id="snippet-sem-wordmark">&lt;!-- Nav brand: serif Parker + sans Barker (semantic.css + variables webfonts) --&gt;
+&lt;a href="/" no-underline&gt;
+  &lt;strong font="serif" size="lg"&gt;Parker&lt;/strong&gt;&lt;strong font="sans" size="lg"&gt;Barker&lt;/strong&gt;
+&lt;/a&gt;
+
+&lt;!-- Optional: page title --&gt;
+&lt;h1&gt;
+  &lt;strong font="serif"&gt;Parker&lt;/strong&gt;&lt;strong font="sans"&gt;Barker&lt;/strong&gt; Style System
+&lt;/h1&gt;</pre>
 
       <h3>Philosophy</h3>
       <p>Semantic CSS uses three mechanisms for styling:</p>
@@ -2186,6 +2214,23 @@ Semantic.theme.toggle();        // Toggle current
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       Semantic.init();
+    });
+
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-copy-from]');
+      if (!btn) return;
+      var sel = btn.getAttribute('data-copy-from');
+      var el = document.querySelector(sel);
+      if (!el || !navigator.clipboard) return;
+      var label = btn.getAttribute('aria-label') || btn.textContent;
+      navigator.clipboard.writeText(el.textContent).then(function () {
+        btn.textContent = 'Copied';
+        btn.disabled = true;
+        setTimeout(function () {
+          btn.textContent = label;
+          btn.disabled = false;
+        }, 2000);
+      });
     });
     
     // Helper for smooth scroll
