@@ -206,7 +206,7 @@ img[fluid] { max-width: 100%; height: auto; }
 
 **ParkerBarker has:**
 ```css
-.pb-keyboard-focus :focus { outline: 3px solid rgba(74, 144, 226, 0.5); }
+.pb-keyboard-focus :focus { outline: 3px solid rgba(var(--pb-primary-rgb), 0.5); }
 .pb-keyboard-focus :focus:not(:focus-visible) { outline: none; box-shadow: none; }
 .pb-keyboard-visible { padding-bottom: 0 !important; }
 ```
